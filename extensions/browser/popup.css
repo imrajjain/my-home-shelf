@@ -1,0 +1,109 @@
+:root {
+  --paper: #f7f2ea;
+  --raised: #fffcf7;
+  --sunken: #efe8dc;
+  --ink: #2a2420;
+  --ink-soft: #6e6359;
+  --ink-faint: #a79a8c;
+  --hairline: rgba(42, 36, 32, 0.08);
+  --tint: #c48a2c;
+  --serif: "New York", ui-serif, "Iowan Old Style", Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #1b1917;
+    --raised: #252220;
+    --sunken: #151312;
+    --ink: #efe7da;
+    --ink-soft: #a89c8e;
+    --ink-faint: #6f655b;
+    --hairline: rgba(239, 231, 218, 0.08);
+  }
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  width: 360px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 13px/1.4 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+main { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+
+.preview { display: flex; gap: 14px; align-items: flex-start; }
+.cover {
+  flex: none; width: 64px; height: 86px; border-radius: 7px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--tint) 70%, white), var(--tint));
+  background-size: cover; background-position: center;
+  box-shadow: 0 1px 2px rgba(0,0,0,.08), 0 6px 14px rgba(0,0,0,.12);
+  display: grid; place-items: center; color: white; font: 600 22px var(--serif);
+  transition: background .3s ease;
+}
+.meta { flex: 1; min-width: 0; }
+.eyebrow {
+  font: 600 10px var(--sans); letter-spacing: .14em; text-transform: uppercase;
+  color: var(--tint); margin-bottom: 4px; transition: color .2s ease;
+}
+#title {
+  width: 100%; border: 0; resize: none; background: transparent; color: var(--ink);
+  font: 600 16px/1.25 var(--serif); padding: 0; outline: none;
+}
+.host { color: var(--ink-faint); font-size: 11.5px; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.kinds { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip {
+  border: 0; border-radius: 999px; padding: 4px 9px; cursor: pointer;
+  background: var(--sunken); color: var(--ink-soft); font: 500 11.5px var(--sans);
+  transition: background .18s ease, color .18s ease, transform .12s ease;
+}
+.chip:hover { transform: translateY(-1px); }
+.chip[aria-checked="true"] { background: var(--tint); color: white; font-weight: 600; }
+
+.status { display: flex; gap: 2px; padding: 3px; background: var(--sunken); border-radius: 999px; }
+.status button {
+  flex: 1; border: 0; background: transparent; border-radius: 999px; padding: 5px 6px; cursor: pointer;
+  color: var(--ink-soft); font: 12px var(--sans); transition: all .2s ease;
+}
+.status button[aria-checked="true"] {
+  background: var(--raised); color: var(--ink); font-weight: 600;
+  box-shadow: 0 1px 1px rgba(0,0,0,.06), 0 3px 8px rgba(0,0,0,.08);
+}
+
+#note {
+  width: 100%; border: 1px solid var(--hairline); border-radius: 10px; resize: none;
+  background: var(--raised); color: var(--ink); font: 12.5px var(--sans); padding: 8px 10px; outline: none;
+}
+#note:focus { border-color: color-mix(in srgb, var(--tint) 50%, transparent); }
+
+.primary {
+  border: 0; border-radius: 12px; padding: 10px 14px; cursor: pointer;
+  background: var(--ink); color: var(--paper); font: 600 13px var(--sans);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: transform .12s ease, opacity .2s ease;
+}
+.primary:active { transform: scale(.98); }
+.primary:disabled { opacity: .5; cursor: default; }
+kbd { font: 500 11px var(--sans); opacity: .6; }
+
+footer { display: flex; align-items: center; gap: 6px; color: var(--ink-faint); font-size: 11px; }
+footer a { margin-left: auto; color: var(--ink-soft); text-decoration: none; }
+footer a:hover { color: var(--ink); }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-faint); }
+.dot.ok { background: #5e8a6e; }
+.dot.warn { background: #c48a2c; }
+
+.done {
+  height: 260px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  animation: rise .35s cubic-bezier(.2, .9, .3, 1.2);
+}
+.check {
+  width: 54px; height: 54px; border-radius: 50%; background: var(--tint); color: white;
+  display: grid; place-items: center; font-size: 26px; font-weight: 700;
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--tint) 45%, transparent);
+}
+.done-title { font: 600 20px var(--serif); }
+.done-sub { color: var(--ink-soft); font-size: 12px; text-align: center; padding: 0 24px; }
+@keyframes rise { from { transform: translateY(10px) scale(.96); opacity: 0; } }

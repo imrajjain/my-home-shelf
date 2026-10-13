@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="stylesheet" href="popup.css" />
+  <title>Add to Shelf</title>
+</head>
+<body>
+  <main id="app">
+    <section class="preview">
+      <div class="cover" id="cover"><span id="cover-fallback"></span></div>
+      <div class="meta">
+        <div class="eyebrow" id="kind-label">Article</div>
+        <textarea id="title" rows="2" spellcheck="false" aria-label="Title"></textarea>
+        <div class="host" id="host"></div>
+      </div>
+    </section>
+
+    <div class="kinds" id="kinds" role="radiogroup" aria-label="Shelf"></div>
+
+    <div class="status" id="status" role="radiogroup" aria-label="Status"></div>
+
+    <textarea id="note" rows="2" placeholder="A note for future you (optional)"></textarea>
+
+    <button id="add" class="primary">Add to Shelf <kbd>↩</kbd></button>
+
+    <footer>
+      <span class="dot" id="dot"></span><span id="connection">Checking for Shelf…</span>
+      <a href="#" id="settings">Settings</a>
+    </footer>
+  </main>
+
+  <div id="done" class="done" hidden>
+    <div class="check">✓</div>
+    <div class="done-title">On your shelf</div>
+    <div class="done-sub" id="done-sub"></div>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

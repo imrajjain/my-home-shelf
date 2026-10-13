@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="stylesheet" href="popup.css" />
+  <title>Shelf — Settings</title>
+  <style>
+    body { width: auto; min-width: 380px; max-width: 520px; }
+    main { padding: 22px; gap: 12px; }
+    h1 { font: 600 22px var(--serif); margin: 0; }
+    p { margin: 0; color: var(--ink-soft); }
+    ol { margin: 0; padding-left: 18px; color: var(--ink-soft); }
+    li { margin: 4px 0; }
+    input {
+      width: 100%; border: 1px solid var(--hairline); border-radius: 10px; padding: 9px 11px;
+      background: var(--raised); color: var(--ink); font: 14px ui-monospace, "SF Mono", monospace; outline: none;
+    }
+    .row { display: flex; gap: 8px; }
+    .row .primary { flex: none; }
+    #result { font-size: 12px; min-height: 1.4em; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Pair with Shelf</h1>
+    <p>So the extension can add things silently, without switching apps.</p>
+    <ol>
+      <li>Open Shelf → Settings (⌘,) → Capture.</li>
+      <li>Copy the <strong>pairing code</strong> and paste it below.</li>
+    </ol>
+    <div class="row">
+      <input id="token" placeholder="xxxxx-xxxxx-xxxxx-xxxxx" autocomplete="off" spellcheck="false" />
+      <button id="save" class="primary">Pair</button>
+    </div>
+    <div id="result"></div>
+    <p style="font-size:12px">Shortcuts: <kbd>⌥⇧S</kbd> opens the popup, <kbd>⌥⇧A</kbd> adds the page instantly. Change them at <code>chrome://extensions/shortcuts</code>.</p>
+  </main>
+  <script type="module" src="options.js"></script>
+</body>
+</html>

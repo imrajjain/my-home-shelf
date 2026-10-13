@@ -104,7 +104,7 @@ public struct MetadataService: Sendable {
         let guessed = hint ?? LinkClassifier.kind(for: url)
 
         if let query = LinkClassifier.googleSearchQuery(url) {
-            var m = Metadata(kind: .curiosity, title: query, provider: "Search", url: url)
+            var m = Metadata(kind: .curiosity, title: query, url: url, provider: "Search")
             if let wiki = try? await WikipediaProvider(http: http).summary(title: query) {
                 m.subtitle = wiki.subtitle
                 m.summary = wiki.summary
@@ -182,6 +182,6 @@ public struct MetadataService: Sendable {
         let words = slug.replacingOccurrences(of: #"[-_+]+"#, with: " ", options: .regularExpression).trimmed
         let looksLikeWords = words.count > 3 && words.rangeOfCharacter(from: .letters) != nil && !words.allSatisfy(\.isNumber)
         let title = looksLikeWords ? words.capitalized : url.hostWithoutWWW
-        return Metadata(kind: kind, title: title, provider: url.hostWithoutWWW, url: url)
+        return Metadata(kind: kind, title: title, url: url, provider: url.hostWithoutWWW)
     }
 }

@@ -7,6 +7,7 @@ struct SettingsView: View {
         TabView {
             GeneralSettings().tabItem { Label("General", systemImage: "gearshape") }
             CaptureSettings().tabItem { Label("Capture", systemImage: "sparkles") }
+            GoodreadsSettings().tabItem { Label("Goodreads", systemImage: "book") }
             SourceSettings().tabItem { Label("Sources", systemImage: "books.vertical") }
             DataSettings().tabItem { Label("Data", systemImage: "externaldrive") }
         }
@@ -20,12 +21,25 @@ private struct GeneralSettings: View {
 
     var body: some View {
         Form {
-            TextField("Your name", text: $name, prompt: Text(AppSettings.displayName))
-            Text("Used for the greeting on Home.")
-                .font(.caption).foregroundStyle(.secondary)
+            Section {
+                TextField("Your name", text: $name, prompt: Text(AppSettings.displayName))
+                Text("Used for the greeting on Home.")
+                    .font(.caption).foregroundStyle(.secondary)
+            }
+            Section {
+                LabeledContent("Accent color") { AccentPicker() }
+            }
+            Section {
+                ArtPicker()
+            } header: {
+                Text("Background art")
+            } footer: {
+                Text("Drawn in fine lines from the top corner of each page, in your accent color.")
+                    .font(.caption).foregroundStyle(.secondary)
+            }
         }
         .formStyle(.grouped)
-        .frame(height: 160)
+        .frame(height: 560)
     }
 }
 
@@ -130,5 +144,128 @@ private struct DataSettings: View {
         }
         .formStyle(.grouped)
         .frame(height: 300)
+    }
+}
+
+/// A row of swatches; the chosen one gets a ring in its own color.
+private struct AccentPicker: View {
+    private var appearance: Appearance { .shared }
+
+    var body: some View {
+        HStack(spacing: 6) {
+            ForEach(AccentChoice.allCases) { choice in
+                let selected = appearance.accent == choice
+                Button {
+                    withAnimation(.snappy(duration: 0.2)) { appearance.accent = choice }
+                } label: {
+                    Circle()
+                        .fill(choice.color.gradient)
+                        .overlay(Circle().strokeBorder(.white.opacity(0.22), lineWidth: 0.5))
+                        .frame(width: 16, height: 16)
+                        .padding(3)
+                        .overlay(Circle().strokeBorder(selected ? choice.color : .clear, lineWidth: 2))
+                        .contentShape(Circle())
+                }
+                .buttonStyle(.plain)
+                .help(choice.title)
+                .accessibilityLabel(choice.title)
+                .accessibilityAddTraits(selected ? .isSelected : [])
+            }
+        }
+    }
+}
+
+private struct GoodreadsSettings: View {
+    @AppStorage(SettingsKey.goodreads) private var profile = ""
+    @State private var draft = ""
+    private var sync: GoodreadsSync { .shared }
+
+    var body: some View {
+        Form {
+            Section {
+                TextField("Profile", text: $draft, prompt: Text("goodreads.com/user/show/12345678"))
+                    .onSubmit(connect)
+                HStack {
+                    status
+                    Spacer()
+                    if profile.isEmpty {
+                        Button("Connect", action: connect).disabled(GoodreadsFeed.source(from: draft) == nil)
+                    } else {
+                        Button("Disconnect") { profile = ""; draft = ""; sync.start() }
+                        Button("Sync Now") { Task { await sync.sync() } }
+                            .disabled(sync.state == .syncing)
+                    }
+                }
+            } header: {
+                Text("Follow your Goodreads shelves")
+            } footer: {
+                Text("Want to Read, Currently Reading and Read stay in step with Books here, with your ratings, read dates and own shelves as tags. Shelf checks every 20 minutes. Goodreads doesn’t let apps write back, so books added here get an “Add on Goodreads” button instead. For a private profile, paste the RSS link from the bottom of any of your shelves.")
+                    .font(.caption).foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .formStyle(.grouped)
+        .frame(height: 280)
+        .onAppear { draft = profile }
+    }
+
+    @ViewBuilder private var status: some View {
+        switch sync.state {
+        case .idle:
+            Text(profile.isEmpty ? "Not connected" : "Waiting to sync").foregroundStyle(.secondary)
+        case .syncing:
+            HStack(spacing: 6) { ProgressView().controlSize(.small); Text("Syncing…") }.foregroundStyle(.secondary)
+        case .synced(let count, let at):
+            Text("\(count) books · synced \(at.formatted(.relative(presentation: .named)))").foregroundStyle(.secondary)
+        case .failed(let message):
+            Text(message).foregroundStyle(.red)
+        }
+    }
+
+    private func connect() {
+        guard GoodreadsFeed.source(from: draft) != nil else { return }
+        profile = draft.trimmingCharacters(in: .whitespacesAndNewlines)
+        sync.start()
+    }
+}
+
+/// A grid of live previews, each drawn exactly as it appears on a page.
+private struct ArtPicker: View {
+    private var appearance: Appearance { .shared }
+
+    var body: some View {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 100), spacing: 12)], spacing: 12) {
+            ForEach(BackdropArt.allCases) { art in
+                let selected = appearance.art == art
+                Button {
+                    withAnimation(.snappy(duration: 0.2)) { appearance.art = art }
+                } label: {
+                    VStack(spacing: 6) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                .fill(Color(nsColor: .textBackgroundColor))
+                            BackdropArtLayer(art: art, intensity: 2.4, reach: 120)
+                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            if art == .none {
+                                Image(systemName: "circle.slash").foregroundStyle(.tertiary)
+                            }
+                        }
+                        .frame(height: 70)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                .strokeBorder(selected ? Color.accent : Color.hairline, lineWidth: selected ? 2 : 1)
+                        )
+                        Text(art.title)
+                            .font(.system(size: 11.5, weight: selected ? .semibold : .regular))
+                            .foregroundStyle(selected ? Color.accent : Color.inkSoft)
+                    }
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(art.title)
+                .accessibilityAddTraits(selected ? .isSelected : [])
+            }
+        }
+        .padding(.vertical, 4)
     }
 }

@@ -15,7 +15,7 @@ enum SidebarSelection: Hashable {
         case .status(let s): s.title
         case .favorites: "Favorites"
         case .kind(let k): k.pluralTitle
-        case .tag(let t): "#\(t)"
+        case .tag(let t): t
         }
     }
 
@@ -34,6 +34,7 @@ enum SidebarSelection: Hashable {
 @MainActor
 @Observable
 final class Router {
+    static let shared = Router()
     var selection: SidebarSelection? = .home
     var selectedItemID: UUID?
     var showingCapture = false

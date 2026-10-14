@@ -6,6 +6,9 @@ import ShelfCore
 struct ItemCard: View {
     let item: Item
     var width: CGFloat = 150
+    /// Height of the cover area, shared by a whole row so mixed shapes
+    /// (posters, video stills, square albums) sit on one shelf line.
+    var coverHeight: CGFloat?
     @Environment(Router.self) private var router
     @State private var hovering = false
 
@@ -20,24 +23,25 @@ struct ItemCard: View {
                 .overlay {
                     if item.isEnriching { Shimmer().clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous)) }
                 }
+                .overlay { if hovering { hoverControls.transition(.opacity) } }
                 .overlay {
-                    RoundedRectangle(cornerRadius: 9, style: .continuous)
-                        .strokeBorder(item.kind.tint, lineWidth: isSelected ? 2.5 : 0)
-                        .padding(-3)
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .strokeBorder(Color.glow, lineWidth: isSelected ? 2 : 0)
+                        .padding(-4)
                 }
                 .paperShadow(lifted: hovering)
-                .scaleEffect(hovering ? 1.035 : 1, anchor: .bottom)
-                .rotation3DEffect(.degrees(hovering ? -2 : 0), axis: (x: 1, y: 0, z: 0), anchor: .bottom)
+                .scaleEffect(hovering ? 1.015 : 1, anchor: .bottom)
+                .frame(width: width, height: coverHeight, alignment: .bottom)
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(item.title)
-                    .font(.display(13.5, weight: .semibold))
+                    .font(.cardTitle)
                     .foregroundStyle(Color.ink)
                     // Reserve both lines so covers in a row stay level.
                     .lineLimit(2, reservesSpace: true)
                 Text(item.byline.isEmpty ? (item.host ?? item.kind.title) : item.byline)
-                    .font(.system(size: 11.5))
-                    .foregroundStyle(Color.inkSoft)
+                    .font(.cardDetail)
+                    .foregroundStyle(Color.inkFaint)
                     .lineLimit(1)
             }
             .frame(width: width, alignment: .leading)
@@ -52,25 +56,55 @@ struct ItemCard: View {
         .accessibilityAddTraits(.isButton)
     }
 
-    @ViewBuilder private var badges: some View {
-        HStack(spacing: 4) {
-            if item.status == .done {
-                Image(systemName: "checkmark")
-                    .font(.system(size: 9, weight: .bold))
-                    .foregroundStyle(.white)
-                    .frame(width: 20, height: 20)
-                    .background(item.kind.tint, in: Circle())
+    /// Apple Music-style: on hover, a soft shade and two glass buttons —
+    /// the natural next step, and everything else.
+    private var hoverControls: some View {
+        ZStack(alignment: .bottom) {
+            LinearGradient(colors: [.clear, .black.opacity(0.38)], startPoint: .center, endPoint: .bottom)
+                .allowsHitTesting(false)
+            HStack {
+                if let next = nextStep {
+                    Button(next.title, systemImage: next.symbol) {
+                        withAnimation(.shelf) { item.status = next.status }
+                        Haptics.tap()
+                    }
+                    .buttonStyle(.iconGlass)
+                    .help(next.title)
+                }
+                Spacer()
+                Menu {
+                    ItemContextMenu(item: item)
+                } label: {
+                    Label("More", systemImage: "ellipsis")
+                }
+                .menuStyle(.button)
+                .buttonStyle(.iconGlass)
+                .menuIndicator(.hidden)
+                .fixedSize()
             }
-            if item.isFavorite {
-                Image(systemName: "heart.fill")
-                    .font(.system(size: 9, weight: .bold))
-                    .foregroundStyle(.white)
-                    .frame(width: 20, height: 20)
-                    .background(Color(hex: 0xD9536F), in: Circle())
-            }
+            .padding(8)
         }
-        .shadow(color: .black.opacity(0.2), radius: 2, y: 1)
-        .padding(7)
+        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+    }
+
+    private var nextStep: (status: ItemStatus, title: String, symbol: String)? {
+        switch item.status {
+        case .want: (.inProgress, item.kind.label(for: .inProgress), "play.fill")
+        case .inProgress: (.done, "Mark as \(item.kind.label(for: .done).lowercased())", "checkmark")
+        case .done, .dropped: nil
+        }
+    }
+
+    @ViewBuilder private var badges: some View {
+        // Only "finished" earns a mark on the cover; favorites live in details.
+        if item.status == .done {
+            Image(systemName: "checkmark")
+                .font(.system(size: 8.5, weight: .bold))
+                .foregroundStyle(.white)
+                .frame(width: 18, height: 18)
+                .background(.black.opacity(0.45), in: Circle())
+                .padding(6)
+        }
     }
 
     @ViewBuilder private var progressBar: some View {
@@ -94,51 +128,32 @@ struct ItemRow: View {
     @State private var hovering = false
 
     var body: some View {
-        HStack(alignment: .top, spacing: 14) {
-            CoverView(item: item, cornerRadius: 5)
-                .frame(width: 46)
+        HStack(alignment: .center, spacing: 12) {
+            CoverView(item: item, cornerRadius: 4)
+                .frame(width: 38)
                 .paperShadow()
-            VStack(alignment: .leading, spacing: 4) {
-                HStack(spacing: 6) {
-                    KindBadge(kind: item.kind, compact: true)
-                    if let venue = item.extra["venue"] ?? item.host {
-                        Text(venue).font(.system(size: 11, weight: .medium)).foregroundStyle(Color.inkFaint).lineLimit(1)
-                    }
-                }
+            VStack(alignment: .leading, spacing: 3) {
                 Text(item.title)
-                    .font(.display(15.5, weight: .semibold))
+                    .font(.system(size: 13.5, weight: .semibold))
                     .foregroundStyle(Color.ink)
                     .lineLimit(2)
-                if !item.byline.isEmpty {
-                    Text(item.byline).font(.system(size: 12)).foregroundStyle(Color.inkSoft).lineLimit(1)
-                }
-                if let summary = item.summary, hovering || router.selectedItemID == item.id {
-                    Text(summary)
-                        .font(.system(size: 12))
-                        .foregroundStyle(Color.inkSoft)
-                        .lineLimit(2)
-                        .transition(.opacity)
-                }
+                Text([item.byline, item.extra["venue"] ?? item.host ?? ""].filter { !$0.isEmpty }.joined(separator: " · "))
+                    .font(.system(size: 12))
+                    .foregroundStyle(Color.inkSoft)
+                    .lineLimit(1)
             }
             Spacer(minLength: 12)
-            VStack(alignment: .trailing, spacing: 6) {
-                Text(item.statusLabel)
-                    .font(.system(size: 11, weight: .medium))
-                    .foregroundStyle(item.status == .done ? item.kind.tint : Color.inkSoft)
-                Text(item.createdAt, format: .dateTime.month(.abbreviated).day())
-                    .font(.system(size: 11))
-                    .foregroundStyle(Color.inkFaint)
-                if item.isFavorite {
-                    Image(systemName: "heart.fill").font(.system(size: 10)).foregroundStyle(Color(hex: 0xD9536F))
-                }
-            }
+            Text(item.createdAt, format: .dateTime.month(.abbreviated).day())
+                .font(.system(size: 11.5).monospacedDigit())
+                .foregroundStyle(Color.inkFaint)
         }
-        .padding(12)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 9)
         .background {
-            RoundedRectangle(cornerRadius: 14, style: .continuous)
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .fill(router.selectedItemID == item.id && router.showingInspector
-                      ? item.kind.tint.opacity(0.10)
-                      : (hovering ? Color.paperRaised : Color.clear))
+                      ? Color.accentWashStrong
+                      : (hovering ? Color.accentWash.opacity(0.6) : Color.clear))
         }
         .contentShape(Rectangle())
         .onHover { inside in withAnimation(.lift) { hovering = inside } }

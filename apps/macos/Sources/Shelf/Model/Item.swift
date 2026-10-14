@@ -61,12 +61,23 @@ final class Item {
         get { ItemStatus(rawValue: statusRaw) ?? .want }
         set {
             guard newValue.rawValue != statusRaw else { return }
+            let wasDone = statusRaw == ItemStatus.done.rawValue
             statusRaw = newValue.rawValue
             switch newValue {
-            case .inProgress: startedAt = startedAt ?? .now
-            case .done: finishedAt = .now; startedAt = startedAt ?? finishedAt; progress = 1
-            case .want: finishedAt = nil
-            case .dropped: break
+            case .inProgress:
+                // Starting (or starting again after finishing) begins at 0%.
+                if wasDone || progress >= 1 {
+                    progress = 0
+                    startedAt = .now
+                    finishedAt = nil
+                }
+                startedAt = startedAt ?? .now
+            case .done:
+                finishedAt = .now; startedAt = startedAt ?? finishedAt; progress = 1
+            case .want:
+                finishedAt = nil; startedAt = nil; progress = 0
+            case .dropped:
+                break
             }
             touch()
         }

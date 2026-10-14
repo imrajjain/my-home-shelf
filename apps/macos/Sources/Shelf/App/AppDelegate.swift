@@ -13,12 +13,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             NSApp.activate(ignoringOtherApps: true)
         }
 
+        if let dir = ProcessInfo.processInfo.environment["SHELF_SNAPSHOT"] {
+            Snapshotter.run(into: URL(filePath: dir, directoryHint: .isDirectory))
+            return
+        }
+
         NSApp.servicesProvider = ServiceProvider()
         NSUpdateDynamicServices()
 
         registerHotKey()
         configureLocalAPI()
         CaptureCoordinator.shared.repairUnresolved()
+        GoodreadsSync.shared.start()
 
         defaultsObserver = NotificationCenter.default.addObserver(
             forName: UserDefaults.didChangeNotification, object: nil, queue: .main
@@ -28,6 +34,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 self?.configureLocalAPI()
             }
         }
+    }
+
+    /// Coming back to Shelf picks up whatever changed on Goodreads meanwhile.
+    func applicationDidBecomeActive(_ notification: Notification) {
+        GoodreadsSync.shared.syncIfStale()
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {

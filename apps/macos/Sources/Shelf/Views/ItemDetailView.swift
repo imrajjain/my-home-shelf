@@ -12,7 +12,7 @@ struct ItemDetailView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 22) {
+            VStack(alignment: .leading, spacing: 24) {
                 hero
                 statusSection
                 if item.status == .inProgress { progressSection }
@@ -24,9 +24,12 @@ struct ItemDetailView: View {
                 factsSection
                 actions
             }
-            .padding(22)
+            .padding(.horizontal, 24)
+            .padding(.top, 28)
+            .padding(.bottom, 24)
         }
-        .background(Color.paper)
+        .background(ArtworkBackdrop(colors: ArtworkPalette.colors(for: item), height: 460))
+        .animation(.easeInOut(duration: 0.4), value: item.imageData)
         .onChange(of: item.rating) { _, _ in item.touch() }
         .onChange(of: item.notes) { _, _ in item.touch() }
         .onChange(of: item.tags) { _, _ in item.touch() }
@@ -35,15 +38,15 @@ struct ItemDetailView: View {
     // MARK: Hero
 
     private var hero: some View {
-        VStack(alignment: .center, spacing: 16) {
-            CoverView(item: item, cornerRadius: 10)
-                .frame(maxWidth: item.kind.coverAspect >= 1 ? 230 : 190)
+        VStack(alignment: .center, spacing: 18) {
+            CoverView(item: item, cornerRadius: 8)
+                .frame(maxWidth: item.kind.coverAspect >= 1 ? 220 : 150)
                 .paperShadow(lifted: true)
                 .overlay(alignment: .topTrailing) {
                     if item.status == .done {
-                        Image(systemName: "checkmark.seal.fill")
-                            .font(.system(size: 28))
-                            .foregroundStyle(.white, item.kind.tint)
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.system(size: 22))
+                            .foregroundStyle(.white, Color.glow)
                             .symbolEffect(.bounce, value: celebrate)
                             .offset(x: 10, y: -10)
                             .transition(.scale.combined(with: .opacity))
@@ -53,17 +56,16 @@ struct ItemDetailView: View {
                 .frame(maxWidth: .infinity)
                 .onTapGesture(count: 2) { if let url = item.url { NSWorkspace.shared.open(url) } }
 
-            VStack(alignment: .center, spacing: 6) {
-                KindBadge(kind: item.kind)
+            VStack(alignment: .center, spacing: 4) {
                 if editingTitle {
                     TextField("Title", text: $item.title, axis: .vertical)
                         .textFieldStyle(.plain)
-                        .font(.display(22))
+                        .font(.display(20))
                         .multilineTextAlignment(.center)
                         .onSubmit { editingTitle = false; item.touch() }
                 } else {
                     Text(item.title)
-                        .font(.display(22))
+                        .font(.display(20))
                         .foregroundStyle(Color.ink)
                         .multilineTextAlignment(.center)
                         .textSelection(.enabled)
@@ -71,15 +73,14 @@ struct ItemDetailView: View {
                 }
                 if let subtitle = item.subtitle, !subtitle.isEmpty {
                     Text(subtitle)
-                        .font(.display(14, weight: .regular).italic())
+                        .font(.system(size: 12.5))
                         .foregroundStyle(Color.inkSoft)
                         .multilineTextAlignment(.center)
                 }
-                if !item.byline.isEmpty {
-                    Text(item.byline)
-                        .font(.system(size: 12.5))
-                        .foregroundStyle(Color.inkSoft)
-                }
+                Text([item.byline, item.kind.title].filter { !$0.isEmpty }.joined(separator: " · "))
+                    .font(.system(size: 12.5))
+                    .foregroundStyle(Color.inkFaint)
+                    .multilineTextAlignment(.center)
             }
             .frame(maxWidth: .infinity)
         }
@@ -111,25 +112,23 @@ struct ItemDetailView: View {
                     .foregroundStyle(Color.inkSoft)
             }
             Slider(value: Binding(get: { item.progress }, set: { item.progress = $0; item.touch() }), in: 0...1)
-                .tint(item.kind.tint)
                 .controlSize(.small)
         }
     }
 
     private var ratingRow: some View {
         HStack {
-            RatingView(rating: $item.rating, size: 17)
+            RatingView(rating: $item.rating, size: 15)
             Spacer()
             Button {
                 withAnimation(.lift) { item.isFavorite.toggle(); item.touch() }
                 Haptics.tap()
             } label: {
                 Image(systemName: item.isFavorite ? "heart.fill" : "heart")
-                    .font(.system(size: 17, weight: .medium))
-                    .foregroundStyle(item.isFavorite ? Color(hex: 0xD9536F) : Color.inkFaint)
+                    .foregroundStyle(item.isFavorite ? Color(nsColor: .systemPink) : Color.inkSoft)
                     .symbolEffect(.bounce, value: item.isFavorite)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.icon)
             .help(item.isFavorite ? "Remove from favorites" : "Add to favorites")
         }
         .padding(.horizontal, 2)
@@ -152,7 +151,7 @@ struct ItemDetailView: View {
 
     private func mapSection(_ c: CLLocationCoordinate2D) -> some View {
         Map(initialPosition: .region(MKCoordinateRegion(center: c, latitudinalMeters: 1500, longitudinalMeters: 1500))) {
-            Marker(item.title, coordinate: c).tint(item.kind.tint)
+            Marker(item.title, coordinate: c).tint(Color.glow)
         }
         .frame(height: 170)
         .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
@@ -160,16 +159,17 @@ struct ItemDetailView: View {
 
     private var notesSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Eyebrow("Your notes")
+            Eyebrow("Notes")
             TextEditor(text: $item.notes)
                 .font(.system(size: 13))
                 .scrollContentBackground(.hidden)
-                .frame(minHeight: 90)
+                .frame(minHeight: 80)
                 .padding(8)
-                .background(Color.paperRaised, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .background(Color.paperRaised, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).strokeBorder(Color.hairline))
                 .overlay(alignment: .topLeading) {
                     if item.notes.isEmpty {
-                        Text("What stayed with you? Who recommended it?")
+                        Text("What stayed with you?")
                             .font(.system(size: 13))
                             .foregroundStyle(Color.inkFaint)
                             .padding(.horizontal, 13)
@@ -191,7 +191,6 @@ struct ItemDetailView: View {
         VStack(alignment: .leading, spacing: 8) {
             Eyebrow("Details")
             VStack(spacing: 0) {
-                fact("Shelf", item.kind.pluralTitle)
                 fact("Added", item.createdAt.formatted(date: .abbreviated, time: .omitted))
                 if let started = item.startedAt { fact("Started", started.formatted(date: .abbreviated, time: .omitted)) }
                 if let finished = item.finishedAt { fact("Finished", finished.formatted(date: .abbreviated, time: .omitted)) }
@@ -202,7 +201,6 @@ struct ItemDetailView: View {
                 if let community = item.extra["communityRating"] { fact("Community", community) }
                 if let provider = item.provider { fact("Source", provider) }
             }
-            .background(Color.paperRaised, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
         }
     }
 
@@ -210,37 +208,27 @@ struct ItemDetailView: View {
         HStack(alignment: .firstTextBaseline) {
             Text(label).font(.system(size: 12)).foregroundStyle(Color.inkFaint)
             Spacer()
-            Text(value).font(.system(size: 12, weight: .medium)).foregroundStyle(Color.ink)
+            Text(value).font(.system(size: 12)).foregroundStyle(Color.inkSoft)
                 .multilineTextAlignment(.trailing).textSelection(.enabled)
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .overlay(alignment: .bottom) { Rectangle().fill(Color.hairline).frame(height: 1).padding(.leading, 12) }
+        .padding(.vertical, 6)
+        .overlay(alignment: .bottom) { Rectangle().fill(Color.hairline).frame(height: 1) }
     }
 
     private var actions: some View {
         HStack(spacing: 10) {
             if let url = item.url {
-                Button {
-                    NSWorkspace.shared.open(url)
-                } label: {
-                    Label(openLabel, systemImage: "arrow.up.right")
-                        .font(.system(size: 12.5, weight: .semibold))
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 8)
-                        .foregroundStyle(.white)
-                        .background(item.kind.tint, in: Capsule())
-                }
-                .buttonStyle(.plain)
+                Button(openLabel, systemImage: "arrow.up.right") { NSWorkspace.shared.open(url) }
+                    .buttonStyle(.pillPrimary)
+            }
+            if let goodreads = goodreadsSearch {
+                Button("Add on Goodreads", systemImage: "plus") { NSWorkspace.shared.open(goodreads) }
+                    .buttonStyle(.pill)
+                    .help("Goodreads has no way for apps to add books, so this opens it there. The next sync links them up.")
             }
             if let pdf = item.extra["pdf"].flatMap(URL.init(string:)) {
-                Button { NSWorkspace.shared.open(pdf) } label: {
-                    Label("PDF", systemImage: "doc.richtext")
-                        .font(.system(size: 12.5, weight: .medium))
-                        .padding(.horizontal, 12).padding(.vertical, 8)
-                        .background(Color.paperSunken, in: Capsule())
-                }
-                .buttonStyle(.plain)
+                Button("PDF", systemImage: "doc.richtext") { NSWorkspace.shared.open(pdf) }
+                    .buttonStyle(.pill)
             }
             Spacer()
             Menu {
@@ -254,13 +242,24 @@ struct ItemDetailView: View {
                 Divider()
                 Button("Remove from Shelf", role: .destructive) { ItemActions.delete(item, router: router) }
             } label: {
-                Image(systemName: "ellipsis.circle").font(.system(size: 16))
+                Label("More", systemImage: "ellipsis")
             }
-            .menuStyle(.borderlessButton)
+            .menuStyle(.button)
+            .buttonStyle(.icon)
             .menuIndicator(.hidden)
             .fixedSize()
         }
         .padding(.top, 4)
+    }
+
+    /// Books not yet on Goodreads, while Goodreads sync is on.
+    private var goodreadsSearch: URL? {
+        guard item.kind == .book, item.extra["goodreadsID"] == nil, item.host != "goodreads.com",
+              GoodreadsSync.shared.source != nil else { return nil }
+        let query = item.extra["isbn"] ?? [item.title, item.creator ?? ""].joined(separator: " ")
+        return URL(string: "https://www.goodreads.com/search")
+            .flatMap { URLComponents(url: $0, resolvingAgainstBaseURL: false) }
+            .map { var c = $0; c.queryItems = [URLQueryItem(name: "q", value: query)]; return c }?.url
     }
 
     private var openLabel: String {

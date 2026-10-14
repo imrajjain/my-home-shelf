@@ -62,7 +62,7 @@ struct GeneratedCover: View {
     var body: some View {
         GeometryReader { geo in
             let w = geo.size.width
-            let ink: Color = kind.coverPrefersDarkText ? Color(hex: 0x2A2420) : .white
+            let ink: Color = kind.coverPrefersDarkText ? Color(hex: 0x1D1D1F) : .white
             ZStack(alignment: .topLeading) {
                 LinearGradient(colors: kind.coverGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
                 // Subtle paper grain via a radial bloom.

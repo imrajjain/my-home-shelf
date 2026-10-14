@@ -5,7 +5,7 @@ import ShelfCore
 struct RatingView: View {
     @Binding var rating: Int
     var size: CGFloat = 14
-    var tint: Color = .glow
+    var tint: Color = Color.accent
     @State private var hovered: Int?
 
     private let spacing: CGFloat = 3
@@ -57,62 +57,21 @@ struct RatingView: View {
     }
 }
 
-struct KindBadge: View {
-    let kind: ItemKind
-    var compact = false
-
-    var body: some View {
-        HStack(spacing: 4) {
-            Image(systemName: kind.symbol).font(.system(size: 9.5, weight: .semibold))
-            if !compact { Text(kind.title).font(.system(size: 10.5, weight: .semibold)) }
-        }
-        .foregroundStyle(kind.tint)
-        .padding(.horizontal, compact ? 5 : 7)
-        .padding(.vertical, 3)
-        .background(kind.tint.opacity(0.12), in: Capsule())
-    }
-}
-
-/// A row of status choices that speaks the item's language
-/// ("Want to read · Reading · Read").
+/// Status in the item's own words ("Want to read · Reading · Read").
 struct StatusPicker: View {
     let kind: ItemKind
     @Binding var status: ItemStatus
     var includeDropped = false
-    @Namespace private var ns
-    @State private var hovered: ItemStatus?
+    var compact = false
 
     var body: some View {
-        HStack(spacing: 2) {
-            ForEach(ItemStatus.allCases.filter { includeDropped || $0 != .dropped }) { s in
-                Button {
-                    withAnimation(.shelf) { status = s }
-                    Haptics.tap()
-                } label: {
-                    Text(kind.label(for: s))
-                        .font(.system(size: 12, weight: status == s ? .semibold : .regular))
-                        .foregroundStyle(status == s ? Color.ink : Color.inkSoft)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
-                        .background {
-                            if status == s {
-                                Capsule().fill(Color.paperRaised)
-                                    .paperShadow()
-                                    .matchedGeometryEffect(id: "pill", in: ns)
-                            } else if hovered == s {
-                                Capsule().fill(Color.hairline)
-                            }
-                        }
-                        .contentShape(Capsule())
-                }
-                .buttonStyle(.plain)
-                .onHover { inside in
-                    withAnimation(.lift) { hovered = inside ? s : (hovered == s ? nil : hovered) }
-                }
-            }
-        }
-        .padding(3)
-        .background(Color.paperSunken, in: Capsule())
+        PillPicker(
+            selection: $status,
+            options: ItemStatus.allCases
+                .filter { includeDropped || $0 != .dropped || status == .dropped }
+                .map { .init(value: $0, title: kind.label(for: $0)) },
+            compact: compact
+        )
     }
 }
 
@@ -136,8 +95,8 @@ struct TagEditor: View {
                 }
                 .foregroundStyle(Color.inkSoft)
                 .padding(.horizontal, 8)
-                .padding(.vertical, 4)
-                .background(Color.paperSunken, in: Capsule())
+                .padding(.vertical, 3)
+                .background(Color.wash, in: Capsule())
             }
             TextField("Add tag", text: $draft)
                 .textFieldStyle(.plain)
@@ -193,30 +152,33 @@ struct FlowLayout: Layout {
     }
 }
 
-/// Gentle illustrated empty state.
+/// A calm empty state: one symbol, one line of help, at most one action.
 struct EmptyShelf: View {
     let symbol: String
     let title: String
     let message: String
-    var tint: Color = .glow
+    var actionTitle: String?
+    var action: (() -> Void)?
 
     var body: some View {
-        VStack(spacing: 14) {
-            ZStack {
-                Circle().fill(tint.opacity(0.10)).frame(width: 96, height: 96)
-                Circle().fill(tint.opacity(0.08)).frame(width: 140, height: 140)
-                Image(systemName: symbol)
-                    .font(.system(size: 34, weight: .light))
-                    .foregroundStyle(tint)
-                    .symbolEffect(.pulse, options: .repeating.speed(0.3))
-            }
-            Text(title).font(.display(22))
+        VStack(spacing: 10) {
+            Image(systemName: symbol)
+                .font(.system(size: 30, weight: .light))
+                .foregroundStyle(Color.accent.opacity(0.8))
+                .padding(.bottom, 6)
+            Text(title)
+                .font(.system(size: 15, weight: .semibold))
                 .foregroundStyle(Color.ink)
             Text(message)
-                .font(.system(size: 13))
+                .font(.system(size: 12.5))
                 .foregroundStyle(Color.inkSoft)
                 .multilineTextAlignment(.center)
-                .frame(maxWidth: 340)
+                .frame(maxWidth: 320)
+            if let actionTitle, let action {
+                Button(actionTitle, systemImage: "plus", action: action)
+                    .buttonStyle(.pillPrimary)
+                    .padding(.top, 10)
+            }
         }
         .padding(40)
         .frame(maxWidth: .infinity, maxHeight: .infinity)

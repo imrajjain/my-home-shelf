@@ -6,7 +6,9 @@ import SwiftData
 @MainActor
 enum Persistence {
     static let container: ModelContainer = {
-        let folder = URL.applicationSupportDirectory.appending(path: "Shelf", directoryHint: .isDirectory)
+        // SHELF_STORE_DIR points debug runs (snapshots) at a copy of the shelf.
+        let folder = ProcessInfo.processInfo.environment["SHELF_STORE_DIR"].map { URL(filePath: $0, directoryHint: .isDirectory) }
+            ?? URL.applicationSupportDirectory.appending(path: "Shelf", directoryHint: .isDirectory)
         try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         let config = ModelConfiguration("Shelf", url: folder.appending(path: "Shelf.store"))
         do {

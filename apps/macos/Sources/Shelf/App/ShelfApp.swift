@@ -5,7 +5,7 @@ import ShelfCore
 @main
 struct ShelfApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-    @State private var router = Router()
+    @State private var router = Router.shared
 
     var body: some Scene {
         Window("Shelf", id: "main") {
@@ -38,6 +38,9 @@ private struct MenuBarContent: View {
             openWindow(id: "main")
             NSApp.activate(ignoringOtherApps: true)
         }
+        if GoodreadsSync.shared.source != nil {
+            Button("Sync with Goodreads") { Task { await GoodreadsSync.shared.sync() } }
+        }
         Divider()
         SettingsLink { Text("Settings…") }
         Button("Quit Shelf") { NSApp.terminate(nil) }
@@ -58,6 +61,10 @@ struct ShelfCommands: Commands {
             Button("Export Shelf…") { ArchiveService.exportWithPanel() }
                 .keyboardShortcut("e", modifiers: [.command, .shift])
             Button("Import Shelf…") { ArchiveService.importWithPanel() }
+            Divider()
+            Button("Sync with Goodreads") { Task { await GoodreadsSync.shared.sync() } }
+                .keyboardShortcut("r")
+                .disabled(GoodreadsSync.shared.source == nil || GoodreadsSync.shared.state == .syncing)
         }
         CommandMenu("Go") {
             Button("Home") { router.selection = .home }.keyboardShortcut("1")

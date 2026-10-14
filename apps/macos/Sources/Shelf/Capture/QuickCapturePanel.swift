@@ -52,6 +52,7 @@ final class QuickCaptureController: NSObject, NSWindowDelegate {
             self?.close()
         }
         .modelContainer(Persistence.container)
+        .tint(Color.accent)
         let hosting = NSHostingView(rootView: root)
         hosting.frame = NSRect(x: 0, y: 0, width: 640, height: 460)
         panel.contentView = hosting

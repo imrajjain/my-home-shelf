@@ -56,7 +56,6 @@ struct CaptureView: View {
         if presentation == .panel {
             ZStack {
                 VisualEffectBackground(material: .popover)
-                Color.paper.opacity(0.72)
             }
         } else {
             Color.paper
@@ -79,13 +78,13 @@ struct CaptureView: View {
     private var field: some View {
         HStack(spacing: 12) {
             Image(systemName: model.isLink ? "link" : "magnifyingglass")
-                .font(.system(size: 18, weight: .medium))
-                .foregroundStyle(model.isLink ? model.effectiveKind.tint : Color.inkFaint)
+                .font(.system(size: 16, weight: .regular))
+                .foregroundStyle(Color.inkFaint)
                 .contentTransition(.symbolEffect(.replace))
                 .frame(width: 22)
             TextField("", text: $model.query, prompt: Text(prompt).foregroundStyle(Color.inkFaint))
                 .textFieldStyle(.plain)
-                .font(.system(size: 21, weight: .regular))
+                .font(.system(size: 19, weight: .regular))
                 .foregroundStyle(Color.ink)
                 .focused($fieldFocused)
                 .onSubmit { model.commit() }
@@ -108,29 +107,16 @@ struct CaptureView: View {
 
     private var kindStrip: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 6) {
-                ForEach(ItemKind.allCases) { kind in
-                    let selected = kind == model.kind
-                    Button {
-                        withAnimation(.shelf) { model.kind = kind }
-                    } label: {
-                        HStack(spacing: 5) {
-                            Image(systemName: kind.symbol).font(.system(size: 10.5, weight: .semibold))
-                            Text(kind.pluralTitle.components(separatedBy: " ").first ?? kind.pluralTitle)
-                                .font(.system(size: 11.5, weight: selected ? .semibold : .medium))
-                        }
-                        .foregroundStyle(selected ? Color.white : Color.inkSoft)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
-                        .background(selected ? kind.tint : Color.paperSunken.opacity(0.8), in: Capsule())
-                        .contentShape(Capsule())
-                    }
-                    .buttonStyle(.plain)
+            CategoryStrip(
+                selection: $model.kind,
+                categories: ItemKind.allCases.map {
+                    .init(value: $0, title: $0.pluralTitle.components(separatedBy: " ").first ?? $0.pluralTitle,
+                          symbol: $0.symbol)
                 }
-            }
-            .padding(.horizontal, 20)
+            )
+            .padding(.horizontal, 10)
         }
-        .padding(.bottom, 12)
+        .padding(.bottom, 2)
     }
 
     // MARK: Results
@@ -163,6 +149,7 @@ struct CaptureView: View {
     private var hints: some View {
         VStack(alignment: .leading, spacing: 14) {
             Eyebrow("Try")
+                .padding(.bottom, 2)
             hintRow("text.magnifyingglass", "Type a title — “The Remains of the Day”, “Past Lives”")
             hintRow("link", "Paste a link from Goodreads, Letterboxd, arXiv, YouTube, anywhere")
             hintRow("sparkle.magnifyingglass", "Or just a question you can’t stop wondering about")
@@ -197,14 +184,11 @@ struct CaptureView: View {
 
     private var footer: some View {
         HStack(spacing: 14) {
-            StatusPicker(kind: model.effectiveKind, status: $model.status)
-            Button {
+            StatusPicker(kind: model.effectiveKind, status: $model.status, compact: true)
+            Button("Note", systemImage: showNote ? "text.quote" : "plus.bubble") {
                 withAnimation(.shelf) { showNote.toggle() }
-            } label: {
-                Image(systemName: showNote ? "text.quote" : "plus.bubble")
-                    .foregroundStyle(showNote ? model.effectiveKind.tint : Color.inkSoft)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.icon)
             .help("Add a note")
             Spacer()
             HStack(spacing: 5) {
@@ -222,7 +206,7 @@ struct CaptureView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-        .background(Color.paperSunken.opacity(0.35))
+        .overlay(alignment: .top) { Rectangle().fill(Color.hairline).frame(height: 1) }
     }
 }
 
@@ -237,13 +221,13 @@ private struct CaptureRowView: View {
             thumbnail
                 .frame(width: 44, height: 56)
             VStack(alignment: .leading, spacing: 3) {
-                if let eyebrow { Eyebrow(eyebrow, color: tint) }
                 Text(title)
-                    .font(.display(15, weight: .semibold))
+                    .font(.system(size: 13.5, weight: .semibold))
                     .foregroundStyle(Color.ink)
                     .lineLimit(2)
-                if let detail, !detail.isEmpty {
-                    Text(detail)
+                let line = [eyebrow, detail].compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: " · ")
+                if !line.isEmpty {
+                    Text(line)
                         .font(.system(size: 12))
                         .foregroundStyle(Color.inkSoft)
                         .lineLimit(1)
@@ -258,7 +242,7 @@ private struct CaptureRowView: View {
             if isHighlighted {
                 Image(systemName: "return")
                     .font(.system(size: 11, weight: .semibold))
-                    .foregroundStyle(tint)
+                    .foregroundStyle(Color.inkFaint)
                     .transition(.opacity)
             }
         }
@@ -266,7 +250,7 @@ private struct CaptureRowView: View {
         .padding(.vertical, 7)
         .background {
             RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(isHighlighted ? tint.opacity(0.12) : Color.clear)
+                .fill(isHighlighted ? Color.washStrong : Color.clear)
         }
         .contentShape(Rectangle())
     }
@@ -287,8 +271,6 @@ private struct CaptureRowView: View {
         }
     }
 
-    private var tint: Color { kind.tint }
-
     private var title: String {
         switch row {
         case .suggestion(_, let url, let t): metadata?.title ?? t ?? url.absoluteString
@@ -300,7 +282,7 @@ private struct CaptureRowView: View {
 
     private var eyebrow: String? {
         switch row {
-        case .suggestion(let source, _, _): "From \(source) · \(kind.title)"
+        case .suggestion(let source, _, _): "\(source) · \(kind.title)"
         case .link: metadata == nil ? "Reading link…" : kind.title
         case .result: nil
         case .plain: "Add as \(model.kind.title.lowercased())"
@@ -329,8 +311,8 @@ private struct CaptureRowView: View {
     @ViewBuilder private var thumbnail: some View {
         if case .plain = row {
             RoundedRectangle(cornerRadius: 6, style: .continuous)
-                .fill(model.kind.tint.opacity(0.14))
-                .overlay(Image(systemName: "plus").foregroundStyle(model.kind.tint))
+                .fill(Color.wash)
+                .overlay(Image(systemName: "plus").foregroundStyle(Color.inkSoft))
         } else if let m = metadata {
             CoverView(metadata: m, cornerRadius: 5)
                 .frame(maxWidth: 44, maxHeight: 56)
@@ -358,7 +340,7 @@ private struct AddedConfirmation: View {
             VStack(spacing: 6) {
                 Label("On your shelf", systemImage: "checkmark.circle.fill")
                     .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(item.kind.tint)
+                    .foregroundStyle(Color.glow)
                     .symbolEffect(.bounce, value: appeared)
                 Text(item.title)
                     .font(.display(20))

@@ -80,6 +80,11 @@ final class CaptureCoordinator {
     /// own URL, and typed titles used to skip the catalogues. Retry both.
     func repairUnresolved() {
         let all = (try? context.fetch(FetchDescriptor<Item>(predicate: #Predicate { $0.deletedAt == nil }))) ?? []
+        // In progress yet already at 100% (from an old finish → restart bug).
+        for item in all where item.status == .inProgress && item.progress >= 1 {
+            item.progress = 0
+        }
+        try? context.save()
         for item in all where !item.isEnriching {
             if item.url != nil, item.title.hasPrefix("http://") || item.title.hasPrefix("https://") {
                 refresh(item)

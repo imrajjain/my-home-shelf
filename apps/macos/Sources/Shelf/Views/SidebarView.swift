@@ -1,92 +1,150 @@
 import SwiftUI
 import ShelfCore
 
+/// Navigation only: no counts, no colors, nothing asking for attention.
+/// Shelves appear once something is on them; tags stay folded away.
 struct SidebarView: View {
     let items: [Item]
     @Environment(Router.self) private var router
+    @AppStorage("sidebar.tagsExpanded") private var tagsExpanded = false
 
     var body: some View {
-        @Bindable var router = router
-        List(selection: $router.selection) {
+        // Selection is drawn here rather than by List: macOS always paints
+        // sidebar selection in the system accent, and Shelf has its own.
+        List {
             Section {
-                row(.home, count: nil)
-                row(.status(.want), count: items.tally { $0.status == .want })
-                row(.status(.inProgress), count: items.tally { $0.status == .inProgress })
-                row(.status(.done), count: items.tally { $0.status == .done })
-                row(.favorites, count: items.tally { $0.isFavorite })
+                row(.home)
+                row(.status(.want))
+                row(.status(.inProgress))
+                row(.status(.done))
+                if items.contains(where: \.isFavorite) { row(.favorites) }
             }
 
             Section("Shelves") {
-                ForEach(ItemKind.allCases) { kind in
-                    let count = items.tally { $0.kind == kind }
-                    if count > 0 || [.book, .film, .show, .paper, .article].contains(kind) {
-                        row(.kind(kind), count: count, tint: kind.tint)
-                    }
-                }
+                ForEach(shelves) { kind in row(.kind(kind)) }
             }
 
             if !tags.isEmpty {
-                Section("Tags") {
-                    ForEach(tags.prefix(16), id: \.0) { tag, count in
-                        row(.tag(tag), count: count)
-                    }
+                Section("Tags", isExpanded: $tagsExpanded) {
+                    ForEach(tags.prefix(12), id: \.self) { tag in row(.tag(tag)) }
                 }
             }
         }
         .listStyle(.sidebar)
-        // Warm paper instead of the system's grey vibrancy.
-        .scrollContentBackground(.hidden)
-        .background(Color.paperSunken)
-        .safeAreaInset(edge: .bottom) { captureHint }
+        .safeAreaInset(edge: .bottom) { SidebarFooter() }
     }
 
-    private func row(_ selection: SidebarSelection, count: Int?, tint: Color? = nil) -> some View {
-        Label {
-            HStack {
-                Text(selection.title)
-                Spacer()
-                if let count, count > 0 {
-                    Text("\(count)")
-                        .font(.system(size: 11, weight: .medium).monospacedDigit())
-                        .foregroundStyle(.secondary)
-                }
-            }
-        } icon: {
-            Image(systemName: selection.symbol)
-                .foregroundStyle(tint ?? Color.inkSoft)
+    private func row(_ selection: SidebarSelection) -> some View {
+        SidebarRow(selection: selection, isSelected: (router.selection ?? .home) == selection) {
+            router.selection = selection
         }
-        .tag(selection)
     }
 
-    private var tags: [(String, Int)] {
+    /// Shelves in use, in their natural order. A brand-new shelf shows the
+    /// common ones so there is somewhere to start.
+    private var shelves: [ItemKind] {
+        let used = Set(items.map(\.kind))
+        if used.isEmpty { return [.book, .film, .show, .paper, .article] }
+        return ItemKind.allCases.filter(used.contains)
+    }
+
+    /// Most-used first.
+    private var tags: [String] {
         var counts: [String: Int] = [:]
         for item in items { for tag in item.tags { counts[tag, default: 0] += 1 } }
-        return counts.sorted { $0.value == $1.value ? $0.key < $1.key : $0.value > $1.value }
-    }
-
-    private var captureHint: some View {
-        Button {
-            QuickCaptureController.shared.show(prefill: nil)
-        } label: {
-            HStack(spacing: 8) {
-                Image(systemName: "sparkles")
-                    .foregroundStyle(Color.glow)
-                Text("Capture from anywhere")
-                    .font(.system(size: 11.5, weight: .medium))
-                    .foregroundStyle(Color.inkSoft)
-                Spacer()
-                if HotKeyPreset.current != .off { KeyCap(HotKeyPreset.current.title) }
-            }
-            .padding(10)
-            .background(Color.paperRaised.opacity(0.6), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
-        }
-        .buttonStyle(.plain)
-        .padding(10)
+        return counts.sorted { $0.value == $1.value ? $0.key < $1.key : $0.value > $1.value }.map(\.key)
     }
 }
 
 extension Sequence {
     func tally(where predicate: (Element) -> Bool) -> Int {
         reduce(0) { predicate($1) ? $0 + 1 : $0 }
+    }
+}
+
+/// A sidebar row with the selection in Shelf's accent: solid when the
+/// window is key, a quiet wash when it isn't — as native selection does.
+private struct SidebarRow: View {
+    let selection: SidebarSelection
+    let isSelected: Bool
+    let select: () -> Void
+    @Environment(\.controlActiveState) private var activeState
+    @State private var hovering = false
+
+    private var isActive: Bool { activeState == .key || activeState == .active }
+
+    var body: some View {
+        Label {
+            Text(selection.title)
+                .foregroundStyle(isSelected && isActive ? Color.white : Color.ink)
+        } icon: {
+            Image(systemName: selection.symbol)
+                .foregroundStyle(isSelected && isActive ? Color.white : (isSelected ? Color.accent : Color.inkSoft))
+        }
+        .padding(.vertical, 1)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .contentShape(Rectangle())
+        .onTapGesture(perform: select)
+        .onHover { hovering = $0 }
+        .listRowBackground(
+            RoundedRectangle(cornerRadius: 6, style: .continuous)
+                .fill(background)
+                .padding(.horizontal, 10)
+        )
+        .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
+    }
+
+    private var background: Color {
+        if isSelected { return isActive ? Color.accent : Color.washStrong }
+        return hovering ? Color.wash : .clear
+    }
+}
+
+/// Settings within reach, and a quiet word on the Goodreads sync.
+private struct SidebarFooter: View {
+    private var sync: GoodreadsSync { .shared }
+
+    var body: some View {
+        HStack(spacing: 6) {
+            SettingsLink {
+                Label("Settings", systemImage: "gearshape")
+            }
+            .buttonStyle(.icon)
+            .help("Settings (⌘,)")
+
+            if sync.source != nil {
+                Button {
+                    Task { await sync.sync() }
+                } label: {
+                    HStack(spacing: 5) {
+                        if sync.state == .syncing {
+                            ProgressView().controlSize(.mini)
+                        } else {
+                            Image(systemName: "arrow.triangle.2.circlepath")
+                                .font(.system(size: 10, weight: .semibold))
+                        }
+                        Text(status).lineLimit(1)
+                    }
+                    .font(.system(size: 11))
+                    .foregroundStyle(Color.inkFaint)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .disabled(sync.state == .syncing)
+                .help("Sync with Goodreads now (⌘R)")
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+    }
+
+    private var status: String {
+        switch sync.state {
+        case .syncing: "Syncing…"
+        case .synced(_, let at): "Goodreads · \(at.formatted(.relative(presentation: .named)))"
+        case .failed: "Goodreads · couldn’t sync"
+        case .idle: "Goodreads"
+        }
     }
 }

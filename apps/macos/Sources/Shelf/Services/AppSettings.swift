@@ -9,6 +9,11 @@ enum SettingsKey {
     static let apiEnabled = "localAPIEnabled"
     static let name = "displayName"
     static let readsBrowser = "captureReadsFrontmostBrowser"
+    static let accent = "accentColor"
+    static let backdropArt = "backdropArt"
+    static let goodreads = "goodreadsProfile"
+    static let goodreadsLastSync = "goodreadsLastSync"
+    static let goodreadsCount = "goodreadsCount"
 }
 
 enum AppSettings {

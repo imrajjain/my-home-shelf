@@ -33,6 +33,7 @@ struct RootView: View {
             .animation(.shelf, value: router.showingInspector)
         }
         .searchable(text: $router.searchText, placement: .sidebar, prompt: "Search your shelf")
+        .tint(Color.accent)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button {
@@ -81,17 +82,10 @@ struct RootView: View {
     }
 
     private var closeInspectorButton: some View {
-        Button {
+        Button("Close", systemImage: "xmark") {
             router.showingInspector = false
-        } label: {
-            Image(systemName: "xmark")
-                .font(.system(size: 10, weight: .bold))
-                .foregroundStyle(Color.inkSoft)
-                .frame(width: 24, height: 24)
-                .background(Color.paperSunken.opacity(0.9), in: Circle())
-                .contentShape(Circle())
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.iconGlass)
         .keyboardShortcut(.cancelAction)
         .help("Close details (Esc)")
         .padding(12)

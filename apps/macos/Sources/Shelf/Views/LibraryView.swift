@@ -48,15 +48,15 @@ struct LibraryView: View {
                 if filtered.isEmpty {
                     emptyState.frame(minHeight: 380)
                 } else if layout == .grid {
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 140, maximum: 180), spacing: 28, alignment: .bottom)],
-                              alignment: .leading, spacing: 34) {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 128, maximum: 168), spacing: 24, alignment: .top)],
+                              alignment: .leading, spacing: 28) {
                         ForEach(filtered) { item in
-                            ItemCard(item: item, width: 140)
+                            ItemCard(item: item, width: 128, coverHeight: 192)
                                 .transition(.scale(scale: 0.9).combined(with: .opacity))
                         }
                     }
                 } else {
-                    LazyVStack(spacing: 4) {
+                    LazyVStack(spacing: 2) {
                         ForEach(filtered) { item in
                             ItemRow(item: item)
                                 .transition(.opacity)
@@ -68,6 +68,10 @@ struct LibraryView: View {
             .padding(.top, 30)
             .padding(.bottom, 60)
             .animation(.shelf, value: filtered.map(\.id))
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(alignment: .top) {
+                ArtworkBackdrop(colors: [.clear, .clear], height: 380, intensity: 0.7)
+            }
         }
         .onChange(of: scope) { _, _ in statusFilter = nil }
     }
@@ -75,24 +79,23 @@ struct LibraryView: View {
     // MARK: Header
 
     private var header: some View {
-        VStack(alignment: .leading, spacing: 18) {
+        VStack(alignment: .leading, spacing: 16) {
             HStack(alignment: .firstTextBaseline, spacing: 12) {
-                if case .kind(let kind) = scope {
-                    Image(systemName: kind.symbol)
-                        .font(.system(size: 22, weight: .medium))
-                        .foregroundStyle(kind.tint)
-                }
                 Text(router.searchText.isEmpty ? scope.title : "“\(router.searchText)”")
-                    .font(.display(34, weight: .medium))
+                    .font(.display(28, weight: .regular))
                     .foregroundStyle(Color.ink)
-                Text("\(filtered.count)")
-                    .font(.display(20, weight: .regular))
-                    .foregroundStyle(Color.inkFaint)
-                    .contentTransition(.numericText())
-                Spacer()
-                controls
+                    .lineLimit(1)
+                Spacer(minLength: 12)
+                // An empty shelf offers one way forward, in the middle.
+                if !scoped.isEmpty { addButton }
             }
-            if showsStatusFilter { statusBar }
+            if !filtered.isEmpty || !scoped.isEmpty {
+                HStack {
+                    if showsStatusFilter && !scoped.isEmpty { statusBar }
+                    Spacer()
+                    controls
+                }
+            }
         }
     }
 
@@ -104,43 +107,17 @@ struct LibraryView: View {
     }
 
     private var statusBar: some View {
-        HStack(spacing: 6) {
-            filterChip(nil, label: "All", count: scoped.count)
-            ForEach(ItemStatus.allCases) { status in
-                let count = scoped.tally { $0.status == status }
-                if count > 0 || status != .dropped {
-                    filterChip(status, label: labelFor(status), count: count)
-                }
-            }
-        }
+        PillPicker(
+            selection: $statusFilter,
+            options: [.init(value: nil, title: "All")] + ItemStatus.allCases
+                .filter { $0 != .dropped || scoped.contains { $0.status == .dropped } }
+                .map { .init(value: $0, title: labelFor($0)) }
+        )
     }
 
     private func labelFor(_ status: ItemStatus) -> String {
         if case .kind(let k) = scope { return k.label(for: status) }
         return status.title
-    }
-
-    private func filterChip(_ status: ItemStatus?, label: String, count: Int) -> some View {
-        let selected = statusFilter == status
-        let tint: Color = {
-            if case .kind(let k) = scope { return k.tint }
-            return .ink
-        }()
-        return Button {
-            withAnimation(.shelf) { statusFilter = status }
-        } label: {
-            HStack(spacing: 5) {
-                Text(label)
-                Text("\(count)").foregroundStyle(selected ? Color.white.opacity(0.7) : Color.inkFaint)
-            }
-            .font(.system(size: 12, weight: selected ? .semibold : .medium))
-            .foregroundStyle(selected ? Color.white : Color.inkSoft)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 6)
-            .background(selected ? tint : Color.paperSunken, in: Capsule())
-            .contentShape(Capsule())
-        }
-        .buttonStyle(.plain)
     }
 
     private var addLabel: String {
@@ -149,25 +126,14 @@ struct LibraryView: View {
     }
 
     private var addButton: some View {
-        let tint = router.currentKind?.tint ?? Color.ink
-        return Button {
-            router.showingCapture = true
-        } label: {
-            Label(addLabel, systemImage: "plus")
-                .font(.system(size: 12, weight: .semibold))
-                .foregroundStyle(.white)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
-                .background(tint, in: Capsule())
-                .contentShape(Capsule())
-        }
-        .buttonStyle(.plain)
-        .help("\(addLabel) (⌘N)")
+        Button(addLabel, systemImage: "plus") { router.showingCapture = true }
+            .buttonStyle(PillButtonStyle(kind: .primary, compact: true))
+            .help("\(addLabel) (⌘N)")
+            .fixedSize()
     }
 
     private var controls: some View {
-        HStack(spacing: 10) {
-            addButton
+        HStack(spacing: 8) {
 
             Menu {
                 Picker("Sort by", selection: $sort) {
@@ -175,32 +141,37 @@ struct LibraryView: View {
                 }
                 .pickerStyle(.inline)
             } label: {
-                Label(sort.title, systemImage: "arrow.up.arrow.down")
-                    .font(.system(size: 12))
+                Label("Sort", systemImage: "arrow.up.arrow.down")
             }
-            .menuStyle(.borderlessButton)
+            .menuStyle(.button)
+            .buttonStyle(.icon)
+            .menuIndicator(.hidden)
+            .help("Sort by \(sort.title.lowercased())")
             .fixedSize()
 
-            Picker("Layout", selection: Binding(get: { layout }, set: { setLayout($0) })) {
-                Image(systemName: "square.grid.2x2").tag(Layout.grid)
-                Image(systemName: "list.bullet").tag(Layout.list)
-            }
-            .pickerStyle(.segmented)
-            .labelsHidden()
-            .frame(width: 84)
+            PillPicker(
+                selection: Binding(get: { layout }, set: { setLayout($0) }),
+                options: [
+                    .init(value: Layout.grid, title: "Grid", symbol: "square.grid.2x2"),
+                    .init(value: Layout.list, title: "List", symbol: "list.bullet"),
+                ]
+            )
+            .fixedSize()
         }
     }
 
     @ViewBuilder private var emptyState: some View {
         if !router.searchText.isEmpty {
             EmptyShelf(symbol: "magnifyingglass", title: "Nothing by that name",
-                       message: "Nothing on your shelf matches “\(router.searchText)”. Press ⌘N to go find it.")
+                       message: "Nothing on your shelf matches “\(router.searchText)”.",
+                       actionTitle: "Find It…", action: { router.showingCapture = true })
         } else if case .kind(let kind) = scope {
             EmptyShelf(symbol: kind.symbol, title: "No \(kind.pluralTitle.lowercased()) yet",
-                       message: emptyMessage(for: kind), tint: kind.tint)
+                       message: emptyMessage(for: kind),
+                       actionTitle: "\(addLabel)…", action: { router.showingCapture = true })
         } else {
             EmptyShelf(symbol: scope.symbol, title: "Nothing here yet",
-                       message: "Things will gather here as you add them. Press ⌘N, or \(HotKeyPreset.current.title) from anywhere.")
+                       message: "Things gather here as you add them.")
         }
     }
 

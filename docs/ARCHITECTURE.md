@@ -18,7 +18,7 @@ apps/macos/
       Capture/          Hotkey, quick-capture panel, CaptureModel/View, LocalServer,
                         Services provider, frontmost-browser reader, CaptureCoordinator
       Services/         Settings, image cache, MapKit places, JSON archive
-  Support/              Info.plist, AppIcon.png
+  Support/              Info.plist, Shelf.icon (Icon Composer)
   scripts/bundle.sh     Builds a signed .app from the package
 extensions/browser/     Manifest V3 extension
 ```

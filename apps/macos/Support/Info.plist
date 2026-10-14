@@ -17,7 +17,9 @@
     <key>CFBundleVersion</key>
     <string>1</string>
     <key>CFBundleIconFile</key>
-    <string>AppIcon</string>
+    <string>Shelf</string>
+    <key>CFBundleIconName</key>
+    <string>Shelf</string>
     <key>LSMinimumSystemVersion</key>
     <string>14.0</string>
     <key>LSApplicationCategoryType</key>

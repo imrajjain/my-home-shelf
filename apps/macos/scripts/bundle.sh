@@ -21,16 +21,13 @@ mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp "$BIN" "$APP/Contents/MacOS/Shelf"
 cp "$ROOT/Support/Info.plist" "$APP/Contents/Info.plist"
 
-if [[ -f "$ROOT/Support/AppIcon.png" ]]; then
-  echo "→ Making icon"
-  ICONSET="$(mktemp -d)/AppIcon.iconset"
-  mkdir -p "$ICONSET"
-  for size in 16 32 128 256 512; do
-    sips -z $size $size "$ROOT/Support/AppIcon.png" --out "$ICONSET/icon_${size}x${size}.png" >/dev/null
-    sips -z $((size * 2)) $((size * 2)) "$ROOT/Support/AppIcon.png" --out "$ICONSET/icon_${size}x${size}@2x.png" >/dev/null
-  done
-  iconutil -c icns "$ICONSET" -o "$APP/Contents/Resources/AppIcon.icns"
-fi
+echo "→ Compiling icon (Liquid Glass + .icns fallback)"
+# Support/Shelf.icon is an Icon Composer document: vector layers that macOS
+# renders as glass, with dark and tinted variants. actool also writes a flat
+# Shelf.icns for older systems.
+xcrun actool "$ROOT/Support/Shelf.icon" --compile "$APP/Contents/Resources" \
+  --platform macosx --minimum-deployment-target 14.0 --app-icon Shelf \
+  --output-partial-info-plist "$(mktemp -d)/icon.plist" >/dev/null
 
 echo "→ Signing (ad hoc)"
 codesign --force --deep --sign - "$APP"

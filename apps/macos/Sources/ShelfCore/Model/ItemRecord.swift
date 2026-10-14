@@ -55,11 +55,17 @@ public struct ShelfArchive: Codable, Sendable {
     public var version: Int
     public var exportedAt: Date
     public var items: [ItemRecord]
+    /// Optional so archives from before notes and reminders still decode.
+    public var notes: [NoteRecord]?
+    public var reminders: [ReminderRecord]?
 
-    public init(items: [ItemRecord], exportedAt: Date = .now) {
+    public init(items: [ItemRecord], notes: [NoteRecord]? = nil, reminders: [ReminderRecord]? = nil,
+                exportedAt: Date = .now) {
         self.version = Self.currentVersion
         self.exportedAt = exportedAt
         self.items = items
+        self.notes = notes
+        self.reminders = reminders
     }
 
     public static var encoder: JSONEncoder {

@@ -196,7 +196,7 @@ public struct MetadataService: Sendable {
     }
 
     /// Same significant words, ignoring order, case, punctuation and filler.
-    static func sameWords(_ a: String, _ b: String) -> Bool {
+    public static func sameWords(_ a: String, _ b: String) -> Bool {
         let wa = Set(words(a)), wb = Set(words(b))
         guard !wa.isEmpty, !wb.isEmpty else { return false }
         return Double(wa.intersection(wb).count) / Double(wa.union(wb).count) >= 0.75

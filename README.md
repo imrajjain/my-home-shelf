@@ -27,7 +27,8 @@ own accent color.
 | Source | Gives you |
 |---|---|
 | Open Library, Google Books | Book covers, authors, page counts, descriptions |
-| Apple (iTunes Search) | Film & TV posters, podcasts, albums |
+| Wikipedia, TVmaze | Films and shows, with posters |
+| Apple (iTunes Search) | Podcasts, albums |
 | TMDB *(optional free key)* | Richer film & TV results |
 | arXiv, Crossref | Papers: authors, abstracts, venues, DOIs, PDF links |
 | Wikipedia | Curiosities and anything else: summaries and images |
@@ -78,6 +79,10 @@ swift test                   # ShelfCore unit tests
 ```
 
 You can also open `apps/macos/Package.swift` in Xcode and press ⌘R.
+
+> If you use swiftly or a swift.org toolchain, prefix commands with `xcrun`
+> (`xcrun swift build`). Only Xcode's toolchain has the SwiftData/SwiftUI
+> macros and MapKit overlays the app needs; `bundle.sh` does this for you.
 
 > The first time you use quick capture from a browser, macOS asks whether
 > Shelf may control that browser. That's how it reads the current tab.

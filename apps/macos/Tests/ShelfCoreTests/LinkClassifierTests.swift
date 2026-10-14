@@ -49,4 +49,25 @@ struct LinkClassifierTests {
         #expect(!LinkClassifier.isBareURL("read this https://example.com"))
         #expect(!LinkClassifier.isBareURL("dune"))
     }
+
+    @Test func fallbackTitles() {
+        func title(_ s: String) -> String { MetadataService.fallback(for: URL(string: s)!, kind: .book).title }
+        #expect(title("https://www.goodreads.com/book/show/18373.Flowers_for_Algernon") == "Flowers for Algernon")
+        #expect(title("https://www.goodreads.com/book/show/44767458-dune") == "Dune")
+        #expect(title("https://example.com/blog/the-art-of-noticing.html") == "The Art Of Noticing")
+        #expect(title("https://www.imdb.com/title/tt11280740/") == "imdb.com")
+    }
+
+    @Test func imdbID() {
+        #expect(IMDbResolver.imdbID(URL(string: "https://www.imdb.com/title/tt11280740/")!) == "tt11280740")
+        #expect(IMDbResolver.imdbID(URL(string: "https://m.imdb.com/title/tt0816692/reviews")!) == "tt0816692")
+        #expect(IMDbResolver.imdbID(URL(string: "https://www.imdb.com/name/nm0000138/")!) == nil)
+    }
+
+    @Test func looseTitleMatching() {
+        #expect(MetadataService.sameWords("Flowers for Algernon", "flowers of algernon"))
+        #expect(MetadataService.sameWords("The Matrix", "matrix"))
+        #expect(!MetadataService.sameWords("Algernon, Charlie and I, A Writer's Journey", "flowers of algernon"))
+        #expect(!MetadataService.sameWords("The Matrix Reloaded", "the matrix"))
+    }
 }

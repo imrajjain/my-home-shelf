@@ -86,7 +86,8 @@ private struct SourceSettings: View {
         Form {
             Section("Built in — no setup") {
                 source("Open Library & Google Books", "Books, covers, authors, page counts")
-                source("Apple", "Film and TV posters, podcasts, albums")
+                source("Wikipedia & TVmaze", "Films and shows, with posters")
+                source("Apple", "Podcasts and albums")
                 source("arXiv & Crossref", "Papers, abstracts, authors, DOIs")
                 source("Wikipedia", "Curiosities, places, anything")
                 source("Apple Maps", "Places you want to go")

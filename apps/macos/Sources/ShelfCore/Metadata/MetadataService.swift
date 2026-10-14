@@ -43,12 +43,13 @@ public struct MetadataService: Sendable {
         if let key = tmdbAPIKey?.trimmed, !key.isEmpty { providers.append(TMDBProvider(apiKey: key)) }
         providers += [
             OpenLibraryProvider(), GoogleBooksProvider(), ITunesProvider(),
+            WikipediaFilmProvider(), TVmazeProvider(),
             ArxivProvider(), CrossrefProvider(), WikipediaProvider(),
         ]
         providers += extraProviders
         return MetadataService(
             searchProviders: providers,
-            resolvers: [ArxivProvider(), CrossrefProvider(), YouTubeResolver(), WikipediaProvider()]
+            resolvers: [ArxivProvider(), CrossrefProvider(), YouTubeResolver(), IMDbResolver(), WikipediaProvider()]
         )
     }
 
@@ -116,7 +117,7 @@ public struct MetadataService: Sendable {
         for resolver in resolvers where resolver.canResolve(url) {
             if var m = try? await resolver.resolve(url) {
                 if let hint { m.kind = hint }
-                return m
+                return await enrich(m)
             }
         }
 
@@ -130,10 +131,12 @@ public struct MetadataService: Sendable {
         if url.path.lowercased().hasSuffix(".pdf") {
             result = Self.fallback(for: url, kind: guessed)
         } else if let fetched = try? await http.data(url, accept: "text/html,application/xhtml+xml"),
-                  let html = String(data: fetched.0, encoding: .utf8) ?? String(data: fetched.0, encoding: .isoLatin1) {
-            let finalURL = fetched.1
-            let page = HTMLMetadataParser().parse(html, baseURL: finalURL)
-            result = page.metadata(for: finalURL, guessedKind: guessed)
+                  let html = String(data: fetched.0, encoding: .utf8) ?? String(data: fetched.0, encoding: .isoLatin1),
+                  case let page = HTMLMetadataParser().parse(html, baseURL: fetched.1),
+                  case let parsed = page.metadata(for: fetched.1, guessedKind: guessed),
+                  // Bot walls (Goodreads, IMDb) send an empty page: no title but the URL itself.
+                  parsed.title != fetched.1.absoluteString, parsed.title != url.absoluteString {
+            result = parsed
             result.url = result.url ?? url
             // Academic landing pages often carry a DOI: upgrade via Crossref.
             if result.kind == .paper, let doi = result.extra["doi"],
@@ -142,12 +145,15 @@ public struct MetadataService: Sendable {
             }
         } else {
             result = Self.fallback(for: url, kind: guessed)
+            return await enrich(result, trustCatalogTitle: true)
         }
         return await enrich(result)
     }
 
     /// Fills missing covers/authors by asking a catalogue about the title.
-    public func enrich(_ metadata: Metadata) async -> Metadata {
+    /// `trustCatalogTitle` is for slug-derived guesses: "Flowers For Algernon"
+    /// should become the catalogue's "Flowers for Algernon".
+    public func enrich(_ metadata: Metadata, trustCatalogTitle: Bool = false) async -> Metadata {
         let needsHelp = metadata.imageURL == nil || metadata.creator == nil || metadata.year == nil
         guard needsHelp else { return metadata }
         let query = [metadata.title, metadata.creator].compactMap { $0 }.joined(separator: " ")
@@ -155,9 +161,10 @@ public struct MetadataService: Sendable {
         switch metadata.kind {
         case .book:
             provider = OpenLibraryProvider(http: http)
-        case .film, .show:
-            let tmdb = searchProviders.first { $0 is TMDBProvider }
-            provider = tmdb ?? ITunesProvider(http: http)
+        case .film:
+            provider = searchProviders.first { $0 is TMDBProvider } ?? WikipediaFilmProvider(http: http)
+        case .show:
+            provider = searchProviders.first { $0 is TMDBProvider } ?? TVmazeProvider(http: http)
         case .podcast, .music:
             provider = ITunesProvider(http: http)
         default:
@@ -166,7 +173,33 @@ public struct MetadataService: Sendable {
         guard let provider,
               let best = try? await provider.search(query, kind: metadata.kind).first(where: { Self.similar($0.title, metadata.title) })
         else { return metadata }
-        return metadata.merged(with: best)
+        var merged = metadata.merged(with: best)
+        if trustCatalogTitle { merged.title = best.title }
+        return merged
+    }
+
+    /// What a loosely typed title ("flowers of algernon") most likely means,
+    /// or nil when nothing in the catalogues is a confident match.
+    public func bestMatch(for title: String, kind: ItemKind) async -> Metadata? {
+        if let hit = await search(title, kind: kind).first(where: { Self.sameWords($0.title, title) }) { return hit }
+        // Small words are where typos hide: retry with just the big ones.
+        let core = Self.words(title).joined(separator: " ")
+        guard !core.isEmpty, core != title.lowercased() else { return nil }
+        return await search(core, kind: kind).first { Self.sameWords($0.title, title) }
+    }
+
+    static let smallWords: Set<String> = ["a", "an", "the", "of", "for", "and", "in", "on", "to", "at", "by", "with"]
+
+    static func words(_ s: String) -> [String] {
+        s.lowercased().components(separatedBy: CharacterSet.alphanumerics.inverted)
+            .filter { !$0.isEmpty && !smallWords.contains($0) }
+    }
+
+    /// Same significant words, ignoring order, case, punctuation and filler.
+    static func sameWords(_ a: String, _ b: String) -> Bool {
+        let wa = Set(words(a)), wb = Set(words(b))
+        guard !wa.isEmpty, !wb.isEmpty else { return false }
+        return Double(wa.intersection(wb).count) / Double(wa.union(wb).count) >= 0.75
     }
 
     static func similar(_ a: String, _ b: String) -> Bool {
@@ -176,12 +209,20 @@ public struct MetadataService: Sendable {
         return na == nb || na.hasPrefix(nb) || nb.hasPrefix(na)
     }
 
-    /// "https://example.com/blog/the-art-of-noticing" -> "The Art Of Noticing"
+    /// "https://example.com/blog/the-art-of-noticing" -> "The Art Of Noticing",
+    /// "goodreads.com/book/show/18373.Flowers_for_Algernon" -> "Flowers for Algernon"
     public static func fallback(for url: URL, kind: ItemKind) -> Metadata {
-        let slug = url.deletingPathExtension().lastPathComponent
+        let fileExtensions: Set<String> = ["html", "htm", "php", "asp", "aspx", "pdf"]
+        var slug = fileExtensions.contains(url.pathExtension.lowercased())
+            ? url.deletingPathExtension().lastPathComponent : url.lastPathComponent
+        // Drop a leading numeric ID: "18373.Flowers…", "44767458-dune".
+        slug = slug.replacingOccurrences(of: #"^\d+[.\-_]"#, with: "", options: .regularExpression)
         let words = slug.replacingOccurrences(of: #"[-_+]+"#, with: " ", options: .regularExpression).trimmed
-        let looksLikeWords = words.count > 3 && words.rangeOfCharacter(from: .letters) != nil && !words.allSatisfy(\.isNumber)
-        let title = looksLikeWords ? words.capitalized : url.hostWithoutWWW
+        // "tt11280740" or "a8f3c2" is an ID, not a title: want a real word in there.
+        let looksLikeWords = words.count > 3 && words.range(of: #"\p{L}{3,}"#, options: .regularExpression) != nil
+        // Keep the slug's own casing when it has any; only title-case all-lowercase slugs.
+        let cased = words == words.lowercased() ? words.capitalized : words
+        let title = looksLikeWords ? cased : url.hostWithoutWWW
         return Metadata(kind: kind, title: title, url: url, provider: url.hostWithoutWWW)
     }
 }

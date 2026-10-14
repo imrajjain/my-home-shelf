@@ -42,6 +42,8 @@ final class CaptureCoordinator {
             enrich(item, from: url, hint: request.kind, keepTitle: false)
         } else if kind == .curiosity {
             enrichCuriosity(item)
+        } else {
+            enrichFromCatalog(item)
         }
         return item
     }
@@ -66,12 +68,25 @@ final class CaptureCoordinator {
     /// Re-fetch metadata for an existing item (detail view → "Refresh").
     func refresh(_ item: Item) {
         guard let url = item.url else {
-            if item.kind == .curiosity { enrichCuriosity(item) }
+            if item.kind == .curiosity { enrichCuriosity(item) } else { enrichFromCatalog(item) }
             return
         }
         item.imageURLString = nil
         item.imageData = nil
         enrich(item, from: url, hint: item.kind, keepTitle: false, force: true)
+    }
+
+    /// Items saved while a site was blocking us ended up titled with their
+    /// own URL, and typed titles used to skip the catalogues. Retry both.
+    func repairUnresolved() {
+        let all = (try? context.fetch(FetchDescriptor<Item>(predicate: #Predicate { $0.deletedAt == nil }))) ?? []
+        for item in all where !item.isEnriching {
+            if item.url != nil, item.title.hasPrefix("http://") || item.title.hasPrefix("https://") {
+                refresh(item)
+            } else if item.url == nil, item.kind != .curiosity, item.creator == nil, item.imageURLString == nil {
+                enrichFromCatalog(item)
+            }
+        }
     }
 
     // MARK: - Enrichment
@@ -88,7 +103,25 @@ final class CaptureCoordinator {
             // A fetch that failed yields a slug-derived title; the page title we
             // were handed (if any) is better than that.
             let isFallback = m.title == MetadataService.fallback(for: url, kind: m.kind).title
-            item.apply(m, overwriteTitle: !keepTitle && !isFallback)
+            // ...unless what we have is just the URL itself.
+            let titleIsURL = item.title.hasPrefix("http://") || item.title.hasPrefix("https://")
+            item.apply(m, overwriteTitle: !keepTitle && (!isFallback || titleIsURL))
+            item.isEnriching = false
+            try? context.save()
+            cacheCover(for: item)
+        }
+    }
+
+    /// A typed title ("flowers of algernon") becomes the real thing, with a
+    /// cover, when a catalogue is confident it knows what was meant.
+    private func enrichFromCatalog(_ item: Item) {
+        item.isEnriching = true
+        let service = AppSettings.metadata
+        let (title, kind) = (item.title, item.kind)
+        Task { @MainActor in
+            if let m = await service.bestMatch(for: title, kind: kind) {
+                item.apply(m, overwriteTitle: true)
+            }
             item.isEnriching = false
             try? context.save()
             cacheCover(for: item)

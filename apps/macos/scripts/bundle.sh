@@ -37,7 +37,12 @@ if [[ "${1:-}" == "--install" ]]; then
   rm -rf "/Applications/Shelf.app"
   cp -R "$APP" /Applications/
   # Register the URL scheme and Services menu entry.
-  /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f /Applications/Shelf.app
+  LSREGISTER=/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister
+  # Only the installed copy should appear in launchers; the build copy in
+  # dist/ would otherwise compete with it (and keep a stale icon around).
+  "$LSREGISTER" -u "$APP" || true
+  touch /Applications/Shelf.app
+  "$LSREGISTER" -f /Applications/Shelf.app
   /System/Library/CoreServices/pbs -update || true
   open /Applications/Shelf.app
 else

@@ -143,8 +143,32 @@ struct LibraryView: View {
         .buttonStyle(.plain)
     }
 
+    private var addLabel: String {
+        if let kind = router.currentKind { return "Add \(kind.title.lowercased())" }
+        return "Add"
+    }
+
+    private var addButton: some View {
+        let tint = router.currentKind?.tint ?? Color.ink
+        return Button {
+            router.showingCapture = true
+        } label: {
+            Label(addLabel, systemImage: "plus")
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundStyle(.white)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(tint, in: Capsule())
+                .contentShape(Capsule())
+        }
+        .buttonStyle(.plain)
+        .help("\(addLabel) (⌘N)")
+    }
+
     private var controls: some View {
         HStack(spacing: 10) {
+            addButton
+
             Menu {
                 Picker("Sort by", selection: $sort) {
                     ForEach(Sort.allCases) { Text($0.title).tag($0) }

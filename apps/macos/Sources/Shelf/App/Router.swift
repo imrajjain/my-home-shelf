@@ -40,6 +40,18 @@ final class Router {
     var showingInspector = false
     var searchText = ""
 
+    /// The shelf being browsed, so new things land there by default.
+    var currentKind: ItemKind? {
+        if case .kind(let kind) = selection { return kind }
+        return nil
+    }
+
+    /// Adding from "Finished" means it's already finished.
+    var currentStatus: ItemStatus? {
+        if case .status(let status) = selection, status != .dropped { return status }
+        return nil
+    }
+
     func open(_ item: Item) {
         selectedItemID = item.id
         showingInspector = true

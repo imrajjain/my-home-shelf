@@ -9,6 +9,9 @@ struct CaptureView: View {
     var presentation: Presentation = .panel
     var prefill: CaptureRequest?
     var frontmostApp: NSRunningApplication?
+    /// Where the add starts: the shelf (and status) the user is looking at.
+    var initialKind: ItemKind?
+    var initialStatus: ItemStatus?
     var onClose: () -> Void
 
     @State private var model = CaptureModel()
@@ -34,6 +37,8 @@ struct CaptureView: View {
             }
         }
         .task {
+            if let initialKind { model.kind = initialKind }
+            if let initialStatus { model.status = initialStatus }
             model.loadContext(prefill: prefill, frontmostApp: frontmostApp)
             try? await Task.sleep(for: .milliseconds(40))
             fieldFocused = true

@@ -26,6 +26,7 @@ struct RootView: View {
                     Rectangle().fill(Color.hairline).frame(width: 1).ignoresSafeArea()
                     inspector
                         .frame(width: 360)
+                        .overlay(alignment: .topTrailing) { closeInspectorButton }
                         .transition(.move(edge: .trailing))
                 }
             }
@@ -41,9 +42,19 @@ struct RootView: View {
                 }
                 .help("Add to Shelf (⌘N)")
             }
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    router.showingInspector.toggle()
+                } label: {
+                    Label("Details", systemImage: "sidebar.right")
+                }
+                .help(router.showingInspector ? "Hide details (⌥⌘I)" : "Show details (⌥⌘I)")
+            }
         }
         .sheet(isPresented: $router.showingCapture) {
-            CaptureView(presentation: .sheet) { router.showingCapture = false }
+            CaptureView(presentation: .sheet, initialKind: router.currentKind, initialStatus: router.currentStatus) {
+                router.showingCapture = false
+            }
         }
         .onChange(of: router.searchText) { _, text in
             // Searching shows results across the whole shelf.
@@ -67,6 +78,23 @@ struct RootView: View {
         case let scope:
             LibraryView(items: items, scope: scope)
         }
+    }
+
+    private var closeInspectorButton: some View {
+        Button {
+            router.showingInspector = false
+        } label: {
+            Image(systemName: "xmark")
+                .font(.system(size: 10, weight: .bold))
+                .foregroundStyle(Color.inkSoft)
+                .frame(width: 24, height: 24)
+                .background(Color.paperSunken.opacity(0.9), in: Circle())
+                .contentShape(Circle())
+        }
+        .buttonStyle(.plain)
+        .keyboardShortcut(.cancelAction)
+        .help("Close details (Esc)")
+        .padding(12)
     }
 
     @ViewBuilder private var inspector: some View {

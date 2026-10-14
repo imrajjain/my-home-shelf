@@ -114,4 +114,30 @@ enum ItemActions {
         }
         try? item.modelContext?.save()
     }
+
+    /// Double-click: straight to something readable. arXiv papers open their
+    /// HTML version, or the PDF when arXiv has no HTML; everything else opens
+    /// the saved link.
+    @MainActor
+    static func read(_ item: Item) {
+        guard let id = item.extra["arxiv"] ?? item.url.flatMap(LinkClassifier.arxivID) else {
+            if let url = item.url { NSWorkspace.shared.open(url) }
+            return
+        }
+        Task {
+            NSWorkspace.shared.open(await arxivReadingURL(id))
+        }
+    }
+
+    private static func arxivReadingURL(_ id: String) async -> URL {
+        let html = URL(string: "https://arxiv.org/html/\(id)")!
+        var request = URLRequest(url: html, timeoutInterval: 4)
+        request.httpMethod = "HEAD"
+        request.setValue(HTTP.userAgent, forHTTPHeaderField: "User-Agent")
+        if let (_, response) = try? await URLSession.shared.data(for: request),
+           let status = (response as? HTTPURLResponse)?.statusCode, (200..<300).contains(status) {
+            return html
+        }
+        return URL(string: "https://arxiv.org/pdf/\(id)")!
+    }
 }

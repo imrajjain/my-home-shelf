@@ -54,7 +54,7 @@ struct ItemDetailView: View {
                 }
                 .padding(.top, 6)
                 .frame(maxWidth: .infinity)
-                .onTapGesture(count: 2) { if let url = item.url { NSWorkspace.shared.open(url) } }
+                .onTapGesture(count: 2) { ItemActions.read(item) }
 
             VStack(alignment: .center, spacing: 4) {
                 if editingTitle {

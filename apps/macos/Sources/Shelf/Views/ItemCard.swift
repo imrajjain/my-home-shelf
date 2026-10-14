@@ -48,7 +48,7 @@ struct ItemCard: View {
         }
         .contentShape(Rectangle())
         .onHover { inside in withAnimation(.lift) { hovering = inside } }
-        .onTapGesture(count: 2) { if let url = item.url { NSWorkspace.shared.open(url) } }
+        .onTapGesture(count: 2) { ItemActions.read(item) }
         .onTapGesture { withAnimation(.shelf) { router.open(item) } }
         .contextMenu { ItemContextMenu(item: item) }
         .accessibilityElement(children: .combine)
@@ -157,7 +157,7 @@ struct ItemRow: View {
         }
         .contentShape(Rectangle())
         .onHover { inside in withAnimation(.lift) { hovering = inside } }
-        .onTapGesture(count: 2) { if let url = item.url { NSWorkspace.shared.open(url) } }
+        .onTapGesture(count: 2) { ItemActions.read(item) }
         .onTapGesture { withAnimation(.shelf) { router.open(item) } }
         .contextMenu { ItemContextMenu(item: item) }
     }

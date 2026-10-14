@@ -10,6 +10,8 @@ public struct HTMLMetadataParser: Sendable {
         public var title: String?
         public var canonical: URL?
         public var jsonLD: [[String: Any]] = []
+        /// Topic links in the body, e.g. Papers with Code's Tasks and Methods.
+        public var topics: [String] = []
 
         public subscript(_ key: String) -> String? { meta[key.lowercased()]?.nilIfEmpty }
 
@@ -63,6 +65,15 @@ public struct HTMLMetadataParser: Sendable {
             guard let data = body.data(using: .utf8),
                   let object = try? JSONSerialization.jsonObject(with: data) else { continue }
             page.jsonLD.append(contentsOf: flattenLD(object))
+        }
+
+        // Papers with Code lists a paper's Tasks and Methods as plain links.
+        if let host = baseURL?.hostWithoutWWW, host.hasPrefix("paperswithcode.") {
+            let links = captures(of: #"<a\b[^>]*href=["']/(?:tasks|methods)/[^"']+["'][^>]*>([\s\S]*?)</a>"#, in: html)
+            for link in links {
+                let name = decodeEntities(link.strippingTags).squished
+                if !name.isEmpty, !page.topics.contains(name) { page.topics.append(name) }
+            }
         }
         return page
     }
@@ -193,6 +204,7 @@ extension HTMLMetadataParser.Page {
             meta.extra["venue"] = self["citation_journal_title"] ?? self["citation_conference_title"]
             if let doi = self["citation_doi"] { meta.extra["doi"] = doi }
             if let pdf = self["citation_pdf_url"] { meta.extra["pdf"] = pdf }
+            if let arxiv = self["citation_arxiv_id"] { meta.extra["arxiv"] = arxiv }
         }
 
         // Letterboxd/IMDb titles often look like "Dune (2021)" — split the year out.
@@ -214,6 +226,7 @@ extension HTMLMetadataParser.Page {
         }
         if let genres = ld?["genre"] as? [String] { meta.tags = Array(genres.prefix(4)) }
         else if let genre = ld?["genre"] as? String { meta.tags = [genre] }
+        if !topics.isEmpty { meta.tags = topics }
         return meta
     }
 

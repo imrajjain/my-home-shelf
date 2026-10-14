@@ -24,6 +24,33 @@ struct HTMLMetadataParserTests {
         #expect(m.provider == "Example")
     }
 
+    @Test func papersWithCodeTasksAndMethods() {
+        let html = """
+        <html><head>
+        <title>Agent Harness | Papers with Code</title>
+        <meta name="citation_title" content="Self-Improving Agent Harnesses">
+        <meta name="citation_arxiv_id" content="2610.11959">
+        </head><body>
+        <nav><a href="/papers/recent">Recent</a></nav>
+        <section aria-label="Tasks and methods">
+        <div><h3>Tasks</h3><ul><li><a href="/tasks/agents">Agents</a></li></ul></div>
+        <div><h3>Methods</h3><ul><li><a href="/methods/agent-harness">Agent Harness</a></li>
+        <li><a href="/methods/llm">Large language model (LLM)</a></li>
+        <li><a href="/methods/rsi"><span>Recursive Self&#8209;Improvement</span></a></li>
+        <li><a href="/methods/agent-harness">Agent Harness</a></li></ul></div>
+        </section></body></html>
+        """
+        let url = URL(string: "https://paperswithcode.co/paper/2610.11959")!
+        let m = HTMLMetadataParser().parse(html, baseURL: url).metadata(for: url, guessedKind: .paper)
+        #expect(m.title == "Self-Improving Agent Harnesses")
+        #expect(m.tags == ["Agents", "Agent Harness", "Large language model (LLM)", "Recursive Self\u{2011}Improvement"])
+        #expect(m.extra["arxiv"] == "2610.11959")
+
+        // Other sites' /tasks/ links are navigation, not topics.
+        let other = URL(string: "https://example.com/paper")!
+        #expect(HTMLMetadataParser().parse(html, baseURL: other).topics.isEmpty)
+    }
+
     @Test func letterboxdStyleJSONLD() {
         let html = """
         <html><head>

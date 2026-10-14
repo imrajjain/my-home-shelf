@@ -28,7 +28,7 @@ public enum LinkClassifier {
         if on("arxiv.org", "doi.org", "semanticscholar.org", "openreview.net", "aclanthology.org",
               "biorxiv.org", "medrxiv.org", "ssrn.com", "pubmed.ncbi.nlm.nih.gov", "ncbi.nlm.nih.gov",
               "dl.acm.org", "ieeexplore.ieee.org", "nature.com", "science.org", "jstor.org",
-              "researchgate.net", "scholar.google.com", "paperswithcode.com", "proceedings.neurips.cc",
+              "researchgate.net", "scholar.google.com", "paperswithcode.com", "paperswithcode.co", "proceedings.neurips.cc",
               "proceedings.mlr.press", "papers.nips.cc", "springer.com", "sciencedirect.com", "pnas.org")
             || path.hasSuffix(".pdf") {
             return .paper

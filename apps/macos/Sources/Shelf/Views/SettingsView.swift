@@ -34,12 +34,12 @@ private struct GeneralSettings: View {
             } header: {
                 Text("Background art")
             } footer: {
-                Text("Drawn in fine lines from the top corner of each page, in your accent color.")
+                Text("Drawn in fine lines from the top corner of each page, in your accent color. Shuffle picks a new one each time Shelf opens.")
                     .font(.caption).foregroundStyle(.secondary)
             }
         }
         .formStyle(.grouped)
-        .frame(height: 560)
+        .frame(height: 580)
     }
 }
 
@@ -154,9 +154,9 @@ private struct AccentPicker: View {
     var body: some View {
         HStack(spacing: 6) {
             ForEach(AccentChoice.allCases) { choice in
-                let selected = appearance.accent == choice
+                let selected = appearance.accent == choice && !appearance.shuffleAccent
                 Button {
-                    withAnimation(.snappy(duration: 0.2)) { appearance.accent = choice }
+                    withAnimation(.snappy(duration: 0.2)) { appearance.choose(choice) }
                 } label: {
                     Circle()
                         .fill(choice.color.gradient)
@@ -171,6 +171,24 @@ private struct AccentPicker: View {
                 .accessibilityLabel(choice.title)
                 .accessibilityAddTraits(selected ? .isSelected : [])
             }
+            Divider().frame(height: 16).padding(.horizontal, 2)
+            // Shuffle: a rainbow swatch with the shuffle glyph.
+            Button {
+                withAnimation(.snappy(duration: 0.2)) { appearance.shuffleAccent = true }
+            } label: {
+                Circle()
+                    .fill(AngularGradient(colors: AccentChoice.allCases.filter { $0 != .graphite }.map(\.color)
+                                            + [AccentChoice.blue.color], center: .center))
+                    .overlay(Image(systemName: "shuffle").font(.system(size: 7.5, weight: .heavy)).foregroundStyle(.white))
+                    .frame(width: 16, height: 16)
+                    .padding(3)
+                    .overlay(Circle().strokeBorder(appearance.shuffleAccent ? Color.accent : .clear, lineWidth: 2))
+                    .contentShape(Circle())
+            }
+            .buttonStyle(.plain)
+            .help("Shuffle: a new color each time Shelf opens")
+            .accessibilityLabel("Shuffle colors")
+            .accessibilityAddTraits(appearance.shuffleAccent ? .isSelected : [])
         }
     }
 }
@@ -236,9 +254,9 @@ private struct ArtPicker: View {
     var body: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 100), spacing: 12)], spacing: 12) {
             ForEach(BackdropArt.allCases) { art in
-                let selected = appearance.art == art
+                let selected = appearance.art == art && !appearance.shuffleArt
                 Button {
-                    withAnimation(.snappy(duration: 0.2)) { appearance.art = art }
+                    withAnimation(.snappy(duration: 0.2)) { appearance.choose(art) }
                 } label: {
                     VStack(spacing: 6) {
                         ZStack {
@@ -265,7 +283,41 @@ private struct ArtPicker: View {
                 .accessibilityLabel(art.title)
                 .accessibilityAddTraits(selected ? .isSelected : [])
             }
+            shuffleTile
         }
         .padding(.vertical, 4)
+    }
+
+    /// Shuffle: today's art, faintly, under the shuffle glyph.
+    private var shuffleTile: some View {
+        let selected = appearance.shuffleArt
+        return Button {
+            withAnimation(.snappy(duration: 0.2)) { appearance.shuffleArt = true }
+        } label: {
+            VStack(spacing: 6) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .fill(Color(nsColor: .textBackgroundColor))
+                    BackdropArtLayer(art: appearance.art, intensity: 1.0, reach: 120)
+                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    Image(systemName: "shuffle")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(Color.accent)
+                }
+                .frame(height: 70)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .strokeBorder(selected ? Color.accent : Color.hairline, lineWidth: selected ? 2 : 1)
+                )
+                Text("Shuffle")
+                    .font(.system(size: 11.5, weight: selected ? .semibold : .regular))
+                    .foregroundStyle(selected ? Color.accent : Color.inkSoft)
+            }
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .help("A new style each time Shelf opens")
+        .accessibilityLabel("Shuffle styles")
+        .accessibilityAddTraits(selected ? .isSelected : [])
     }
 }

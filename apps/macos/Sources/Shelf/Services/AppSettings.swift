@@ -11,6 +11,8 @@ enum SettingsKey {
     static let readsBrowser = "captureReadsFrontmostBrowser"
     static let accent = "accentColor"
     static let backdropArt = "backdropArt"
+    static let shuffleAccent = "shuffleAccent"
+    static let shuffleArt = "shuffleArt"
     static let goodreads = "goodreadsProfile"
     static let goodreadsLastSync = "goodreadsLastSync"
     static let goodreadsCount = "goodreadsCount"

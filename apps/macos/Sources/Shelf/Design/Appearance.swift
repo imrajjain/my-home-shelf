@@ -42,10 +42,38 @@ final class Appearance {
         didSet { UserDefaults.standard.set(art.rawValue, forKey: SettingsKey.backdropArt) }
     }
 
-    private init() {
-        accent = UserDefaults.standard.string(forKey: SettingsKey.accent).flatMap(AccentChoice.init(rawValue:)) ?? .blue
-        art = UserDefaults.standard.string(forKey: SettingsKey.backdropArt).flatMap(BackdropArt.init(rawValue:)) ?? .warli
+    /// Something new each time Shelf opens: a fresh accent and/or art,
+    /// never the same as last time.
+    var shuffleAccent: Bool {
+        didSet { UserDefaults.standard.set(shuffleAccent, forKey: SettingsKey.shuffleAccent) }
     }
+    var shuffleArt: Bool {
+        didSet { UserDefaults.standard.set(shuffleArt, forKey: SettingsKey.shuffleArt) }
+    }
+
+    private init() {
+        let defaults = UserDefaults.standard
+        let lastAccent = defaults.string(forKey: SettingsKey.accent).flatMap(AccentChoice.init(rawValue:)) ?? .blue
+        let lastArt = defaults.string(forKey: SettingsKey.backdropArt).flatMap(BackdropArt.init(rawValue:)) ?? .warli
+        let shufflingAccent = defaults.bool(forKey: SettingsKey.shuffleAccent)
+        let shufflingArt = defaults.bool(forKey: SettingsKey.shuffleArt)
+        shuffleAccent = shufflingAccent
+        shuffleArt = shufflingArt
+        // Graphite and "None" aren't much of a surprise, so shuffle skips them.
+        accent = shufflingAccent
+            ? AccentChoice.allCases.filter { $0 != lastAccent && $0 != .graphite }.randomElement() ?? lastAccent
+            : lastAccent
+        art = shufflingArt
+            ? BackdropArt.allCases.filter { $0 != lastArt && $0 != .none }.randomElement() ?? lastArt
+            : lastArt
+        // Remember today's pick, so tomorrow's is different again.
+        defaults.set(accent.rawValue, forKey: SettingsKey.accent)
+        defaults.set(art.rawValue, forKey: SettingsKey.backdropArt)
+    }
+
+    /// Choosing a specific color or style turns shuffling off for it.
+    func choose(_ choice: AccentChoice) { accent = choice; shuffleAccent = false }
+    func choose(_ choice: BackdropArt) { art = choice; shuffleArt = false }
 }
 
 extension Color {

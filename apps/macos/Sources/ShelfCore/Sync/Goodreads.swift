@@ -86,8 +86,7 @@ public enum GoodreadsFeed {
     }
 
     public static func feedURL(_ source: Source, page: Int, perPage: Int = 200) -> URL? {
-        // Without an explicit sort, Goodreads serves a stale ordering that
-        // leaves out books added in the last little while.
+        // Newest first, so pages stay stable while you add books mid-fetch.
         var query = ["shelf": "#ALL#", "sort": "date_added", "order": "d",
                      "per_page": String(perPage), "page": String(page)]
         if let key = source.key { query["key"] = key }

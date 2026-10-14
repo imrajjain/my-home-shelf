@@ -86,7 +86,10 @@ public enum GoodreadsFeed {
     }
 
     public static func feedURL(_ source: Source, page: Int, perPage: Int = 200) -> URL? {
-        var query = ["shelf": "#ALL#", "per_page": String(perPage), "page": String(page)]
+        // Without an explicit sort, Goodreads serves a stale ordering that
+        // leaves out books added in the last little while.
+        var query = ["shelf": "#ALL#", "sort": "date_added", "order": "d",
+                     "per_page": String(perPage), "page": String(page)]
         if let key = source.key { query["key"] = key }
         return URL.api("https://www.goodreads.com/review/list_rss/\(source.userID)", query)
     }

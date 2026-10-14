@@ -33,8 +33,8 @@ struct ItemCard: View {
                 Text(item.title)
                     .font(.display(13.5, weight: .semibold))
                     .foregroundStyle(Color.ink)
-                    .lineLimit(2)
-                    .fixedSize(horizontal: false, vertical: true)
+                    // Reserve both lines so covers in a row stay level.
+                    .lineLimit(2, reservesSpace: true)
                 Text(item.byline.isEmpty ? (item.host ?? item.kind.title) : item.byline)
                     .font(.system(size: 11.5))
                     .foregroundStyle(Color.inkSoft)

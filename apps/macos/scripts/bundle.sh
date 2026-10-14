@@ -7,9 +7,13 @@ cd "$(dirname "$0")/.."
 ROOT="$(pwd)"
 APP="$ROOT/dist/Shelf.app"
 
+# Always Xcode's toolchain: open-source ones (swiftly, swift.org) lack the
+# SwiftData/SwiftUI macros and MapKit overlays this app needs.
+SWIFT=(xcrun swift)
+
 echo "→ Building release binary"
-swift build -c release --product Shelf
-BIN="$(swift build -c release --product Shelf --show-bin-path)/Shelf"
+"${SWIFT[@]}" build -c release --product Shelf
+BIN="$("${SWIFT[@]}" build -c release --product Shelf --show-bin-path)/Shelf"
 
 echo "→ Assembling $APP"
 rm -rf "$APP"

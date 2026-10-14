@@ -34,6 +34,9 @@ struct SidebarView: View {
             }
         }
         .listStyle(.sidebar)
+        // Warm paper instead of the system's grey vibrancy.
+        .scrollContentBackground(.hidden)
+        .background(Color.paperSunken)
         .safeAreaInset(edge: .bottom) { captureHint }
     }
 

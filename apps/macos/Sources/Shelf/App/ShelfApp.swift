@@ -14,7 +14,6 @@ struct ShelfApp: App {
                 .frame(minWidth: 940, minHeight: 600)
         }
         .modelContainer(Persistence.container)
-        .windowStyle(.hiddenTitleBar)
         .windowToolbarStyle(.unified(showsTitle: false))
         .defaultSize(width: 1240, height: 820)
         .commands { ShelfCommands(router: router) }

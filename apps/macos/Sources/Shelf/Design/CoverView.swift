@@ -15,8 +15,11 @@ struct CoverView: View {
     var body: some View {
         Color.clear
             .aspectRatio(kind.coverAspect, contentMode: .fit)
-            .overlay { art }
+            // Filled art can overflow the frame; clipping hides it but doesn't stop
+            // it catching the mouse, so only the frame itself is hit-testable.
+            .overlay { art.allowsHitTesting(false) }
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+            .contentShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
             .overlay {
                 // A whisper of an edge, like light catching a dust jacket.
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)

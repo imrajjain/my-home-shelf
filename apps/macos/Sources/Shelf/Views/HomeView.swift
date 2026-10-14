@@ -69,9 +69,12 @@ struct HomeView: View {
         }
         let waiting = items.tally { $0.status == .want }
         if let pick = dailyPick {
-            return "\(waiting) things are waiting. Maybe today is the day for \(pick.title)."
+            return waiting == 1
+                ? "Just one thing waiting: \(pick.title). No rush."
+                : "\(waiting) things are waiting. Maybe today is the day for \(pick.title)."
         }
-        return "\(items.tally { $0.status == .done }) things read, watched and wondered about. Lovely."
+        let done = items.tally { $0.status == .done }
+        return "\(done == 1 ? "One thing" : "\(done) things") read, watched and wondered about. Lovely."
     }
 
     // MARK: Sections
@@ -96,7 +99,7 @@ struct HomeView: View {
         VStack(alignment: .leading, spacing: 12) {
             SectionHeader(title: title, subtitle: subtitle, action: { router.selection = see })
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .bottom, spacing: 26) {
+                HStack(alignment: .top, spacing: 26) {
                     ForEach(items.prefix(16)) { item in
                         ItemCard(item: item, width: item.kind.coverAspect >= 1 ? 160 : 132)
                     }
@@ -105,13 +108,6 @@ struct HomeView: View {
                 .padding(.horizontal, 4)
             }
             .padding(.horizontal, -4)
-            // The shelf itself: a soft plank under the covers.
-            .background(alignment: .bottom) {
-                Rectangle()
-                    .fill(LinearGradient(colors: [Color.hairline, .clear], startPoint: .top, endPoint: .bottom))
-                    .frame(height: 10)
-                    .offset(y: -50)
-            }
         }
     }
 

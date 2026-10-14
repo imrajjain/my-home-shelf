@@ -14,14 +14,22 @@ struct RootView: View {
             SidebarView(items: items)
                 .navigationSplitViewColumnWidth(min: 200, ideal: 224, max: 280)
         } detail: {
-            ZStack {
-                Color.paper.ignoresSafeArea()
-                detail
+            // A plain side column rather than `.inspector`: on macOS 27 the system
+            // inspector drew its content a toolbar-height below where it took
+            // the mouse, so hover and clicks landed about an inch too high.
+            HStack(spacing: 0) {
+                ZStack {
+                    Color.paper.ignoresSafeArea()
+                    detail
+                }
+                if router.showingInspector {
+                    Rectangle().fill(Color.hairline).frame(width: 1).ignoresSafeArea()
+                    inspector
+                        .frame(width: 360)
+                        .transition(.move(edge: .trailing))
+                }
             }
-            .inspector(isPresented: $router.showingInspector) {
-                inspector
-                    .inspectorColumnWidth(min: 320, ideal: 360, max: 460)
-            }
+            .animation(.shelf, value: router.showingInspector)
         }
         .searchable(text: $router.searchText, placement: .sidebar, prompt: "Search your shelf")
         .toolbar {

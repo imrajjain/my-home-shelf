@@ -8,23 +8,38 @@ struct RatingView: View {
     var tint: Color = .glow
     @State private var hovered: Int?
 
+    private let spacing: CGFloat = 3
+    private var cell: CGFloat { (size * 1.3).rounded() }
+
     var body: some View {
-        HStack(spacing: 3) {
+        HStack(spacing: spacing) {
             ForEach(1...5, id: \.self) { star in
                 let lit = star <= (hovered ?? rating)
                 Image(systemName: lit ? "star.fill" : "star")
                     .font(.system(size: size, weight: .medium))
                     .foregroundStyle(lit ? tint : Color.inkFaint.opacity(0.6))
                     .scaleEffect(hovered == star ? 1.18 : 1)
-                    .contentShape(Rectangle())
-                    .onHover { inside in withAnimation(.lift) { hovered = inside ? star : (hovered == star ? nil : hovered) } }
-                    .onTapGesture {
-                        withAnimation(.lift) { rating = (rating == star) ? 0 : star }
-                        Haptics.tap()
-                    }
+                    .frame(width: cell, height: cell)
             }
         }
-        .onHover { if !$0 { withAnimation(.lift) { hovered = nil } } }
+        // One hover/tap region for the row; the star comes from the x position.
+        // (Per-star hover areas overlapped once a star scaled up, so the
+        // highlight stuck on the wrong star.)
+        .contentShape(Rectangle())
+        .onContinuousHover { phase in
+            switch phase {
+            case .active(let point):
+                let star = star(at: point.x)
+                if hovered != star { withAnimation(.lift) { hovered = star } }
+            case .ended:
+                withAnimation(.lift) { hovered = nil }
+            }
+        }
+        .gesture(SpatialTapGesture().onEnded { tap in
+            let star = star(at: tap.location.x)
+            withAnimation(.lift) { rating = (rating == star) ? 0 : star }
+            Haptics.tap()
+        })
         .accessibilityElement()
         .accessibilityLabel("Rating")
         .accessibilityValue("\(rating) of 5")
@@ -35,6 +50,10 @@ struct RatingView: View {
             @unknown default: break
             }
         }
+    }
+
+    private func star(at x: CGFloat) -> Int {
+        min(5, max(1, Int(x / (cell + spacing)) + 1))
     }
 }
 
@@ -61,6 +80,7 @@ struct StatusPicker: View {
     @Binding var status: ItemStatus
     var includeDropped = false
     @Namespace private var ns
+    @State private var hovered: ItemStatus?
 
     var body: some View {
         HStack(spacing: 2) {
@@ -79,11 +99,16 @@ struct StatusPicker: View {
                                 Capsule().fill(Color.paperRaised)
                                     .paperShadow()
                                     .matchedGeometryEffect(id: "pill", in: ns)
+                            } else if hovered == s {
+                                Capsule().fill(Color.hairline)
                             }
                         }
                         .contentShape(Capsule())
                 }
                 .buttonStyle(.plain)
+                .onHover { inside in
+                    withAnimation(.lift) { hovered = inside ? s : (hovered == s ? nil : hovered) }
+                }
             }
         }
         .padding(3)

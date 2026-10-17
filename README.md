@@ -66,6 +66,22 @@ menu-bar item.
 Support/Shelf`. JSON export and import use the same format the web app will
 sync, so nothing is locked in.
 
+## Install
+
+Download `Shelf-<version>.zip` from the
+[latest release](https://github.com/imrajjain/my-home-shelf/releases/latest),
+unzip it and drag **Shelf** into Applications. It runs on Apple silicon and
+Intel Macs with macOS 14 or later.
+
+Shelf isn't notarized by Apple yet, so the first time you open it macOS
+says it can't check it for malicious software. Right-click Shelf.app and
+choose **Open**, then **Open** again. On newer macOS, open it once, then go
+to **System Settings → Privacy & Security** and click **Open Anyway**. After
+that it opens normally.
+
+To publish a release, run `./scripts/release.sh` in `apps/macos`. It
+writes a universal `dist/Shelf-<version>.zip`.
+
 ## Run it
 
 Requires macOS 14+ and Xcode 15.3+ (or a Swift 5.10+ toolchain with the macOS SDK).

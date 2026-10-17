@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Builds Shelf.app from the Swift package: release binary + Info.plist +
 # icon, ad-hoc signed. Usage: ./scripts/bundle.sh [--install]
+# UNIVERSAL=1 builds for both Apple silicon and Intel (for releases).
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
@@ -11,9 +12,12 @@ APP="$ROOT/dist/Shelf.app"
 # SwiftData/SwiftUI macros and MapKit overlays this app needs.
 SWIFT=(xcrun swift)
 
+ARCHS=()
+[[ "${UNIVERSAL:-}" == "1" ]] && ARCHS=(--arch arm64 --arch x86_64)
+
 echo "→ Building release binary"
-"${SWIFT[@]}" build -c release --product Shelf
-BIN="$("${SWIFT[@]}" build -c release --product Shelf --show-bin-path)/Shelf"
+"${SWIFT[@]}" build -c release --product Shelf ${ARCHS[@]+"${ARCHS[@]}"}
+BIN="$("${SWIFT[@]}" build -c release --product Shelf ${ARCHS[@]+"${ARCHS[@]}"} --show-bin-path)/Shelf"
 
 echo "→ Assembling $APP"
 rm -rf "$APP"

@@ -33,6 +33,7 @@ final class GoodreadsSync {
         static let status = "goodreadsStatus"      // what Goodreads said last time
         static let rating = "goodreadsRating"
         static let added = "goodreadsAdded"        // "1" when the sync created it
+        static let shelves = "goodreadsShelves"    // your Goodreads shelves last time, as tags
     }
 
     var source: GoodreadsFeed.Source? {
@@ -116,7 +117,7 @@ final class GoodreadsSync {
             for item in items where item.extra[Key.added] == "1" {
                 guard let id = item.extra[Key.id], !current.contains(id) else { continue }
                 if hasYourTouch(item) {
-                    for key in [Key.id, Key.added, Key.status, Key.rating] { item.extra[key] = nil }
+                    for key in [Key.id, Key.added, Key.status, Key.rating, Key.shelves] { item.extra[key] = nil }
                 } else {
                     item.deletedAt = .now
                     item.touch()
@@ -192,22 +193,41 @@ final class GoodreadsSync {
         let firstLink = item.extra[Key.status] == nil && item.extra[Key.added] != "1"
 
         let status = book.status.rawValue
+        var markedBySync = false
         if item.extra[Key.status] != status {
             if !firstLink || Self.rank(book.status) >= Self.rank(item.status) {
+                markedBySync = item.status != book.status
                 item.status = book.status
             }
             item.extra[Key.status] = status
         }
-        if book.status == .done, let read = book.readAt, item.finishedAt == nil || item.extra[Key.added] == "1" {
-            item.finishedAt = read
+
+        // The finished date is Goodreads' "date read" whenever it has one;
+        // when it has none, a book the sync marked read gets no date rather
+        // than the moment the sync happened to run. Marking a book read
+        // stamps both dates with "now", so a start date equal to that stamp
+        // goes too.
+        if book.status == .done, item.status == .done,
+           book.readAt != nil || item.extra[Key.added] == "1" || markedBySync || item.finishedAt == nil,
+           item.finishedAt != book.readAt {
+            if item.startedAt == item.finishedAt { item.startedAt = nil }
+            item.finishedAt = book.readAt
         }
         let rating = String(book.rating)
         if item.extra[Key.rating] != rating {
             if book.rating > 0 && !(firstLink && item.rating > 0) { item.rating = book.rating }
             item.extra[Key.rating] = rating
         }
-        let shelfTags = book.customShelves.filter { !item.tags.contains($0) }
-        if !shelfTags.isEmpty { item.tags += shelfTags }
+        // Your own Goodreads shelves become tags and follow Goodreads both
+        // ways: a shelf you remove there drops its tag here. Tags you added
+        // in Shelf are never touched.
+        let shelves = book.customShelves
+        let previous = item.extra[Key.shelves].map { Set($0.split(separator: ",").map(String.init)) } ?? []
+        var tags = item.tags.filter { !previous.contains($0) || shelves.contains($0) }
+        tags += shelves.filter { !tags.contains($0) }
+        if tags != item.tags { item.tags = tags }
+        let joined = shelves.joined(separator: ",")
+        if item.extra[Key.shelves] != joined { item.extra[Key.shelves] = joined }
     }
 
     /// One at a time: a first sync can bring in hundreds of covers.

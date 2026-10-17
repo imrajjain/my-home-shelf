@@ -23,6 +23,7 @@ struct HomeView: View {
                     if !recentlyFinished.isEmpty {
                         shelfRow("Recently finished", items: recentlyFinished, see: .status(.done), note: yearNote)
                     }
+                    WikipediaSection(items: items)
                     if let memory { memorySection(memory) }
                 }
             }

@@ -177,6 +177,18 @@ private struct ClothView: NSViewRepresentable {
             material.shininess = 0.15
             material.diffuse.contents = currentImage ?? NSColor(white: 0.5, alpha: 0.3)
             material.diffuse.mipFilter = .linear
+            // Woven cloth: fine threads that catch the light, and a faint shade
+            // between them. Each tile holds 32 threads, so about 160 run up the flag.
+            let threads = Float(height * 5)
+            for property in [material.normal, material.multiply] {
+                property.wrapS = .repeat
+                property.wrapT = .repeat
+                property.mipFilter = .linear
+                property.contentsTransform = SCNMatrix4MakeScale(CGFloat(threads * Float(aspect)), CGFloat(threads), 1)
+            }
+            material.normal.contents = Weave.normalMap
+            material.normal.intensity = 0.6
+            material.multiply.contents = Weave.shade
             material.shaderModifiers = [.geometry: Self.ripple]
             material.setValue(NSNumber(value: Float(width / 2)), forKey: "halfWidth")
             material.setValue(NSNumber(value: Float(0.01)), forKey: "amplitude")
@@ -216,5 +228,74 @@ private struct ClothView: NSViewRepresentable {
         _geometry.position.xyz = p;
         _geometry.normal = normalize(float3(-dzdx, -dzdy, 1.0));
         """
+    }
+}
+
+/// Flag cloth, generated once: fine woven threads, the weft (across)
+/// a touch stronger than the warp, each thread a little uneven, with the
+/// odd thicker slub, so it reads as grain rather than a printed pattern.
+/// One tile holds 32 threads each way.
+private enum Weave {
+    static let size = 256
+    private static let threads = 32
+
+    /// A steady pseudo-random number per thread, 0…1.
+    private static func jitter(_ i: Int, _ salt: Int) -> Double {
+        var h = UInt32(truncatingIfNeeded: i &* 374761393 &+ salt &* 668265263)
+        h = (h ^ (h >> 13)) &* 1274126177
+        return Double(h & 0xFFFF) / 65535.0
+    }
+
+    /// Thread height at a pixel, 0…1.
+    private static func height(_ x: Int, _ y: Int) -> Double {
+        let cell = Double(size) / Double(threads)
+        let i = Int(Double(x) / cell), j = Int(Double(y) / cell)
+        let fx = Double(x).truncatingRemainder(dividingBy: cell) / cell
+        let fy = Double(y).truncatingRemainder(dividingBy: cell) / cell
+        // Each thread its own thickness; now and then a slub.
+        let warpWidth = 0.8 + 0.3 * jitter(i, 1) + (jitter(i, 7) > 0.93 ? 0.25 : 0)
+        let weftWidth = 0.8 + 0.3 * jitter(j, 2) + (jitter(j, 9) > 0.93 ? 0.3 : 0)
+        let warp = pow(max(sin(.pi * fx), 0), 0.7) * warpWidth
+        let weft = pow(max(sin(.pi * fy), 0), 0.7) * weftWidth
+        // Over and under, gently: whichever thread is on top shows a little more.
+        let weftOnTop = (i + j) % 2 == 0
+        let h = weftOnTop ? 0.62 * weft + 0.38 * warp : 0.48 * weft + 0.52 * warp
+        return min(h, 1)
+    }
+
+    private static func image(_ pixel: (Int, Int) -> (UInt8, UInt8, UInt8)) -> NSImage {
+        var bytes = [UInt8](repeating: 255, count: size * size * 4)
+        for y in 0..<size {
+            for x in 0..<size {
+                let (r, g, b) = pixel(x, y)
+                let o = (y * size + x) * 4
+                bytes[o] = r; bytes[o + 1] = g; bytes[o + 2] = b
+            }
+        }
+        let rep = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: size, pixelsHigh: size, bitsPerSample: 8,
+                                   samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: .deviceRGB,
+                                   bytesPerRow: size * 4, bitsPerPixel: 32)!
+        bytes.withUnsafeBufferPointer { memcpy(rep.bitmapData!, $0.baseAddress!, bytes.count) }
+        let image = NSImage(size: NSSize(width: size, height: size))
+        image.addRepresentation(rep)
+        return image
+    }
+
+    /// Normals from the thread heights, wrapping at the edges so it tiles.
+    static let normalMap: NSImage = image { x, y in
+        let s = size
+        let dx = height((x + 1) % s, y) - height((x - 1 + s) % s, y)
+        let dy = height(x, (y + 1) % s) - height(x, (y - 1 + s) % s)
+        let strength = 1.4
+        var n = (-dx * strength, -dy * strength, 1.0)
+        let l = (n.0 * n.0 + n.1 * n.1 + n.2 * n.2).squareRoot()
+        n = (n.0 / l, n.1 / l, n.2 / l)
+        return (UInt8((n.0 * 0.5 + 0.5) * 255), UInt8((n.1 * 0.5 + 0.5) * 255), UInt8((n.2 * 0.5 + 0.5) * 255))
+    }
+
+    /// Gaps between threads sit a touch darker.
+    static let shade: NSImage = image { x, y in
+        let v = UInt8(255 * (0.9 + 0.1 * height(x, y)))
+        return (v, v, v)
     }
 }

@@ -198,6 +198,7 @@ struct LibraryView: View {
             case .favorites: item.isFavorite
             case .kind(let k): item.kind == k
             case .tag(let t): item.tags.contains(t)
+            case .exhibit: false
             }
         }
     }

@@ -11,6 +11,10 @@ public struct WikiArticle: Identifiable, Hashable, Sendable {
     public var thumbnail: URL?
     public var id: String { title }
 
+    public init(title: String, description: String? = nil, extract: String? = nil, thumbnail: URL? = nil) {
+        self.title = title; self.description = description; self.extract = extract; self.thumbnail = thumbnail
+    }
+
     public var url: URL {
         URL(string: "https://en.wikipedia.org/wiki/" + title.replacingOccurrences(of: " ", with: "_").pathEncoded)!
     }

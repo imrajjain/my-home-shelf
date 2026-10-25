@@ -24,6 +24,10 @@ struct SidebarView: View {
                 ForEach(shelves) { kind in row(.kind(kind)) }
             }
 
+            Section("Museum") {
+                ForEach(Exhibit.allCases, id: \.self) { exhibit in row(.exhibit(exhibit)) }
+            }
+
             if !tags.isEmpty {
                 Section("Tags", isExpanded: $tagsExpanded) {
                     ForEach(tags.prefix(12), id: \.self) { tag in row(.tag(tag)) }

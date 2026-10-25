@@ -1,0 +1,100 @@
+{
+ "SGD": {
+  "bank": "Monetary Authority of Singapore",
+  "page": "https://www.mas.gov.sg/currency/circulation-currency/circulation-currency-notes",
+  "series": "Portrait series",
+  "notes": [
+   {
+    "value": "$2",
+    "front": "https://www.mas.gov.sg/-/media/mas/currency-new/resized-portrait-series-note-images-with-specimen-label/portrait-2-front-polymer.jpg?h=354px&w=714px&hash=64D232395D168C9A2D8D71B11A4B15CA",
+    "back": "https://www.mas.gov.sg/-/media/mas/currency-new/resized-portrait-series-note-images-with-specimen-label/portrait-2-back-polymer.jpg?h=354px&w=714px&hash=5F034622F40A38FA21B8318181186E72",
+    "frontSubject": "[[Yusof Ishak]], Singapore's first president",
+    "backSubject": "Education"
+   },
+   {
+    "value": "$5",
+    "front": "https://www.mas.gov.sg/-/media/mas/currency/portrait-series-5-front.jpg",
+    "back": "https://www.mas.gov.sg/-/media/mas/currency-new/portrait-series-5-back.jpg",
+    "frontSubject": "[[Yusof Ishak]], Singapore's first president",
+    "backSubject": "Garden City"
+   },
+   {
+    "value": "$10",
+    "front": "https://www.mas.gov.sg/-/media/mas/currency-new/resized-portrait-series-note-images-with-specimen-label/portrait-10-front-polymer.jpg?h=351px&w=714px&hash=5AC7E63450003D626FF1A76D44A5C82F",
+    "back": "https://www.mas.gov.sg/-/media/mas/currency-new/resized-portrait-series-note-images-with-specimen-label/portrait-10-back-polymer.jpg?h=348px&w=714px&hash=84DAF865E207428C83BE206F921B1A96",
+    "frontSubject": "[[Yusof Ishak]], Singapore's first president",
+    "backSubject": "Sports"
+   },
+   {
+    "value": "$50",
+    "front": "https://www.mas.gov.sg/-/media/mas/currency-new/resized-portrait-series-note-images-with-specimen-label/portrait-50-front.jpg?h=328px&w=714px&hash=E190318F9B40EB687B57BD41CE67EB1F",
+    "back": "https://www.mas.gov.sg/-/media/mas/currency-new/resized-portrait-series-note-images-with-specimen-label/portrait-50-back.jpg?h=318px&w=714px&hash=0DDFE16A21132D53890420463D909F7F",
+    "frontSubject": "[[Yusof Ishak]], Singapore's first president",
+    "backSubject": "Arts"
+   },
+   {
+    "value": "$100",
+    "front": "https://www.mas.gov.sg/-/media/mas/currency-new/resized-portrait-series-note-images-with-specimen-label/portrait-100-front.jpg?h=335px&w=714px&hash=CAAC74DEB9240149FDBD73E0698A752C",
+    "back": "https://www.mas.gov.sg/-/media/mas/currency-new/resized-portrait-series-note-images-with-specimen-label/portrait-100-back.jpg?h=335px&w=714px&hash=488554310E9E097E7E8EE920F611FDDD",
+    "frontSubject": "[[Yusof Ishak]], Singapore's first president",
+    "backSubject": "Youth"
+   },
+   {
+    "value": "$1000",
+    "front": "https://www.mas.gov.sg/-/media/mas/currency-new/resized-portrait-series-note-images-with-specimen-label/portrait-1000-front.jpg?h=347px&w=714px&hash=C46B0606E7D384F3F5A198A757E7B744",
+    "back": "https://www.mas.gov.sg/-/media/mas/currency-new/resized-portrait-series-note-images-with-specimen-label/portrait-1000-back.jpg?h=347px&w=714px&hash=E6B4D5BA5E60F0F01585D9445AC315FF",
+    "frontSubject": "[[Yusof Ishak]], Singapore's first president",
+    "backSubject": "Government"
+   }
+  ]
+ },
+ "MYR": {
+  "bank": "Bank Negara Malaysia",
+  "page": "https://www.bnm.gov.my/currency/banknotes",
+  "series": "Fourth series",
+  "notes": [
+   {
+    "value": "RM1",
+    "front": "https://www.bnm.gov.my/documents/20124/18729204/RM1-f.png",
+    "back": "https://www.bnm.gov.my/documents/20124/18729204/RM1-b.png",
+    "frontSubject": "[[Tuanku Abdul Rahman]], the first [[Yang di-Pertuan Agong]]",
+    "backSubject": "The ''[[wau bulan]]'', the moon kite"
+   },
+   {
+    "value": "RM5",
+    "front": "https://www.bnm.gov.my/documents/20124/18729204/RM5-f.png",
+    "back": "https://www.bnm.gov.my/documents/20124/18729204/RM5-b.png",
+    "frontSubject": "[[Tuanku Abdul Rahman]], the first [[Yang di-Pertuan Agong]]",
+    "backSubject": "The [[rhinoceros hornbill]]"
+   },
+   {
+    "value": "RM10",
+    "front": "https://www.bnm.gov.my/documents/20124/18729204/RM10-f.png",
+    "back": "https://www.bnm.gov.my/documents/20124/18729204/RM10-bk.png",
+    "frontSubject": "[[Tuanku Abdul Rahman]], the first [[Yang di-Pertuan Agong]]",
+    "backSubject": "The [[Rafflesia]], the world's largest flower"
+   },
+   {
+    "value": "RM20",
+    "front": "https://www.bnm.gov.my/documents/20124/18729204/RM20-f.png",
+    "back": "https://www.bnm.gov.my/documents/20124/18729204/RM20-b.png",
+    "frontSubject": "[[Tuanku Abdul Rahman]], the first [[Yang di-Pertuan Agong]]",
+    "backSubject": "[[Hawksbill sea turtle|Hawksbill]] and [[leatherback sea turtle|leatherback]] turtles"
+   },
+   {
+    "value": "RM50",
+    "front": "https://www.bnm.gov.my/documents/20124/18729204/RM50-f.png",
+    "back": "https://www.bnm.gov.my/documents/20124/18729204/RM50-b.png",
+    "frontSubject": "[[Tuanku Abdul Rahman]], the first [[Yang di-Pertuan Agong]], with [[Tunku Abdul Rahman]], the first prime minister",
+    "backSubject": "The oil palm, a pillar of the economy"
+   },
+   {
+    "value": "RM100",
+    "front": "https://www.bnm.gov.my/documents/20124/18729204/RM100-f.png",
+    "back": "https://www.bnm.gov.my/documents/20124/18729204/RM100-b.png",
+    "frontSubject": "[[Tuanku Abdul Rahman]], the first [[Yang di-Pertuan Agong]]",
+    "backSubject": "[[Mount Kinabalu]] and the limestone pinnacles of [[Gunung Mulu National Park|Mulu]]"
+   }
+  ]
+ }
+}

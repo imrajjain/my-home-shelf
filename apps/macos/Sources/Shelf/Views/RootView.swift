@@ -76,6 +76,11 @@ struct RootView: View {
             } else {
                 LibraryView(items: items, scope: .status(.want))
             }
+        case .exhibit(let exhibit):
+            switch exhibit {
+            case .flags: FlagsMuseumView()
+            case .currencies: CurrencyMuseumView()
+            }
         case let scope:
             LibraryView(items: items, scope: scope)
         }

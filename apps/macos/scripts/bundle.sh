@@ -24,6 +24,8 @@ rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp "$BIN" "$APP/Contents/MacOS/Shelf"
 cp "$ROOT/Support/Info.plist" "$APP/Contents/Info.plist"
+# Museum collections (data only; the scans load from Wikimedia on first look).
+cp -R "$ROOT/Support/Museum" "$APP/Contents/Resources/Museum"
 
 echo "→ Compiling icon (Liquid Glass + .icns fallback)"
 # Support/Shelf.icon is an Icon Composer document: vector layers that macOS

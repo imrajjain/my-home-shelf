@@ -8,6 +8,7 @@ enum SidebarSelection: Hashable {
     case favorites
     case kind(ItemKind)
     case tag(String)
+    case exhibit(Exhibit)
 
     var title: String {
         switch self {
@@ -16,6 +17,7 @@ enum SidebarSelection: Hashable {
         case .favorites: "Favorites"
         case .kind(let k): k.pluralTitle
         case .tag(let t): t
+        case .exhibit(let e): e.title
         }
     }
 
@@ -26,6 +28,27 @@ enum SidebarSelection: Hashable {
         case .favorites: "heart"
         case .kind(let k): k.symbol
         case .tag: "number"
+        case .exhibit(let e): e.symbol
+        }
+    }
+}
+
+/// Rooms in the Museum: curated things to wander through, apart from your shelf.
+enum Exhibit: String, CaseIterable, Hashable {
+    case flags
+    case currencies
+
+    var title: String {
+        switch self {
+        case .flags: "Flags & Anthems"
+        case .currencies: "World Currencies"
+        }
+    }
+
+    var symbol: String {
+        switch self {
+        case .flags: "flag"
+        case .currencies: "banknote"
         }
     }
 }

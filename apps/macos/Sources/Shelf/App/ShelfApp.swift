@@ -72,6 +72,8 @@ struct ShelfCommands: Commands {
             Button("In Progress") { router.selection = .status(.inProgress) }.keyboardShortcut("3")
             Button("Finished") { router.selection = .status(.done) }.keyboardShortcut("4")
             Button("Favorites") { router.selection = .favorites }.keyboardShortcut("5")
+            Button("Flags & Anthems") { router.selection = .exhibit(.flags) }.keyboardShortcut("6")
+            Button("World Currencies") { router.selection = .exhibit(.currencies) }.keyboardShortcut("7")
             Divider()
             ForEach(Array(ItemKind.allCases.enumerated()), id: \.element) { index, kind in
                 if index < 9 {

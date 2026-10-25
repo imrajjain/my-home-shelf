@@ -96,5 +96,276 @@
     "backSubject": "[[Mount Kinabalu]] and the limestone pinnacles of [[Gunung Mulu National Park|Mulu]]"
    }
   ]
+ },
+ "ZAR": {
+  "bank": "South African Reserve Bank",
+  "page": "https://www.resbank.co.za/en/home/what-we-do/banknotes-and-coin/Use-of-banknotes",
+  "series": "Upgraded Mandela series",
+  "notes": [
+   {
+    "value": "R10",
+    "issued": "2023",
+    "front": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R10_Front.jpg",
+    "back": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R10_Back.jpg",
+    "frontSubject": "[[Nelson Mandela]]",
+    "backSubject": "A [[black rhinoceros|rhino]] and calf"
+   },
+   {
+    "value": "R20",
+    "issued": "2023",
+    "front": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R20_Front.jpg",
+    "back": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R20_Back.jpg",
+    "frontSubject": "[[Nelson Mandela]]",
+    "backSubject": "An [[African elephant|elephant]] family"
+   },
+   {
+    "value": "R50",
+    "issued": "2023",
+    "front": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R50_Front.jpg",
+    "back": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R50_Back.jpg",
+    "frontSubject": "[[Nelson Mandela]]",
+    "backSubject": "A [[lion]] family"
+   },
+   {
+    "value": "R100",
+    "issued": "2023",
+    "front": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R100_Front.jpg",
+    "back": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R100_Back.jpg",
+    "frontSubject": "[[Nelson Mandela]]",
+    "backSubject": "A [[African buffalo|Cape buffalo]] and calf"
+   },
+   {
+    "value": "R200",
+    "issued": "2023",
+    "front": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R200_Front.jpg",
+    "back": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R200_Back.jpg",
+    "frontSubject": "[[Nelson Mandela]]",
+    "backSubject": "A [[leopard]] and cub"
+   }
+  ]
+ },
+ "CNY": {
+  "bank": "China Today",
+  "page": "https://www.chinatoday.com/fin/mon/",
+  "series": "Fifth series of the renminbi",
+  "notes": [
+   {
+    "value": "¥1",
+    "front": "https://www.chinatoday.com/fin/mon/rmb-1yuan-new1.jpg",
+    "back": "https://www.chinatoday.com/fin/mon/rmb-1yuan-new2.jpg",
+    "frontSubject": "[[Mao Zedong]]",
+    "backSubject": "[[Three Pools Mirroring the Moon]] on [[West Lake]], Hangzhou"
+   },
+   {
+    "value": "¥5",
+    "front": "https://www.chinatoday.com/fin/mon/rmbnew5a.jpg",
+    "back": "https://www.chinatoday.com/fin/mon/rmbnew5b.jpg",
+    "frontSubject": "[[Mao Zedong]]",
+    "backSubject": "[[Mount Tai]]"
+   },
+   {
+    "value": "¥10",
+    "front": "https://www.chinatoday.com/fin/mon/rmbnew10a.jpg",
+    "back": "https://www.chinatoday.com/fin/mon/rmbnew10b.jpg",
+    "frontSubject": "[[Mao Zedong]]",
+    "backSubject": "The [[Three Gorges]] of the [[Yangtze]]"
+   },
+   {
+    "value": "¥20",
+    "front": "https://www.chinatoday.com/fin/mon/RMB20NEW.JPG",
+    "back": "https://www.chinatoday.com/fin/mon/rmb20new1.jpg",
+    "frontSubject": "[[Mao Zedong]]",
+    "backSubject": "The [[Li River]] at [[Guilin]]"
+   },
+   {
+    "value": "¥50",
+    "front": "https://www.chinatoday.com/fin/mon/rmbnew50a.jpg",
+    "back": "https://www.chinatoday.com/fin/mon/rmbnew50b.jpg",
+    "frontSubject": "[[Mao Zedong]]",
+    "backSubject": "The [[Potala Palace]], Lhasa"
+   },
+   {
+    "value": "¥100",
+    "front": "https://www.chinatoday.com/fin/mon/rmb100new.jpg",
+    "back": "https://www.chinatoday.com/fin/mon/rmb100new1.jpg",
+    "frontSubject": "[[Mao Zedong]]",
+    "backSubject": "The [[Great Hall of the People]], Beijing"
+   }
+  ]
+ },
+ "AED": {
+  "bank": "Central Bank of the UAE",
+  "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes",
+  "series": "Polymer series",
+  "notes": [
+   {
+    "value": "AED 5",
+    "issued": "2022",
+    "front": "https://centralbank.ae/media/vm5ida3a/aed-5-new-polymer-ar-en.png",
+    "back": "https://centralbank.ae/media/vm5ida3a/aed-5-new-polymer-ar-en.png",
+    "frontCrop": [
+     0,
+     0,
+     1,
+     0.5
+    ],
+    "backCrop": [
+     0,
+     0.5,
+     1,
+     0.5
+    ],
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-5-polymer/",
+    "frontSubject": "[[Sharjah Fort]] (Al Hisn)",
+    "backSubject": "[[Dhayah Fort]] on its hilltop, Ras Al Khaimah"
+   },
+   {
+    "value": "AED 10",
+    "issued": "2022",
+    "front": "https://centralbank.ae/media/1hdnirga/aed-10-new-polymer-ar-en.png",
+    "back": "https://centralbank.ae/media/1hdnirga/aed-10-new-polymer-ar-en.png",
+    "frontCrop": [
+     0,
+     0,
+     1,
+     0.5
+    ],
+    "backCrop": [
+     0,
+     0.5,
+     1,
+     0.5
+    ],
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-10-polymer/",
+    "frontSubject": "The [[Sheikh Zayed Grand Mosque]], Abu Dhabi",
+    "backSubject": "The [[Khor Fakkan]] amphitheatre"
+   },
+   {
+    "value": "AED 20",
+    "issued": "2015",
+    "front": "https://centralbank.ae/media/pgxj5llt/aed-20-image-1.jpg",
+    "back": "https://centralbank.ae/media/pgxj5llt/aed-20-image-1.jpg",
+    "frontCrop": [
+     0.5,
+     0.25,
+     0.5,
+     0.236
+    ],
+    "backCrop": [
+     0.5,
+     0.513,
+     0.5,
+     0.235
+    ],
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-20/",
+    "frontSubject": "The [[Dubai Creek Golf & Yacht Club]]",
+    "backSubject": "A traditional dhow"
+   },
+   {
+    "value": "AED 50",
+    "issued": "2022",
+    "front": "https://centralbank.ae/media/ibdlm4w2/aed-50-newest-ar-en.png",
+    "back": "https://centralbank.ae/media/ibdlm4w2/aed-50-newest-ar-en.png",
+    "frontCrop": [
+     0,
+     0,
+     1,
+     0.5
+    ],
+    "backCrop": [
+     0,
+     0.5,
+     1,
+     0.5
+    ],
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-50-polymer/",
+    "frontSubject": "Sheikh Zayed and the UAE's founding rulers",
+    "backSubject": "The [[Etihad Museum]], Dubai"
+   },
+   {
+    "value": "AED 100",
+    "issued": "2025",
+    "front": "https://centralbank.ae/media/41pcw0rv/both-side-of-aed-banknote.jpg",
+    "back": "https://centralbank.ae/media/41pcw0rv/both-side-of-aed-banknote.jpg",
+    "frontCrop": [
+     0,
+     0,
+     1,
+     0.5
+    ],
+    "backCrop": [
+     0,
+     0.5,
+     1,
+     0.5
+    ],
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-100-polymer/",
+    "frontSubject": "[[Umm Al Quwain]] fort",
+    "backSubject": "[[Etihad Rail]] and the Port of [[Fujairah]]"
+   },
+   {
+    "value": "AED 200",
+    "issued": "2016",
+    "front": "https://centralbank.ae/media/fhzbtvzt/aed-200-image-2016.jpg",
+    "back": "https://centralbank.ae/media/fhzbtvzt/aed-200-image-2016.jpg",
+    "frontCrop": [
+     0.184,
+     0.166,
+     0.627,
+     0.3
+    ],
+    "backCrop": [
+     0.185,
+     0.499,
+     0.624,
+     0.298
+    ],
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-200/",
+    "frontSubject": "The [[emblem of the United Arab Emirates]]",
+    "backSubject": "The Central Bank building, Abu Dhabi"
+   },
+   {
+    "value": "AED 500",
+    "issued": "2023",
+    "front": "https://centralbank.ae/media/vtih3tdx/500-both-side.jpg",
+    "back": "https://centralbank.ae/media/vtih3tdx/500-both-side.jpg",
+    "frontCrop": [
+     0,
+     0,
+     1,
+     0.5
+    ],
+    "backCrop": [
+     0,
+     0.5,
+     1,
+     0.5
+    ],
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-500-polymer/",
+    "frontSubject": "The [[Expo 2020]] site, Dubai",
+    "backSubject": "The [[Museum of the Future]] and [[Burj Khalifa]]"
+   },
+   {
+    "value": "AED 1000",
+    "issued": "2023",
+    "front": "https://centralbank.ae/media/efybw0d5/1000-bill.png",
+    "back": "https://centralbank.ae/media/efybw0d5/1000-bill.png",
+    "frontCrop": [
+     0,
+     0,
+     1,
+     0.5
+    ],
+    "backCrop": [
+     0,
+     0.5,
+     1,
+     0.5
+    ],
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-1000-polymer/",
+    "frontSubject": "The [[Barakah nuclear power plant]]",
+    "backSubject": "The [[Emirates Mars Mission|Hope probe]] and the UAE's space programme"
+   }
+  ]
  }
 }

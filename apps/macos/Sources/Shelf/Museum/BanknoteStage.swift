@@ -22,7 +22,15 @@ struct BanknoteStage: View {
                 ZStack {
                     floorShadow(width: size.width, pose: pose)
                         .offset(y: size.height / 2 + 34)
-                    FoldingPaper(size: size, pose: pose, front: face(front), back: face(back))
+                    if front == nil && back == nil {
+                        // Still arriving: one quiet card, not a column per strip.
+                        RoundedRectangle(cornerRadius: size.width * 0.012, style: .continuous)
+                            .fill(Color(white: 0.5, opacity: 0.18))
+                            .frame(width: size.width, height: size.height)
+                            .overlay { ProgressView().controlSize(.small) }
+                    } else {
+                        FoldingPaper(size: size, pose: pose, front: face(front), back: face(back))
+                    }
                 }
                 .frame(width: geo.size.width, height: geo.size.height)
             }
@@ -62,10 +70,7 @@ struct BanknoteStage: View {
                 .interpolation(.high)
                 .overlay { PaperGrain() }
         } else {
-            ZStack {
-                Rectangle().fill(Color(white: 0.5, opacity: 0.25))
-                ProgressView().controlSize(.small)
-            }
+            Rectangle().fill(Color(white: 0.5, opacity: 0.18))
         }
     }
 
@@ -110,10 +115,10 @@ struct BanknoteStage: View {
 
     private func load() async {
         let images = BanknoteImages.shared
-        front = images.cached(note.front.image)
-        back = images.cached(note.back.image)
-        async let f = images.image(note.front.image)
-        async let b = images.image(note.back.image)
+        front = images.cached(note.front.image, crop: note.front.crop)
+        back = images.cached(note.back.image, crop: note.back.crop)
+        async let f = images.image(note.front.image, crop: note.front.crop)
+        async let b = images.image(note.back.image, crop: note.back.crop)
         let (loadedFront, loadedBack) = await (f, b)
         withAnimation(.easeOut(duration: 0.35)) { front = loadedFront; back = loadedBack }
     }

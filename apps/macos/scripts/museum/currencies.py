@@ -325,6 +325,10 @@ def design_line(row):
         text = (text + ", " if text else "") + f"issued from {row['year']}"
     return (text + ".") if text else ""
 
+# Wikidata's formal names, shortened to the everyday ones.
+SHORT_NAME = {"People's Republic of China": "China", "Kingdom of the Netherlands": "Netherlands",
+              "The Bahamas": "Bahamas", "The Gambia": "Gambia"}
+
 # The euro's notes picture invented buildings, one architectural age each.
 EURO_STYLE = {5: "[[Classical architecture|Classical]]", 10: "[[Romanesque architecture|Romanesque]]",
               20: "[[Gothic architecture|Gothic]]", 50: "[[Renaissance architecture|Renaissance]]",
@@ -367,7 +371,7 @@ def main():
         home = c["countries"][0]
         region = home["region"] or "Asia"
         base = {
-            "country": "Euro area" if code == "EUR" else home["name"],
+            "country": "Euro area" if code == "EUR" else SHORT_NAME.get(home["name"], home["name"]),
             "flag": flag("EU") if code == "EUR" else flag(home["iso2"]),
             "region": "Europe" if code == "EUR" else region,
             "currency": (c["article"] or code)[:1].upper() + (c["article"] or code)[1:],
@@ -389,8 +393,10 @@ def main():
                 key = number(n["value"])
                 made[key] = dict(base, id=f"{code.lower()}-{key}", denomination=n["value"], issued=n.get("issued", ""),
                                  series=bank.get("series"), history=history, design=n.get("design", ""), source=source,
-                                 front={"image": n["front"], "page": bank["page"], "credit": bank["bank"], "subject": n.get("frontSubject")},
-                                 back={"image": n["back"], "page": bank["page"], "credit": bank["bank"], "subject": n.get("backSubject")})
+                                 front={"image": n["front"], "page": n.get("page", bank["page"]), "credit": bank["bank"],
+                                        "subject": n.get("frontSubject"), "crop": n.get("frontCrop")},
+                                 back={"image": n["back"], "page": n.get("page", bank["page"]), "credit": bank["bank"],
+                                       "subject": n.get("backSubject"), "crop": n.get("backCrop")})
         # Wikipedia tables.
         for r in chosen.get(code, []):
             if r["key"] in made:
@@ -439,8 +445,9 @@ def main():
     notes.sort(key=lambda n: (REGION_ORDER.index(n["region"]) if n["region"] in REGION_ORDER else 9, n["country"], number(n["id"].split("-", 1)[1])))
     for n in notes:
         for s in (n["front"], n["back"]):
-            if not s.get("thumb"):
-                s.pop("thumb", None)
+            for k in ("thumb", "crop"):
+                if not s.get(k):
+                    s.pop(k, None)
         if not n.get("alsoUsedIn"):
             n.pop("alsoUsedIn", None)
     OUT.parent.mkdir(parents=True, exist_ok=True)

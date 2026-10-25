@@ -242,8 +242,8 @@ private struct Placard: View {
                 .padding(12)
                 .background(Gallery.chip.opacity(0.6), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
 
-                section("History", note.history)
-                section("Design", note.design)
+                if !note.history.isEmpty { section("History", note.history) }
+                if !note.design.isEmpty { section("Design", note.design) }
 
                 VStack(alignment: .leading, spacing: 4) {
                     Link("Read more on Wikipedia", destination: note.source)
@@ -329,7 +329,11 @@ private struct DrawerNote: View {
         .buttonStyle(.plain)
         .onHover { inside in withAnimation(.lift) { hovering = inside } }
         .help("\(note.country) · \(note.currency)")
-        .task { image = await BanknoteImages.shared.image(note.front.thumb ?? note.front.image) }
+        .task {
+            image = note.front.thumb != nil
+                ? await BanknoteImages.shared.image(note.front.thumb!)
+                : await BanknoteImages.shared.image(note.front.image, crop: note.front.crop)
+        }
     }
 }
 

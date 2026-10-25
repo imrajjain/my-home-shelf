@@ -781,6 +781,180 @@
    }
   },
   {
+   "country": "China",
+   "flag": "🇨🇳",
+   "region": "Asia",
+   "currency": "Renminbi",
+   "code": "CNY",
+   "alsoUsedIn": [
+    "Zimbabwe"
+   ],
+   "id": "cny-1",
+   "denomination": "¥1",
+   "issued": "",
+   "series": "Fifth series of the renminbi",
+   "history": "Renminbi is the official currency of the People's Republic of China and the unrecognized territory of Wa State. The currency is issued by the People's Bank of China, the country's monetary authority. It is the world's fifth-most-traded currency as of April 2025.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/Renminbi",
+   "front": {
+    "image": "https://www.chinatoday.com/fin/mon/rmb-1yuan-new1.jpg",
+    "page": "https://www.chinatoday.com/fin/mon/",
+    "credit": "China Today",
+    "subject": "[[Mao Zedong]]"
+   },
+   "back": {
+    "image": "https://www.chinatoday.com/fin/mon/rmb-1yuan-new2.jpg",
+    "page": "https://www.chinatoday.com/fin/mon/",
+    "credit": "China Today",
+    "subject": "[[Three Pools Mirroring the Moon]] on [[West Lake]], Hangzhou"
+   }
+  },
+  {
+   "country": "China",
+   "flag": "🇨🇳",
+   "region": "Asia",
+   "currency": "Renminbi",
+   "code": "CNY",
+   "alsoUsedIn": [
+    "Zimbabwe"
+   ],
+   "id": "cny-5",
+   "denomination": "¥5",
+   "issued": "",
+   "series": "Fifth series of the renminbi",
+   "history": "Renminbi is the official currency of the People's Republic of China and the unrecognized territory of Wa State. The currency is issued by the People's Bank of China, the country's monetary authority. It is the world's fifth-most-traded currency as of April 2025.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/Renminbi",
+   "front": {
+    "image": "https://www.chinatoday.com/fin/mon/rmbnew5a.jpg",
+    "page": "https://www.chinatoday.com/fin/mon/",
+    "credit": "China Today",
+    "subject": "[[Mao Zedong]]"
+   },
+   "back": {
+    "image": "https://www.chinatoday.com/fin/mon/rmbnew5b.jpg",
+    "page": "https://www.chinatoday.com/fin/mon/",
+    "credit": "China Today",
+    "subject": "[[Mount Tai]]"
+   }
+  },
+  {
+   "country": "China",
+   "flag": "🇨🇳",
+   "region": "Asia",
+   "currency": "Renminbi",
+   "code": "CNY",
+   "alsoUsedIn": [
+    "Zimbabwe"
+   ],
+   "id": "cny-10",
+   "denomination": "¥10",
+   "issued": "",
+   "series": "Fifth series of the renminbi",
+   "history": "Renminbi is the official currency of the People's Republic of China and the unrecognized territory of Wa State. The currency is issued by the People's Bank of China, the country's monetary authority. It is the world's fifth-most-traded currency as of April 2025.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/Renminbi",
+   "front": {
+    "image": "https://www.chinatoday.com/fin/mon/rmbnew10a.jpg",
+    "page": "https://www.chinatoday.com/fin/mon/",
+    "credit": "China Today",
+    "subject": "[[Mao Zedong]]"
+   },
+   "back": {
+    "image": "https://www.chinatoday.com/fin/mon/rmbnew10b.jpg",
+    "page": "https://www.chinatoday.com/fin/mon/",
+    "credit": "China Today",
+    "subject": "The [[Three Gorges]] of the [[Yangtze]]"
+   }
+  },
+  {
+   "country": "China",
+   "flag": "🇨🇳",
+   "region": "Asia",
+   "currency": "Renminbi",
+   "code": "CNY",
+   "alsoUsedIn": [
+    "Zimbabwe"
+   ],
+   "id": "cny-20",
+   "denomination": "¥20",
+   "issued": "",
+   "series": "Fifth series of the renminbi",
+   "history": "Renminbi is the official currency of the People's Republic of China and the unrecognized territory of Wa State. The currency is issued by the People's Bank of China, the country's monetary authority. It is the world's fifth-most-traded currency as of April 2025.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/Renminbi",
+   "front": {
+    "image": "https://www.chinatoday.com/fin/mon/RMB20NEW.JPG",
+    "page": "https://www.chinatoday.com/fin/mon/",
+    "credit": "China Today",
+    "subject": "[[Mao Zedong]]"
+   },
+   "back": {
+    "image": "https://www.chinatoday.com/fin/mon/rmb20new1.jpg",
+    "page": "https://www.chinatoday.com/fin/mon/",
+    "credit": "China Today",
+    "subject": "The [[Li River]] at [[Guilin]]"
+   }
+  },
+  {
+   "country": "China",
+   "flag": "🇨🇳",
+   "region": "Asia",
+   "currency": "Renminbi",
+   "code": "CNY",
+   "alsoUsedIn": [
+    "Zimbabwe"
+   ],
+   "id": "cny-50",
+   "denomination": "¥50",
+   "issued": "",
+   "series": "Fifth series of the renminbi",
+   "history": "Renminbi is the official currency of the People's Republic of China and the unrecognized territory of Wa State. The currency is issued by the People's Bank of China, the country's monetary authority. It is the world's fifth-most-traded currency as of April 2025.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/Renminbi",
+   "front": {
+    "image": "https://www.chinatoday.com/fin/mon/rmbnew50a.jpg",
+    "page": "https://www.chinatoday.com/fin/mon/",
+    "credit": "China Today",
+    "subject": "[[Mao Zedong]]"
+   },
+   "back": {
+    "image": "https://www.chinatoday.com/fin/mon/rmbnew50b.jpg",
+    "page": "https://www.chinatoday.com/fin/mon/",
+    "credit": "China Today",
+    "subject": "The [[Potala Palace]], Lhasa"
+   }
+  },
+  {
+   "country": "China",
+   "flag": "🇨🇳",
+   "region": "Asia",
+   "currency": "Renminbi",
+   "code": "CNY",
+   "alsoUsedIn": [
+    "Zimbabwe"
+   ],
+   "id": "cny-100",
+   "denomination": "¥100",
+   "issued": "",
+   "series": "Fifth series of the renminbi",
+   "history": "Renminbi is the official currency of the People's Republic of China and the unrecognized territory of Wa State. The currency is issued by the People's Bank of China, the country's monetary authority. It is the world's fifth-most-traded currency as of April 2025.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/Renminbi",
+   "front": {
+    "image": "https://www.chinatoday.com/fin/mon/rmb100new.jpg",
+    "page": "https://www.chinatoday.com/fin/mon/",
+    "credit": "China Today",
+    "subject": "[[Mao Zedong]]"
+   },
+   "back": {
+    "image": "https://www.chinatoday.com/fin/mon/rmb100new1.jpg",
+    "page": "https://www.chinatoday.com/fin/mon/",
+    "credit": "China Today",
+    "subject": "The [[Great Hall of the People]], Beijing"
+   }
+  },
+  {
    "country": "India",
    "flag": "🇮🇳",
    "region": "Asia",
@@ -4105,6 +4279,310 @@
    }
   },
   {
+   "country": "United Arab Emirates",
+   "flag": "🇦🇪",
+   "region": "Asia",
+   "currency": "United Arab Emirates dirham",
+   "code": "AED",
+   "id": "aed-5",
+   "denomination": "AED 5",
+   "issued": "2022",
+   "series": "Polymer series",
+   "history": "The Emirati dirham Arabic: درهم إماراتي, abbreviation: د.إ in Arabic, Dh; is the official currency of the United Arab Emirates. Each dirham is subdivided into 100 fulus. It is pegged to the United States dollar at a constant exchange rate of approximately 3.67 AED to 1 USD.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/United_Arab_Emirates_dirham",
+   "front": {
+    "image": "https://centralbank.ae/media/vm5ida3a/aed-5-new-polymer-ar-en.png",
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-5-polymer/",
+    "credit": "Central Bank of the UAE",
+    "subject": "[[Sharjah Fort]] (Al Hisn)",
+    "crop": [
+     0,
+     0,
+     1,
+     0.5
+    ]
+   },
+   "back": {
+    "image": "https://centralbank.ae/media/vm5ida3a/aed-5-new-polymer-ar-en.png",
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-5-polymer/",
+    "credit": "Central Bank of the UAE",
+    "subject": "[[Dhayah Fort]] on its hilltop, Ras Al Khaimah",
+    "crop": [
+     0,
+     0.5,
+     1,
+     0.5
+    ]
+   }
+  },
+  {
+   "country": "United Arab Emirates",
+   "flag": "🇦🇪",
+   "region": "Asia",
+   "currency": "United Arab Emirates dirham",
+   "code": "AED",
+   "id": "aed-10",
+   "denomination": "AED 10",
+   "issued": "2022",
+   "series": "Polymer series",
+   "history": "The Emirati dirham Arabic: درهم إماراتي, abbreviation: د.إ in Arabic, Dh; is the official currency of the United Arab Emirates. Each dirham is subdivided into 100 fulus. It is pegged to the United States dollar at a constant exchange rate of approximately 3.67 AED to 1 USD.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/United_Arab_Emirates_dirham",
+   "front": {
+    "image": "https://centralbank.ae/media/1hdnirga/aed-10-new-polymer-ar-en.png",
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-10-polymer/",
+    "credit": "Central Bank of the UAE",
+    "subject": "The [[Sheikh Zayed Grand Mosque]], Abu Dhabi",
+    "crop": [
+     0,
+     0,
+     1,
+     0.5
+    ]
+   },
+   "back": {
+    "image": "https://centralbank.ae/media/1hdnirga/aed-10-new-polymer-ar-en.png",
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-10-polymer/",
+    "credit": "Central Bank of the UAE",
+    "subject": "The [[Khor Fakkan]] amphitheatre",
+    "crop": [
+     0,
+     0.5,
+     1,
+     0.5
+    ]
+   }
+  },
+  {
+   "country": "United Arab Emirates",
+   "flag": "🇦🇪",
+   "region": "Asia",
+   "currency": "United Arab Emirates dirham",
+   "code": "AED",
+   "id": "aed-20",
+   "denomination": "AED 20",
+   "issued": "2015",
+   "series": "Polymer series",
+   "history": "The Emirati dirham Arabic: درهم إماراتي, abbreviation: د.إ in Arabic, Dh; is the official currency of the United Arab Emirates. Each dirham is subdivided into 100 fulus. It is pegged to the United States dollar at a constant exchange rate of approximately 3.67 AED to 1 USD.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/United_Arab_Emirates_dirham",
+   "front": {
+    "image": "https://centralbank.ae/media/pgxj5llt/aed-20-image-1.jpg",
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-20/",
+    "credit": "Central Bank of the UAE",
+    "subject": "The [[Dubai Creek Golf & Yacht Club]]",
+    "crop": [
+     0.5,
+     0.25,
+     0.5,
+     0.236
+    ]
+   },
+   "back": {
+    "image": "https://centralbank.ae/media/pgxj5llt/aed-20-image-1.jpg",
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-20/",
+    "credit": "Central Bank of the UAE",
+    "subject": "A traditional dhow",
+    "crop": [
+     0.5,
+     0.513,
+     0.5,
+     0.235
+    ]
+   }
+  },
+  {
+   "country": "United Arab Emirates",
+   "flag": "🇦🇪",
+   "region": "Asia",
+   "currency": "United Arab Emirates dirham",
+   "code": "AED",
+   "id": "aed-50",
+   "denomination": "AED 50",
+   "issued": "2022",
+   "series": "Polymer series",
+   "history": "The Emirati dirham Arabic: درهم إماراتي, abbreviation: د.إ in Arabic, Dh; is the official currency of the United Arab Emirates. Each dirham is subdivided into 100 fulus. It is pegged to the United States dollar at a constant exchange rate of approximately 3.67 AED to 1 USD.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/United_Arab_Emirates_dirham",
+   "front": {
+    "image": "https://centralbank.ae/media/ibdlm4w2/aed-50-newest-ar-en.png",
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-50-polymer/",
+    "credit": "Central Bank of the UAE",
+    "subject": "Sheikh Zayed and the UAE's founding rulers",
+    "crop": [
+     0,
+     0,
+     1,
+     0.5
+    ]
+   },
+   "back": {
+    "image": "https://centralbank.ae/media/ibdlm4w2/aed-50-newest-ar-en.png",
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-50-polymer/",
+    "credit": "Central Bank of the UAE",
+    "subject": "The [[Etihad Museum]], Dubai",
+    "crop": [
+     0,
+     0.5,
+     1,
+     0.5
+    ]
+   }
+  },
+  {
+   "country": "United Arab Emirates",
+   "flag": "🇦🇪",
+   "region": "Asia",
+   "currency": "United Arab Emirates dirham",
+   "code": "AED",
+   "id": "aed-100",
+   "denomination": "AED 100",
+   "issued": "2025",
+   "series": "Polymer series",
+   "history": "The Emirati dirham Arabic: درهم إماراتي, abbreviation: د.إ in Arabic, Dh; is the official currency of the United Arab Emirates. Each dirham is subdivided into 100 fulus. It is pegged to the United States dollar at a constant exchange rate of approximately 3.67 AED to 1 USD.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/United_Arab_Emirates_dirham",
+   "front": {
+    "image": "https://centralbank.ae/media/41pcw0rv/both-side-of-aed-banknote.jpg",
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-100-polymer/",
+    "credit": "Central Bank of the UAE",
+    "subject": "[[Umm Al Quwain]] fort",
+    "crop": [
+     0,
+     0,
+     1,
+     0.5
+    ]
+   },
+   "back": {
+    "image": "https://centralbank.ae/media/41pcw0rv/both-side-of-aed-banknote.jpg",
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-100-polymer/",
+    "credit": "Central Bank of the UAE",
+    "subject": "[[Etihad Rail]] and the Port of [[Fujairah]]",
+    "crop": [
+     0,
+     0.5,
+     1,
+     0.5
+    ]
+   }
+  },
+  {
+   "country": "United Arab Emirates",
+   "flag": "🇦🇪",
+   "region": "Asia",
+   "currency": "United Arab Emirates dirham",
+   "code": "AED",
+   "id": "aed-200",
+   "denomination": "AED 200",
+   "issued": "2016",
+   "series": "Polymer series",
+   "history": "The Emirati dirham Arabic: درهم إماراتي, abbreviation: د.إ in Arabic, Dh; is the official currency of the United Arab Emirates. Each dirham is subdivided into 100 fulus. It is pegged to the United States dollar at a constant exchange rate of approximately 3.67 AED to 1 USD.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/United_Arab_Emirates_dirham",
+   "front": {
+    "image": "https://centralbank.ae/media/fhzbtvzt/aed-200-image-2016.jpg",
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-200/",
+    "credit": "Central Bank of the UAE",
+    "subject": "The [[emblem of the United Arab Emirates]]",
+    "crop": [
+     0.184,
+     0.166,
+     0.627,
+     0.3
+    ]
+   },
+   "back": {
+    "image": "https://centralbank.ae/media/fhzbtvzt/aed-200-image-2016.jpg",
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-200/",
+    "credit": "Central Bank of the UAE",
+    "subject": "The Central Bank building, Abu Dhabi",
+    "crop": [
+     0.185,
+     0.499,
+     0.624,
+     0.298
+    ]
+   }
+  },
+  {
+   "country": "United Arab Emirates",
+   "flag": "🇦🇪",
+   "region": "Asia",
+   "currency": "United Arab Emirates dirham",
+   "code": "AED",
+   "id": "aed-500",
+   "denomination": "AED 500",
+   "issued": "2023",
+   "series": "Polymer series",
+   "history": "The Emirati dirham Arabic: درهم إماراتي, abbreviation: د.إ in Arabic, Dh; is the official currency of the United Arab Emirates. Each dirham is subdivided into 100 fulus. It is pegged to the United States dollar at a constant exchange rate of approximately 3.67 AED to 1 USD.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/United_Arab_Emirates_dirham",
+   "front": {
+    "image": "https://centralbank.ae/media/vtih3tdx/500-both-side.jpg",
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-500-polymer/",
+    "credit": "Central Bank of the UAE",
+    "subject": "The [[Expo 2020]] site, Dubai",
+    "crop": [
+     0,
+     0,
+     1,
+     0.5
+    ]
+   },
+   "back": {
+    "image": "https://centralbank.ae/media/vtih3tdx/500-both-side.jpg",
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-500-polymer/",
+    "credit": "Central Bank of the UAE",
+    "subject": "The [[Museum of the Future]] and [[Burj Khalifa]]",
+    "crop": [
+     0,
+     0.5,
+     1,
+     0.5
+    ]
+   }
+  },
+  {
+   "country": "United Arab Emirates",
+   "flag": "🇦🇪",
+   "region": "Asia",
+   "currency": "United Arab Emirates dirham",
+   "code": "AED",
+   "id": "aed-1000",
+   "denomination": "AED 1000",
+   "issued": "2023",
+   "series": "Polymer series",
+   "history": "The Emirati dirham Arabic: درهم إماراتي, abbreviation: د.إ in Arabic, Dh; is the official currency of the United Arab Emirates. Each dirham is subdivided into 100 fulus. It is pegged to the United States dollar at a constant exchange rate of approximately 3.67 AED to 1 USD.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/United_Arab_Emirates_dirham",
+   "front": {
+    "image": "https://centralbank.ae/media/efybw0d5/1000-bill.png",
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-1000-polymer/",
+    "credit": "Central Bank of the UAE",
+    "subject": "The [[Barakah nuclear power plant]]",
+    "crop": [
+     0,
+     0,
+     1,
+     0.5
+    ]
+   },
+   "back": {
+    "image": "https://centralbank.ae/media/efybw0d5/1000-bill.png",
+    "page": "https://centralbank.ae/en/our-operations/currency-and-coins/circulated-currency/current-banknotes/aed-1000-polymer/",
+    "credit": "Central Bank of the UAE",
+    "subject": "The [[Emirates Mars Mission|Hope probe]] and the UAE's space programme",
+    "crop": [
+     0,
+     0.5,
+     1,
+     0.5
+    ]
+   }
+  },
+  {
    "country": "Uzbekistan",
    "flag": "🇺🇿",
    "region": "Asia",
@@ -5867,34 +6345,6 @@
    }
   },
   {
-   "country": "Kingdom of the Netherlands",
-   "flag": "🇳🇱",
-   "region": "Europe",
-   "currency": "Aruban florin",
-   "code": "AWG",
-   "id": "awg-2019",
-   "denomination": "2019 florins",
-   "issued": "",
-   "series": null,
-   "history": "The Aruban florin, also called the Aruban guilder, is the currency of Aruba. It is subdivided into 100 cents. The florin was introduced in 1986, replacing the Netherlands Antillean guilder at par.",
-   "design": "Brown note.",
-   "source": "https://en.wikipedia.org/wiki/Aruban_florin",
-   "front": {
-    "image": "https://upload.wikimedia.org/wikipedia/en/7/7c/2019_Obverse_200_Florin.jpg",
-    "thumb": "https://upload.wikimedia.org/wikipedia/en/7/7c/2019_Obverse_200_Florin.jpg",
-    "page": "https://en.wikipedia.org/wiki/File:2019_Obverse_200_Florin.jpg",
-    "credit": "Centrale Bank van Aruba · Fair use",
-    "subject": "Afl. 200"
-   },
-   "back": {
-    "image": "https://upload.wikimedia.org/wikipedia/en/6/62/2019_Reverse_200_Florin.jpg",
-    "thumb": "https://upload.wikimedia.org/wikipedia/en/6/62/2019_Reverse_200_Florin.jpg",
-    "page": "https://en.wikipedia.org/wiki/File:2019_Reverse_200_Florin.jpg",
-    "credit": "Centrale Bank van Aruba · Fair use",
-    "subject": "[[Crested caracara]]"
-   }
-  },
-  {
    "country": "Moldova",
    "flag": "🇲🇩",
    "region": "Europe",
@@ -6144,6 +6594,34 @@
     "page": "https://commons.wikimedia.org/wiki/File:MD_1000_lei_rev.jpg",
     "credit": "National Bank of Moldova · Public domain",
     "subject": "[[Presidential Palace, Chișinău|Presidential Palace]]"
+   }
+  },
+  {
+   "country": "Netherlands",
+   "flag": "🇳🇱",
+   "region": "Europe",
+   "currency": "Aruban florin",
+   "code": "AWG",
+   "id": "awg-2019",
+   "denomination": "2019 florins",
+   "issued": "",
+   "series": null,
+   "history": "The Aruban florin, also called the Aruban guilder, is the currency of Aruba. It is subdivided into 100 cents. The florin was introduced in 1986, replacing the Netherlands Antillean guilder at par.",
+   "design": "Brown note.",
+   "source": "https://en.wikipedia.org/wiki/Aruban_florin",
+   "front": {
+    "image": "https://upload.wikimedia.org/wikipedia/en/7/7c/2019_Obverse_200_Florin.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/en/7/7c/2019_Obverse_200_Florin.jpg",
+    "page": "https://en.wikipedia.org/wiki/File:2019_Obverse_200_Florin.jpg",
+    "credit": "Centrale Bank van Aruba · Fair use",
+    "subject": "Afl. 200"
+   },
+   "back": {
+    "image": "https://upload.wikimedia.org/wikipedia/en/6/62/2019_Reverse_200_Florin.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/en/6/62/2019_Reverse_200_Florin.jpg",
+    "page": "https://en.wikipedia.org/wiki/File:2019_Reverse_200_Florin.jpg",
+    "credit": "Centrale Bank van Aruba · Fair use",
+    "subject": "[[Crested caracara]]"
    }
   },
   {
@@ -7930,6 +8408,146 @@
    }
   },
   {
+   "country": "Gambia",
+   "flag": "🇬🇲",
+   "region": "Africa",
+   "currency": "Gambian dalasi",
+   "code": "GMD",
+   "id": "gmd-5",
+   "denomination": "5 dalasis",
+   "issued": "2006",
+   "series": null,
+   "history": "The dalasi is the currency of The Gambia that was adopted in 1971. One dalasi is divided into one hundred bututs.",
+   "design": "Red note, issued from 2006.",
+   "source": "https://en.wikipedia.org/wiki/Gambian_dalasi",
+   "front": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Gambia_5_dalasi.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Gambia_5_dalasi.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Gambia_5_dalasi.jpg",
+    "credit": "Jolle · CC BY-SA 3.0",
+    "subject": "[[Giant kingfisher]]; girl"
+   },
+   "back": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/6/66/Gambia_5_dalasi-2.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/6/66/Gambia_5_dalasi-2.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Gambia_5_dalasi-2.jpg",
+    "credit": "Jolle · CC BY-SA 3.0",
+    "subject": "Cattle"
+   }
+  },
+  {
+   "country": "Gambia",
+   "flag": "🇬🇲",
+   "region": "Africa",
+   "currency": "Gambian dalasi",
+   "code": "GMD",
+   "id": "gmd-10",
+   "denomination": "10 dalasis",
+   "issued": "2006",
+   "series": null,
+   "history": "The dalasi is the currency of The Gambia that was adopted in 1971. One dalasi is divided into one hundred bututs.",
+   "design": "Green note, issued from 2006.",
+   "source": "https://en.wikipedia.org/wiki/Gambian_dalasi",
+   "front": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Gambia_10_dalasi.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Gambia_10_dalasi.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Gambia_10_dalasi.jpg",
+    "credit": "Jolle · CC BY-SA 3.0",
+    "subject": "[[Sacred ibis]]; boy"
+   },
+   "back": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/83/Gambia_10_dalasi-2.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/8/83/Gambia_10_dalasi-2.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Gambia_10_dalasi-2.jpg",
+    "credit": "Jolle · CC BY-SA 3.0",
+    "subject": "Central Bank of The Gambia headquarters, [[Banjul]]"
+   }
+  },
+  {
+   "country": "Gambia",
+   "flag": "🇬🇲",
+   "region": "Africa",
+   "currency": "Gambian dalasi",
+   "code": "GMD",
+   "id": "gmd-25",
+   "denomination": "25 dalasis",
+   "issued": "2006",
+   "series": null,
+   "history": "The dalasi is the currency of The Gambia that was adopted in 1971. One dalasi is divided into one hundred bututs.",
+   "design": "Blue note, issued from 2006.",
+   "source": "https://en.wikipedia.org/wiki/Gambian_dalasi",
+   "front": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/43/Gambia_25_dalasi.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/4/43/Gambia_25_dalasi.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Gambia_25_dalasi.jpg",
+    "credit": "Jolle · CC BY-SA 3.0",
+    "subject": "[[Northern carmine bee-eater]]; man"
+   },
+   "back": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/6/60/Gambia_25_dalasi-2.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/6/60/Gambia_25_dalasi-2.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Gambia_25_dalasi-2.jpg",
+    "credit": "Jolle · CC BY-SA 3.0",
+    "subject": "[[State House, Banjul]]"
+   }
+  },
+  {
+   "country": "Gambia",
+   "flag": "🇬🇲",
+   "region": "Africa",
+   "currency": "Gambian dalasi",
+   "code": "GMD",
+   "id": "gmd-50",
+   "denomination": "50 dalasis",
+   "issued": "2006",
+   "series": null,
+   "history": "The dalasi is the currency of The Gambia that was adopted in 1971. One dalasi is divided into one hundred bututs.",
+   "design": "Light purple note, issued from 2006.",
+   "source": "https://en.wikipedia.org/wiki/Gambian_dalasi",
+   "front": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/2/22/Gambia_50_dalasi.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/2/22/Gambia_50_dalasi.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Gambia_50_dalasi.jpg",
+    "credit": "Jolle · CC BY-SA 3.0",
+    "subject": "[[Eurasian hoopoe]]s; woman"
+   },
+   "back": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Gambia_50_dalasi-2.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Gambia_50_dalasi-2.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Gambia_50_dalasi-2.jpg",
+    "credit": "Jolle · CC BY-SA 3.0",
+    "subject": "[[Wassu stone circles]]"
+   }
+  },
+  {
+   "country": "Gambia",
+   "flag": "🇬🇲",
+   "region": "Africa",
+   "currency": "Gambian dalasi",
+   "code": "GMD",
+   "id": "gmd-100",
+   "denomination": "100 dalasis",
+   "issued": "2006",
+   "series": null,
+   "history": "The dalasi is the currency of The Gambia that was adopted in 1971. One dalasi is divided into one hundred bututs.",
+   "design": "Cyan note, issued from 2006.",
+   "source": "https://en.wikipedia.org/wiki/Gambian_dalasi",
+   "front": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/2/28/Gambia_100_dalasi.jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/2/28/Gambia_100_dalasi.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Gambia_100_dalasi.jpg",
+    "credit": "Jolle · CC BY-SA 3.0",
+    "subject": "[[Senegal parrot]], old man"
+   },
+   "back": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Gambia_100_dalasi-2.JPG",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Gambia_100_dalasi-2.JPG",
+    "page": "https://commons.wikimedia.org/wiki/File:Gambia_100_dalasi-2.JPG",
+    "credit": "Jolle · CC BY-SA 3.0",
+    "subject": "[[Arch 22]] monument, Banjul"
+   }
+  },
+  {
    "country": "Kenya",
    "flag": "🇰🇪",
    "region": "Africa",
@@ -8434,6 +9052,161 @@
    }
   },
   {
+   "country": "South Africa",
+   "flag": "🇿🇦",
+   "region": "Africa",
+   "currency": "South African rand",
+   "code": "ZAR",
+   "alsoUsedIn": [
+    "Lesotho",
+    "Namibia",
+    "Zimbabwe"
+   ],
+   "id": "zar-10",
+   "denomination": "R10",
+   "issued": "2023",
+   "series": "Upgraded Mandela series",
+   "history": "The South African rand, or simply the rand, is the official currency of South Africa. It is subdivided into 100 cents, a comma separates the rand and cents. The South African rand is legal tender in the Common Monetary Area member states of Namibia, Lesotho, and Eswatini, with these three countries also having national currencies pegged with the rand at parity and still widely accepted as substitutes.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/South_African_rand",
+   "front": {
+    "image": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R10_Front.jpg",
+    "page": "https://www.resbank.co.za/en/home/what-we-do/banknotes-and-coin/Use-of-banknotes",
+    "credit": "South African Reserve Bank",
+    "subject": "[[Nelson Mandela]]"
+   },
+   "back": {
+    "image": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R10_Back.jpg",
+    "page": "https://www.resbank.co.za/en/home/what-we-do/banknotes-and-coin/Use-of-banknotes",
+    "credit": "South African Reserve Bank",
+    "subject": "A [[black rhinoceros|rhino]] and calf"
+   }
+  },
+  {
+   "country": "South Africa",
+   "flag": "🇿🇦",
+   "region": "Africa",
+   "currency": "South African rand",
+   "code": "ZAR",
+   "alsoUsedIn": [
+    "Lesotho",
+    "Namibia",
+    "Zimbabwe"
+   ],
+   "id": "zar-20",
+   "denomination": "R20",
+   "issued": "2023",
+   "series": "Upgraded Mandela series",
+   "history": "The South African rand, or simply the rand, is the official currency of South Africa. It is subdivided into 100 cents, a comma separates the rand and cents. The South African rand is legal tender in the Common Monetary Area member states of Namibia, Lesotho, and Eswatini, with these three countries also having national currencies pegged with the rand at parity and still widely accepted as substitutes.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/South_African_rand",
+   "front": {
+    "image": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R20_Front.jpg",
+    "page": "https://www.resbank.co.za/en/home/what-we-do/banknotes-and-coin/Use-of-banknotes",
+    "credit": "South African Reserve Bank",
+    "subject": "[[Nelson Mandela]]"
+   },
+   "back": {
+    "image": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R20_Back.jpg",
+    "page": "https://www.resbank.co.za/en/home/what-we-do/banknotes-and-coin/Use-of-banknotes",
+    "credit": "South African Reserve Bank",
+    "subject": "An [[African elephant|elephant]] family"
+   }
+  },
+  {
+   "country": "South Africa",
+   "flag": "🇿🇦",
+   "region": "Africa",
+   "currency": "South African rand",
+   "code": "ZAR",
+   "alsoUsedIn": [
+    "Lesotho",
+    "Namibia",
+    "Zimbabwe"
+   ],
+   "id": "zar-50",
+   "denomination": "R50",
+   "issued": "2023",
+   "series": "Upgraded Mandela series",
+   "history": "The South African rand, or simply the rand, is the official currency of South Africa. It is subdivided into 100 cents, a comma separates the rand and cents. The South African rand is legal tender in the Common Monetary Area member states of Namibia, Lesotho, and Eswatini, with these three countries also having national currencies pegged with the rand at parity and still widely accepted as substitutes.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/South_African_rand",
+   "front": {
+    "image": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R50_Front.jpg",
+    "page": "https://www.resbank.co.za/en/home/what-we-do/banknotes-and-coin/Use-of-banknotes",
+    "credit": "South African Reserve Bank",
+    "subject": "[[Nelson Mandela]]"
+   },
+   "back": {
+    "image": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R50_Back.jpg",
+    "page": "https://www.resbank.co.za/en/home/what-we-do/banknotes-and-coin/Use-of-banknotes",
+    "credit": "South African Reserve Bank",
+    "subject": "A [[lion]] family"
+   }
+  },
+  {
+   "country": "South Africa",
+   "flag": "🇿🇦",
+   "region": "Africa",
+   "currency": "South African rand",
+   "code": "ZAR",
+   "alsoUsedIn": [
+    "Lesotho",
+    "Namibia",
+    "Zimbabwe"
+   ],
+   "id": "zar-100",
+   "denomination": "R100",
+   "issued": "2023",
+   "series": "Upgraded Mandela series",
+   "history": "The South African rand, or simply the rand, is the official currency of South Africa. It is subdivided into 100 cents, a comma separates the rand and cents. The South African rand is legal tender in the Common Monetary Area member states of Namibia, Lesotho, and Eswatini, with these three countries also having national currencies pegged with the rand at parity and still widely accepted as substitutes.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/South_African_rand",
+   "front": {
+    "image": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R100_Front.jpg",
+    "page": "https://www.resbank.co.za/en/home/what-we-do/banknotes-and-coin/Use-of-banknotes",
+    "credit": "South African Reserve Bank",
+    "subject": "[[Nelson Mandela]]"
+   },
+   "back": {
+    "image": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R100_Back.jpg",
+    "page": "https://www.resbank.co.za/en/home/what-we-do/banknotes-and-coin/Use-of-banknotes",
+    "credit": "South African Reserve Bank",
+    "subject": "A [[African buffalo|Cape buffalo]] and calf"
+   }
+  },
+  {
+   "country": "South Africa",
+   "flag": "🇿🇦",
+   "region": "Africa",
+   "currency": "South African rand",
+   "code": "ZAR",
+   "alsoUsedIn": [
+    "Lesotho",
+    "Namibia",
+    "Zimbabwe"
+   ],
+   "id": "zar-200",
+   "denomination": "R200",
+   "issued": "2023",
+   "series": "Upgraded Mandela series",
+   "history": "The South African rand, or simply the rand, is the official currency of South Africa. It is subdivided into 100 cents, a comma separates the rand and cents. The South African rand is legal tender in the Common Monetary Area member states of Namibia, Lesotho, and Eswatini, with these three countries also having national currencies pegged with the rand at parity and still widely accepted as substitutes.",
+   "design": "",
+   "source": "https://en.wikipedia.org/wiki/South_African_rand",
+   "front": {
+    "image": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R200_Front.jpg",
+    "page": "https://www.resbank.co.za/en/home/what-we-do/banknotes-and-coin/Use-of-banknotes",
+    "credit": "South African Reserve Bank",
+    "subject": "[[Nelson Mandela]]"
+   },
+   "back": {
+    "image": "https://www.resbank.co.za/content/dam/sarb/what-we-do/banknotes-and-coin/distribution-images/R200_Back.jpg",
+    "page": "https://www.resbank.co.za/en/home/what-we-do/banknotes-and-coin/Use-of-banknotes",
+    "credit": "South African Reserve Bank",
+    "subject": "A [[leopard]] and cub"
+   }
+  },
+  {
    "country": "Tanzania",
    "flag": "🇹🇿",
    "region": "Africa",
@@ -8571,146 +9344,6 @@
     "page": "https://commons.wikimedia.org/wiki/File:TZSn10000r.jpg",
     "credit": "Ahandrich · CC0",
     "subject": "Flowers; Bank of Tanzania headquarters building in [[Dar es Salaam]]"
-   }
-  },
-  {
-   "country": "The Gambia",
-   "flag": "🇬🇲",
-   "region": "Africa",
-   "currency": "Gambian dalasi",
-   "code": "GMD",
-   "id": "gmd-5",
-   "denomination": "5 dalasis",
-   "issued": "2006",
-   "series": null,
-   "history": "The dalasi is the currency of The Gambia that was adopted in 1971. One dalasi is divided into one hundred bututs.",
-   "design": "Red note, issued from 2006.",
-   "source": "https://en.wikipedia.org/wiki/Gambian_dalasi",
-   "front": {
-    "image": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Gambia_5_dalasi.jpg",
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Gambia_5_dalasi.jpg",
-    "page": "https://commons.wikimedia.org/wiki/File:Gambia_5_dalasi.jpg",
-    "credit": "Jolle · CC BY-SA 3.0",
-    "subject": "[[Giant kingfisher]]; girl"
-   },
-   "back": {
-    "image": "https://upload.wikimedia.org/wikipedia/commons/6/66/Gambia_5_dalasi-2.jpg",
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/6/66/Gambia_5_dalasi-2.jpg",
-    "page": "https://commons.wikimedia.org/wiki/File:Gambia_5_dalasi-2.jpg",
-    "credit": "Jolle · CC BY-SA 3.0",
-    "subject": "Cattle"
-   }
-  },
-  {
-   "country": "The Gambia",
-   "flag": "🇬🇲",
-   "region": "Africa",
-   "currency": "Gambian dalasi",
-   "code": "GMD",
-   "id": "gmd-10",
-   "denomination": "10 dalasis",
-   "issued": "2006",
-   "series": null,
-   "history": "The dalasi is the currency of The Gambia that was adopted in 1971. One dalasi is divided into one hundred bututs.",
-   "design": "Green note, issued from 2006.",
-   "source": "https://en.wikipedia.org/wiki/Gambian_dalasi",
-   "front": {
-    "image": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Gambia_10_dalasi.jpg",
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Gambia_10_dalasi.jpg",
-    "page": "https://commons.wikimedia.org/wiki/File:Gambia_10_dalasi.jpg",
-    "credit": "Jolle · CC BY-SA 3.0",
-    "subject": "[[Sacred ibis]]; boy"
-   },
-   "back": {
-    "image": "https://upload.wikimedia.org/wikipedia/commons/8/83/Gambia_10_dalasi-2.jpg",
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/8/83/Gambia_10_dalasi-2.jpg",
-    "page": "https://commons.wikimedia.org/wiki/File:Gambia_10_dalasi-2.jpg",
-    "credit": "Jolle · CC BY-SA 3.0",
-    "subject": "Central Bank of The Gambia headquarters, [[Banjul]]"
-   }
-  },
-  {
-   "country": "The Gambia",
-   "flag": "🇬🇲",
-   "region": "Africa",
-   "currency": "Gambian dalasi",
-   "code": "GMD",
-   "id": "gmd-25",
-   "denomination": "25 dalasis",
-   "issued": "2006",
-   "series": null,
-   "history": "The dalasi is the currency of The Gambia that was adopted in 1971. One dalasi is divided into one hundred bututs.",
-   "design": "Blue note, issued from 2006.",
-   "source": "https://en.wikipedia.org/wiki/Gambian_dalasi",
-   "front": {
-    "image": "https://upload.wikimedia.org/wikipedia/commons/4/43/Gambia_25_dalasi.jpg",
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/4/43/Gambia_25_dalasi.jpg",
-    "page": "https://commons.wikimedia.org/wiki/File:Gambia_25_dalasi.jpg",
-    "credit": "Jolle · CC BY-SA 3.0",
-    "subject": "[[Northern carmine bee-eater]]; man"
-   },
-   "back": {
-    "image": "https://upload.wikimedia.org/wikipedia/commons/6/60/Gambia_25_dalasi-2.jpg",
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/6/60/Gambia_25_dalasi-2.jpg",
-    "page": "https://commons.wikimedia.org/wiki/File:Gambia_25_dalasi-2.jpg",
-    "credit": "Jolle · CC BY-SA 3.0",
-    "subject": "[[State House, Banjul]]"
-   }
-  },
-  {
-   "country": "The Gambia",
-   "flag": "🇬🇲",
-   "region": "Africa",
-   "currency": "Gambian dalasi",
-   "code": "GMD",
-   "id": "gmd-50",
-   "denomination": "50 dalasis",
-   "issued": "2006",
-   "series": null,
-   "history": "The dalasi is the currency of The Gambia that was adopted in 1971. One dalasi is divided into one hundred bututs.",
-   "design": "Light purple note, issued from 2006.",
-   "source": "https://en.wikipedia.org/wiki/Gambian_dalasi",
-   "front": {
-    "image": "https://upload.wikimedia.org/wikipedia/commons/2/22/Gambia_50_dalasi.jpg",
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/2/22/Gambia_50_dalasi.jpg",
-    "page": "https://commons.wikimedia.org/wiki/File:Gambia_50_dalasi.jpg",
-    "credit": "Jolle · CC BY-SA 3.0",
-    "subject": "[[Eurasian hoopoe]]s; woman"
-   },
-   "back": {
-    "image": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Gambia_50_dalasi-2.jpg",
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Gambia_50_dalasi-2.jpg",
-    "page": "https://commons.wikimedia.org/wiki/File:Gambia_50_dalasi-2.jpg",
-    "credit": "Jolle · CC BY-SA 3.0",
-    "subject": "[[Wassu stone circles]]"
-   }
-  },
-  {
-   "country": "The Gambia",
-   "flag": "🇬🇲",
-   "region": "Africa",
-   "currency": "Gambian dalasi",
-   "code": "GMD",
-   "id": "gmd-100",
-   "denomination": "100 dalasis",
-   "issued": "2006",
-   "series": null,
-   "history": "The dalasi is the currency of The Gambia that was adopted in 1971. One dalasi is divided into one hundred bututs.",
-   "design": "Cyan note, issued from 2006.",
-   "source": "https://en.wikipedia.org/wiki/Gambian_dalasi",
-   "front": {
-    "image": "https://upload.wikimedia.org/wikipedia/commons/2/28/Gambia_100_dalasi.jpg",
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/2/28/Gambia_100_dalasi.jpg",
-    "page": "https://commons.wikimedia.org/wiki/File:Gambia_100_dalasi.jpg",
-    "credit": "Jolle · CC BY-SA 3.0",
-    "subject": "[[Senegal parrot]], old man"
-   },
-   "back": {
-    "image": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Gambia_100_dalasi-2.JPG",
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Gambia_100_dalasi-2.JPG",
-    "page": "https://commons.wikimedia.org/wiki/File:Gambia_100_dalasi-2.JPG",
-    "credit": "Jolle · CC BY-SA 3.0",
-    "subject": "[[Arch 22]] monument, Banjul"
    }
   },
   {

@@ -11,6 +11,9 @@ struct Banknote: Codable, Identifiable, Hashable {
         var image: URL
         /// A small rendition for the drawer, when the source offers one.
         var thumb: URL?
+        /// The part of the image this side occupies, as unit x, y (from the
+        /// top), width, height, for sources that put both sides in one image.
+        var crop: [Double]?
         /// The file's page, with its author and licence.
         var page: URL
         var credit: String
@@ -108,7 +111,26 @@ final class BanknoteImages {
         return url
     }()
 
-    func cached(_ url: URL) -> NSImage? { memory[url] }
+    func cached(_ url: URL, crop: [Double]? = nil) -> NSImage? { memory[Self.key(url, crop)] }
+
+    /// The image at `url`, cut to `crop` when given.
+    func image(_ url: URL, crop: [Double]? = nil) async -> NSImage? {
+        guard let crop, crop.count == 4 else { return await image(url) }
+        let key = Self.key(url, crop)
+        if let image = memory[key] { return image }
+        guard let whole = await image(url), let cg = whole.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return nil }
+        let w = Double(cg.width), h = Double(cg.height)
+        let rect = CGRect(x: crop[0] * w, y: crop[1] * h, width: crop[2] * w, height: crop[3] * h).integral
+        guard let part = cg.cropping(to: rect) else { return whole }
+        let image = NSImage(cgImage: part, size: NSSize(width: part.width, height: part.height))
+        memory[key] = image
+        return image
+    }
+
+    private static func key(_ url: URL, _ crop: [Double]?) -> URL {
+        guard let crop else { return url }
+        return url.appending(queryItems: [URLQueryItem(name: "crop", value: crop.map { String($0) }.joined(separator: ","))])
+    }
 
     func image(_ url: URL) async -> NSImage? {
         if let image = memory[url] { return image }

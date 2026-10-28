@@ -1,0 +1,11 @@
+{
+  "routes": [
+    { "route": "/u/*", "rewrite": "/u.html" }
+  ],
+  "navigationFallback": { "rewrite": "/index.html", "exclude": ["/*.{css,js,png,svg,ico}"] },
+  "globalHeaders": {
+    "Content-Security-Policy": "default-src 'self'; img-src * data:; connect-src https://shelfraj-api.azurewebsites.net; style-src 'self'; script-src 'self'; frame-ancestors 'none'",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "strict-origin-when-cross-origin"
+  }
+}

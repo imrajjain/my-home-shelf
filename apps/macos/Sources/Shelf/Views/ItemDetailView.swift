@@ -226,6 +226,9 @@ struct ItemDetailView: View {
                     .buttonStyle(.pill)
                     .help("Goodreads has no way for apps to add books, so this opens it there. The next sync links them up.")
             }
+            if Account.shared.isSignedIn {
+                SharingPicker(item: item)
+            }
             if let pdf = item.extra["pdf"].flatMap(URL.init(string:)) {
                 Button("PDF", systemImage: "doc.richtext") { NSWorkspace.shared.open(pdf) }
                     .buttonStyle(.pill)

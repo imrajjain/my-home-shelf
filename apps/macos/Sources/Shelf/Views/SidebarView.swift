@@ -24,6 +24,13 @@ struct SidebarView: View {
                 ForEach(shelves) { kind in row(.kind(kind)) }
             }
 
+            if Account.shared.isSignedIn {
+                Section("People") {
+                    row(.people)
+                    ForEach(FriendsList.shared.people) { person in row(.person(person.username)) }
+                }
+            }
+
             Section("Museum") {
                 ForEach(Exhibit.allCases, id: \.self) { exhibit in row(.exhibit(exhibit)) }
             }

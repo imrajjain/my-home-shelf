@@ -20,6 +20,7 @@ struct HomeView: View {
                         shelfRow("Up next", items: upNextVisual, see: .status(.want))
                     }
                     if !readingList.isEmpty { readingListSection }
+                    FriendsFeedRow()
                     if !recentlyFinished.isEmpty {
                         shelfRow("Recently finished", items: recentlyFinished, see: .status(.done), note: yearNote)
                     }

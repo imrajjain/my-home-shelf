@@ -52,6 +52,9 @@ struct ShelfCommands: Commands {
     let router: Router
 
     var body: some Commands {
+        CommandGroup(after: .appInfo) {
+            CheckForUpdatesCommand()
+        }
         CommandGroup(replacing: .newItem) {
             Button("Add to Shelf…") { router.showingCapture = true }
                 .keyboardShortcut("n")

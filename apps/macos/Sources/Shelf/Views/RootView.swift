@@ -81,6 +81,11 @@ struct RootView: View {
             case .flags: FlagsMuseumView()
             case .currencies: CurrencyMuseumView()
             }
+        case .people:
+            PeopleView()
+        case .person(let name):
+            PersonShelfView(username: name, mine: items)
+                .id(name)
         case let scope:
             LibraryView(items: items, scope: scope)
         }

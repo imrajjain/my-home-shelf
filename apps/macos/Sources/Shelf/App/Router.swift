@@ -9,6 +9,10 @@ enum SidebarSelection: Hashable {
     case kind(ItemKind)
     case tag(String)
     case exhibit(Exhibit)
+    /// Find people, friend requests, the people you follow.
+    case people
+    /// Someone's shared shelf, by username.
+    case person(String)
 
     var title: String {
         switch self {
@@ -18,6 +22,8 @@ enum SidebarSelection: Hashable {
         case .kind(let k): k.pluralTitle
         case .tag(let t): t
         case .exhibit(let e): e.title
+        case .people: "People"
+        case .person(let name): "@\(name)"
         }
     }
 
@@ -29,6 +35,8 @@ enum SidebarSelection: Hashable {
         case .kind(let k): k.symbol
         case .tag: "number"
         case .exhibit(let e): e.symbol
+        case .people: "person.2"
+        case .person: "person.crop.circle"
         }
     }
 }

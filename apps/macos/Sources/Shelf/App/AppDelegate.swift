@@ -7,6 +7,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var currentPreset: HotKeyPreset?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        _ = Updates.shared   // starts background update checks
+
         // When launched via `swift run` there's no bundle; still be a real app.
         if Bundle.main.bundleIdentifier == nil {
             NSApp.setActivationPolicy(.regular)
@@ -25,6 +27,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         configureLocalAPI()
         CaptureCoordinator.shared.repairUnresolved()
         GoodreadsSync.shared.start()
+        Task { await Account.shared.restore(); await FriendsList.shared.refresh() }
 
         defaultsObserver = NotificationCenter.default.addObserver(
             forName: UserDefaults.didChangeNotification, object: nil, queue: .main
@@ -39,6 +42,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     /// Coming back to Shelf picks up whatever changed on Goodreads meanwhile.
     func applicationDidBecomeActive(_ notification: Notification) {
         GoodreadsSync.shared.syncIfStale()
+        CloudSync.shared.soon()
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
@@ -48,6 +52,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     /// `shelf://add?url=…` adds silently; `shelf://capture?…` opens the panel.
     func application(_ application: NSApplication, open urls: [URL]) {
         for url in urls {
+            // shelf://u/<username> opens someone's shared shelf.
+            if url.host == "u", let name = url.pathComponents.dropFirst().first {
+                Router.shared.selection = .person(name.lowercased())
+                NSApp.activate(ignoringOtherApps: true)
+                continue
+            }
             guard let request = CaptureRequest(deepLink: url) else { continue }
             if url.host == "capture" {
                 QuickCaptureController.shared.show(prefill: request)

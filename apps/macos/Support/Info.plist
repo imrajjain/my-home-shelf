@@ -20,6 +20,16 @@
     <string>Shelf</string>
     <key>CFBundleIconName</key>
     <string>Shelf</string>
+    <key>SUFeedURL</key>
+    <string>https://github.com/imrajjain/my-home-shelf/releases/latest/download/appcast.xml</string>
+    <key>SUPublicEDKey</key>
+    <string></string>
+    <key>SUEnableAutomaticChecks</key>
+    <true/>
+    <key>SUAutomaticallyUpdate</key>
+    <true/>
+    <key>SUScheduledCheckInterval</key>
+    <integer>86400</integer>
     <key>LSMinimumSystemVersion</key>
     <string>14.0</string>
     <key>LSApplicationCategoryType</key>

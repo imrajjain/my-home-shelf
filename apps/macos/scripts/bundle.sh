@@ -23,6 +23,11 @@ echo "→ Assembling $APP"
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp "$BIN" "$APP/Contents/MacOS/Shelf"
+# Sparkle, the updater, ships inside the app.
+mkdir -p "$APP/Contents/Frameworks"
+SPARKLE="$(dirname "$BIN")/Sparkle.framework"
+[[ -d "$SPARKLE" ]] || SPARKLE="$ROOT/.build/artifacts/sparkle/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework"
+ditto "$SPARKLE" "$APP/Contents/Frameworks/Sparkle.framework"
 cp "$ROOT/Support/Info.plist" "$APP/Contents/Info.plist"
 # Museum collections (data only; the scans load from Wikimedia on first look).
 cp -R "$ROOT/Support/Museum" "$APP/Contents/Resources/Museum"

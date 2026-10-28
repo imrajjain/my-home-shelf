@@ -41,8 +41,8 @@ struct AccountSettings: View {
                 Section { HStack { ProgressView().controlSize(.small); Text("Signing in…") } }
             case .needsUsername:
                 Section("Choose your username") {
-                    TextField("Username", text: $username, prompt: Text("raj"))
-                    TextField("Display name", text: $displayName, prompt: Text("Raj Jain"))
+                    TextField("Username", text: $username, prompt: Text("Choose a username"))
+                    TextField("Display name", text: $displayName, prompt: Text("Your name"))
                     Text("3–20 letters, numbers or underscores. Friends find you by it, and it's in your profile link.")
                         .font(.caption).foregroundStyle(.secondary)
                     HStack {

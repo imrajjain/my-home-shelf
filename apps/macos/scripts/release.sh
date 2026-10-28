@@ -50,7 +50,24 @@ echo "✓ $ZIP ($(du -h "$ZIP" | cut -f1)), build $BUILD, appcast at $UPDATES/ap
 if [[ "$PUBLISH" == "--publish" ]]; then
   # The feed lives at releases/latest/download/appcast.xml, so the newest
   # release always carries it.
-  gh release create "v$VERSION" "$ZIP" "$UPDATES/appcast.xml" -R "$REPO" \
+  # Shelf.zip: a fixed name, for the one-line installer (…/latest/download/Shelf.zip).
+  cp "$ZIP" "$UPDATES/Shelf.zip"
+  gh release create "v$VERSION" "$ZIP" "$UPDATES/Shelf.zip" "$UPDATES/appcast.xml" -R "$REPO" \
     --title "Shelf $VERSION" --generate-notes
   echo "✓ Published v$VERSION — installed copies will pick it up within a day, or via Shelf ▸ Check for Updates…"
+
+  # Homebrew: point the cask at this release.
+  SHA="$(shasum -a 256 "$ZIP" | cut -d' ' -f1)"
+  CASK="../../packaging/homebrew/Casks/shelf.rb"
+  sed -i '' -E "s/^  version \".*\"/  version \"$VERSION\"/; s/^  sha256 \".*\"/  sha256 \"$SHA\"/" "$CASK"
+  TAP="$(mktemp -d)"
+  if gh repo clone imrajjain/homebrew-tap "$TAP" -- -q 2>/dev/null; then
+    mkdir -p "$TAP/Casks" && cp "$CASK" "$TAP/Casks/shelf.rb"
+    git -C "$TAP" add Casks/shelf.rb
+    git -C "$TAP" commit -qm "Shelf $VERSION" && git -C "$TAP" push -q
+    echo "✓ Homebrew tap updated: brew upgrade --cask shelf"
+  else
+    echo "• Homebrew tap not found (imrajjain/homebrew-tap); skipped." >&2
+  fi
+  rm -rf "$TAP"
 fi

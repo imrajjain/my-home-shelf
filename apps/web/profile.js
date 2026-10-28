@@ -50,15 +50,15 @@ function render({ profile, items }) {
         profile.bio ? el("p", { class: "bio" }, profile.bio) : ""),
       el("div", { class: "actions" },
         el("a", { class: "pill primary", href: `shelf://u/${encodeURIComponent(profile.username)}` }, "Open in Shelf"),
-        el("a", { class: "pill secondary", href: "/" }, "Get Shelf"))),
+        el("a", { class: "pill secondary", href: "/#install" }, "Get Shelf"))),
     ...(items.length === 0
       ? [el("p", { class: "empty" }, `${profile.displayName} hasn't shared anything with everyone yet.`)]
       : KINDS.map(([kind, title]) => {
           const list = items.filter((i) => i.kind === kind);
           if (!list.length) return "";
-          return el("section", {}, el("h2", {}, title, el("small", {}, String(list.length))), el("div", { class: "grid" }, list.map(card)));
+          return el("section", { class: "shelf" }, el("h2", {}, title, el("small", {}, String(list.length))), el("div", { class: "grid" }, list.map(card)));
         })),
-    el("footer", {}, "Shared from ", el("a", { href: "/" }, "Shelf"), ". Only what they share with everyone appears here."));
+    el("footer", { class: "profile-footer" }, "Shared from ", el("a", { href: "/" }, "Shelf"), ". Only what they share with everyone appears here."));
 }
 
 async function load() {

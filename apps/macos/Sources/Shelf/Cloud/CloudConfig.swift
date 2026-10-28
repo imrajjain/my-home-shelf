@@ -14,7 +14,7 @@ enum CloudConfig {
     static let redirectURI = "shelf://auth"
     static let api = URL(string: "https://shelfraj-api.azurewebsites.net")!
     /// The public website (Azure Static Web Apps, free plan).
-    static let web = URL(string: "https://gentle-water-02c5bb500.5.azurestaticapps.net")!
+    static let web = URL(string: "https://shelf.rajjain.fyi")!
     /// A profile anyone can open; it offers "Open in Shelf" to people who have the app.
     static func profileURL(_ username: String) -> URL { web.appending(path: "u/\(username)") }
 }

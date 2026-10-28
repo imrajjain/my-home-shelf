@@ -9,7 +9,7 @@ cask "shelf" do
   url "https://github.com/imrajjain/my-home-shelf/releases/download/v#{version}/Shelf-#{version}.zip"
   name "Shelf"
   desc "Quiet place for what you want to read, watch and remember"
-  homepage "https://gentle-water-02c5bb500.5.azurestaticapps.net"
+  homepage "https://shelf.rajjain.fyi"
 
   depends_on macos: ">= :sonoma"
   # Shelf updates itself with Sparkle once installed.

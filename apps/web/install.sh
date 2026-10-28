@@ -1,7 +1,7 @@
 #!/bin/bash
 # Installs Shelf into /Applications.
 #
-#   curl -fsSL https://gentle-water-02c5bb500.5.azurestaticapps.net/install.sh | bash
+#   curl -fsSL https://shelf.rajjain.fyi/install.sh | bash
 #
 # It downloads the latest release from GitHub, replaces any older copy and
 # opens it. Shelf then keeps itself up to date.

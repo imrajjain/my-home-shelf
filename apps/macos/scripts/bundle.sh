@@ -40,8 +40,17 @@ xcrun actool "$ROOT/Support/Shelf.icon" --compile "$APP/Contents/Resources" \
   --platform macosx --minimum-deployment-target 14.0 --app-icon Shelf \
   --output-partial-info-plist "$(mktemp -d)/icon.plist" >/dev/null
 
-echo "→ Signing (ad hoc)"
-codesign --force --deep --sign - "$APP"
+# One stable identity for every build, so macOS (keychain access) and Sparkle
+# see each update as the same app. It's a self-signed certificate in the
+# login keychain; without it, builds fall back to an ad hoc signature.
+IDENTITY="${SHELF_SIGN_IDENTITY:-Shelf Code Signing}"
+if security find-identity -p codesigning 2>/dev/null | grep -q "\"$IDENTITY\""; then
+  echo "→ Signing as \"$IDENTITY\""
+  codesign --force --deep --timestamp=none --sign "$IDENTITY" "$APP"
+else
+  echo "→ Signing (ad hoc: no \"$IDENTITY\" certificate in the keychain)"
+  codesign --force --deep --sign - "$APP"
+fi
 
 if [[ "${1:-}" == "--install" ]]; then
   echo "→ Installing to /Applications"

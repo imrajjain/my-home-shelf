@@ -30,6 +30,13 @@ BUILD=$(( $(/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "$PLIST") + 1 ))
 
 UNIVERSAL=1 ./scripts/bundle.sh
 
+# Every release must carry the same identity, or installed copies would ask
+# for keychain access again (and Sparkle could refuse the update).
+if [[ "$PUBLISH" == "--publish" ]] && ! codesign -dv dist/Shelf.app 2>&1 | grep -q "Authority=Shelf Code Signing"; then
+  echo "✗ dist/Shelf.app isn't signed with \"Shelf Code Signing\"; not publishing." >&2
+  exit 1
+fi
+
 UPDATES=dist/updates
 mkdir -p "$UPDATES"
 ZIP="$UPDATES/Shelf-$VERSION.zip"

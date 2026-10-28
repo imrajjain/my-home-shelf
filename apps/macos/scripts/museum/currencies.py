@@ -325,6 +325,9 @@ def design_line(row):
         text = (text + ", " if text else "") + f"issued from {row['year']}"
     return (text + ".") if text else ""
 
+# Argentina's Animales Autóctonos notes stand upright on the front.
+VERTICAL = {"ars-200": ("front",), "ars-500": ("front",), "ars-1000": ("front",)}
+
 # Wikidata's formal names, shortened to the everyday ones.
 SHORT_NAME = {"People's Republic of China": "China", "Kingdom of the Netherlands": "Netherlands",
               "The Bahamas": "Bahamas", "The Gambia": "Gambia"}
@@ -396,7 +399,8 @@ def main():
                                  front={"image": n["front"], "page": n.get("page", bank["page"]), "credit": bank["bank"],
                                         "subject": n.get("frontSubject"), "crop": n.get("frontCrop")},
                                  back={"image": n["back"], "page": n.get("page", bank["page"]), "credit": bank["bank"],
-                                       "subject": n.get("backSubject"), "crop": n.get("backCrop")})
+                                       "subject": n.get("backSubject"), "crop": n.get("backCrop"),
+                                       "vertical": n.get("backVertical")})
         # Wikipedia tables.
         for r in chosen.get(code, []):
             if r["key"] in made:
@@ -442,10 +446,16 @@ def main():
         if made:
             notes += [made[k] for k in sorted(made)]
 
+    # Sides whose design runs up the note rather than across it, beyond those
+    # a central bank entry already marks.
+    for n in notes:
+        for side in VERTICAL.get(n["id"], ()):
+            n[side]["vertical"] = True
+
     notes.sort(key=lambda n: (REGION_ORDER.index(n["region"]) if n["region"] in REGION_ORDER else 9, n["country"], number(n["id"].split("-", 1)[1])))
     for n in notes:
         for s in (n["front"], n["back"]):
-            for k in ("thumb", "crop"):
+            for k in ("thumb", "crop", "vertical"):
                 if not s.get(k):
                     s.pop(k, None)
         if not n.get("alsoUsedIn"):

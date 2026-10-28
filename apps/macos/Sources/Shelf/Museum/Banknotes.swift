@@ -14,6 +14,8 @@ struct Banknote: Codable, Identifiable, Hashable {
         /// The part of the image this side occupies, as unit x, y (from the
         /// top), width, height, for sources that put both sides in one image.
         var crop: [Double]?
+        /// The design runs up the note rather than across it (Sri Lanka's backs).
+        var vertical: Bool?
         /// The file's page, with its author and licence.
         var page: URL
         var credit: String
@@ -52,20 +54,30 @@ struct BanknoteCollection: Codable {
 enum Banknotes {
     static let all: [Banknote] = load()
 
-    /// From the app bundle, or straight from the source tree in a
-    /// `swift run` debug build that has no bundle.
-    private static func load() -> [Banknote] {
-        let bundled = Bundle.main.url(forResource: "currencies", withExtension: "json", subdirectory: "Museum")
+    /// The Museum folder: in the app bundle, or straight from the source
+    /// tree in a `swift run` debug build that has no bundle.
+    static let folder: URL? = {
+        let bundled = Bundle.main.resourceURL?.appending(path: "Museum", directoryHint: .isDirectory)
         let source = URL(filePath: #filePath)
             .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
-            .appending(path: "Support/Museum/currencies.json")
-        for url in [bundled, source].compactMap({ $0 }) {
-            if let data = try? Data(contentsOf: url),
-               let collection = try? JSONDecoder().decode(BanknoteCollection.self, from: data) {
-                return collection.notes
-            }
+            .appending(path: "Support/Museum", directoryHint: .isDirectory)
+        return [bundled, source].compactMap { $0 }.first {
+            FileManager.default.fileExists(atPath: $0.appending(path: "currencies.json").path)
         }
-        return []
+    }()
+
+    private static func load() -> [Banknote] {
+        guard let url = folder?.appending(path: "currencies.json"),
+              let data = try? Data(contentsOf: url),
+              let collection = try? JSONDecoder().decode(BanknoteCollection.self, from: data) else { return [] }
+        return collection.notes
+    }
+
+    /// `museum:images/COP/2000-front.jpg` names a picture that ships with
+    /// Shelf, for notes whose only source is a file someone provided.
+    static func bundledFile(_ url: URL) -> URL? {
+        guard url.scheme == "museum" else { return nil }
+        return folder?.appending(path: url.absoluteString.dropFirst("museum:".count).description)
     }
 
     /// One entry per currency, in collection order.
@@ -134,6 +146,11 @@ final class BanknoteImages {
 
     func image(_ url: URL) async -> NSImage? {
         if let image = memory[url] { return image }
+        if let file = Banknotes.bundledFile(url) {
+            let image = NSImage(contentsOf: file)
+            memory[url] = image
+            return image
+        }
         if let task = inFlight[url] { return await task.value }
         let file = folder.appending(path: Self.name(for: url))
         let task = Task<NSImage?, Never> {

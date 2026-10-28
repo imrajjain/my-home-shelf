@@ -30,6 +30,10 @@ struct BanknoteStage: View {
                             .overlay { ProgressView().controlSize(.small) }
                     } else {
                         FoldingPaper(size: size, pose: pose, front: face(front), back: face(back))
+                            // A side printed upright (Sri Lanka's backs) turns the card a
+                            // quarter turn once it faces you, so it reads the right way up.
+                            .rotationEffect(.degrees(uprightTurn))
+                            .animation(.spring(response: 0.7, dampingFraction: 0.85), value: uprightTurn)
                     }
                 }
                 .frame(width: geo.size.width, height: geo.size.height)
@@ -60,6 +64,11 @@ struct BanknoteStage: View {
     }
 
     private var showingFront: Bool { cos(angle * .pi / 180) >= 0 }
+
+    /// Quarter turn for a side whose design runs up the note rather than across.
+    private var uprightTurn: Double {
+        (showingFront ? note.front.vertical : note.back.vertical) == true ? 90 : 0
+    }
 
     /// One face, fitted exactly to the paper: stretched by at most a hair
     /// when front and back scans differ, never cropped.
@@ -94,7 +103,12 @@ struct BanknoteStage: View {
         } else if let image, image.size.height > 0 {
             aspect = Double(image.size.width / image.size.height)
         }
-        let maxW = space.width * 0.74, maxH = space.height * 0.68
+        var maxW = space.width * 0.74, maxH = space.height * 0.68
+        if note.front.vertical == true || note.back.vertical == true {
+            // It will also stand on end, so its length must fit the height too.
+            maxW = min(maxW, space.height * 0.78)
+            maxH = min(maxH, space.width * 0.74)
+        }
         var w = maxW, h = maxW / aspect
         if h > maxH { h = maxH; w = maxH * aspect }
         return CGSize(width: w, height: h)
@@ -113,14 +127,31 @@ struct BanknoteStage: View {
             }
     }
 
+    /// An upright design laid on its side, a quarter turn anticlockwise, so it
+    /// maps onto the same card as the other face.
+    private static func lyingDown(_ image: NSImage?, if vertical: Bool?) -> NSImage? {
+        guard vertical == true, let image, let cg = image.cgImage(forProposedRect: nil, context: nil, hints: nil),
+              let ctx = CGContext(data: nil, width: cg.height, height: cg.width, bitsPerComponent: 8, bytesPerRow: 0,
+                                  space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
+        else { return image }
+        ctx.translateBy(x: CGFloat(cg.height), y: 0)
+        ctx.rotate(by: .pi / 2)
+        ctx.draw(cg, in: CGRect(x: 0, y: 0, width: cg.width, height: cg.height))
+        guard let turned = ctx.makeImage() else { return image }
+        return NSImage(cgImage: turned, size: NSSize(width: turned.width, height: turned.height))
+    }
+
     private func load() async {
         let images = BanknoteImages.shared
-        front = images.cached(note.front.image, crop: note.front.crop)
-        back = images.cached(note.back.image, crop: note.back.crop)
+        front = Self.lyingDown(images.cached(note.front.image, crop: note.front.crop), if: note.front.vertical)
+        back = Self.lyingDown(images.cached(note.back.image, crop: note.back.crop), if: note.back.vertical)
         async let f = images.image(note.front.image, crop: note.front.crop)
         async let b = images.image(note.back.image, crop: note.back.crop)
         let (loadedFront, loadedBack) = await (f, b)
-        withAnimation(.easeOut(duration: 0.35)) { front = loadedFront; back = loadedBack }
+        withAnimation(.easeOut(duration: 0.35)) {
+            front = Self.lyingDown(loadedFront, if: note.front.vertical)
+            back = Self.lyingDown(loadedBack, if: note.back.vertical)
+        }
     }
 }
 

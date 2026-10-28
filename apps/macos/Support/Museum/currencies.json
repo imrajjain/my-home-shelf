@@ -1433,27 +1433,160 @@
    "alsoUsedIn": [
     "Palestine"
    ],
-   "id": "ils-100",
+   "id": "ils-20",
+   "denomination": "₪20",
+   "issued": "2017",
+   "series": "Series C",
+   "history": "The new Israeli shekel, also known as simply the Israeli shekel, is the currency of Israel and is also used as a de facto legal tender in the Palestinian territories of the West Bank and the Gaza Strip. Each shekel, the base unit, is divided into 100 agorot. The new shekel has been in use since 1 January 1986, when it replaced the hyperinflated old shekel at a ratio of 1000:1.",
+   "design": "Red note, 129 × 71 mm, issued from 23 November 2017.",
+   "source": "https://en.wikipedia.org/wiki/Israeli_new_shekel",
    "front": {
-    "image": "https://upload.wikimedia.org/wikipedia/commons/2/26/100_Israeli_new_shekel_in_2017_Obverse.jpg",
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/2/26/100_Israeli_new_shekel_in_2017_Obverse.jpg",
-    "page": "https://commons.wikimedia.org/wiki/File:100_Israeli_new_shekel_in_2017_Obverse.jpg",
-    "credit": "Adambps1900 · CC BY-SA 4.0",
-    "subject": "The poet [[Leah Goldberg]], with [[almond]] blossoms"
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7f/20_New_Sheqalim2017_Obverse_%26_Reverse.png",
+    "page": "https://commons.wikimedia.org/wiki/File:20_New_Sheqalim2017_Obverse_%26_Reverse.png",
+    "credit": "Bank of Israel, via Wikimedia Commons",
+    "subject": "[[Rachel Bluwstein]], with palm branches and her poem ''Kinneret'' in microprint",
+    "crop": [
+     0,
+     0,
+     1,
+     0.483
+    ]
    },
    "back": {
-    "image": "https://upload.wikimedia.org/wikipedia/commons/f/fc/100_Israeli_new_shekel_in_2017_Reverse.jpg",
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/f/fc/100_Israeli_new_shekel_in_2017_Reverse.jpg",
-    "page": "https://commons.wikimedia.org/wiki/File:100_Israeli_new_shekel_in_2017_Reverse.jpg",
-    "credit": "Adambps1900 · CC BY-SA 4.0",
-    "subject": "A group of [[gazelle]]s and lines from her poem “White Days”"
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7f/20_New_Sheqalim2017_Obverse_%26_Reverse.png",
+    "page": "https://commons.wikimedia.org/wiki/File:20_New_Sheqalim2017_Obverse_%26_Reverse.png",
+    "credit": "Bank of Israel, via Wikimedia Commons",
+    "subject": "The shore of the [[Sea of Galilee]], with lines from ''Perhaps it was nothing...''",
+    "crop": [
+     0,
+     0.495,
+     1,
+     0.505
+    ]
+   }
+  },
+  {
+   "country": "Israel",
+   "flag": "🇮🇱",
+   "region": "Asia",
+   "currency": "Israeli new shekel",
+   "code": "ILS",
+   "alsoUsedIn": [
+    "Palestine"
+   ],
+   "id": "ils-50",
+   "denomination": "₪50",
+   "issued": "2014",
+   "series": "Series C",
+   "history": "The new Israeli shekel, also known as simply the Israeli shekel, is the currency of Israel and is also used as a de facto legal tender in the Palestinian territories of the West Bank and the Gaza Strip. Each shekel, the base unit, is divided into 100 agorot. The new shekel has been in use since 1 January 1986, when it replaced the hyperinflated old shekel at a ratio of 1000:1.",
+   "design": "Green note, 136 × 71 mm, issued from 16 September 2014.",
+   "source": "https://en.wikipedia.org/wiki/Israeli_new_shekel",
+   "front": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/5e/50_New_Sheqalim2014_Obverse_%26_Reverse.png",
+    "page": "https://commons.wikimedia.org/wiki/File:50_New_Sheqalim2014_Obverse_%26_Reverse.png",
+    "credit": "Bank of Israel, via Wikimedia Commons",
+    "subject": "[[Shaul Tchernichovsky]], with a citrus tree and his poem ''Oh, My Land, My Homeland'' in microprint",
+    "crop": [
+     0,
+     0,
+     1,
+     0.492
+    ]
    },
+   "back": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/5e/50_New_Sheqalim2014_Obverse_%26_Reverse.png",
+    "page": "https://commons.wikimedia.org/wiki/File:50_New_Sheqalim2014_Obverse_%26_Reverse.png",
+    "credit": "Bank of Israel, via Wikimedia Commons",
+    "subject": "The capital of a [[Corinthian order|Corinthian]] column, with lines from ''I Believe''",
+    "crop": [
+     0,
+     0.504,
+     1,
+     0.496
+    ]
+   }
+  },
+  {
+   "country": "Israel",
+   "flag": "🇮🇱",
+   "region": "Asia",
+   "currency": "Israeli new shekel",
+   "code": "ILS",
+   "alsoUsedIn": [
+    "Palestine"
+   ],
+   "id": "ils-100",
    "denomination": "₪100",
    "issued": "2017",
    "series": "Series C",
    "history": "The shekel was a biblical unit of weight, from the Hebrew root “to weigh”. The new shekel replaced the hyperinflated old shekel in 1986, at a thousand to one.",
    "design": "Series C is devoted to Hebrew poets. On the front Goldberg's poem “In the land of my love the almond tree blossoms” is hidden in microprint, and her lines continue on the back among the gazelles. Each note also carries tactile lines for blind users.",
-   "source": "https://en.wikipedia.org/wiki/Israeli_new_shekel"
+   "source": "https://en.wikipedia.org/wiki/Israeli_new_shekel",
+   "front": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/d/da/100_New_Sheqalim2017_Obverse_%26_Reverse.png",
+    "page": "https://commons.wikimedia.org/wiki/File:100_New_Sheqalim2017_Obverse_%26_Reverse.png",
+    "credit": "Bank of Israel, via Wikimedia Commons",
+    "subject": "The poet [[Leah Goldberg]], with [[almond]] blossoms",
+    "crop": [
+     0,
+     0,
+     1,
+     0.501
+    ]
+   },
+   "back": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/d/da/100_New_Sheqalim2017_Obverse_%26_Reverse.png",
+    "page": "https://commons.wikimedia.org/wiki/File:100_New_Sheqalim2017_Obverse_%26_Reverse.png",
+    "credit": "Bank of Israel, via Wikimedia Commons",
+    "subject": "A group of [[gazelle]]s and lines from her poem “White Days”",
+    "crop": [
+     0,
+     0.513,
+     1,
+     0.487
+    ]
+   }
+  },
+  {
+   "country": "Israel",
+   "flag": "🇮🇱",
+   "region": "Asia",
+   "currency": "Israeli new shekel",
+   "code": "ILS",
+   "alsoUsedIn": [
+    "Palestine"
+   ],
+   "id": "ils-200",
+   "denomination": "₪200",
+   "issued": "2015",
+   "series": "Series C",
+   "history": "The new Israeli shekel, also known as simply the Israeli shekel, is the currency of Israel and is also used as a de facto legal tender in the Palestinian territories of the West Bank and the Gaza Strip. Each shekel, the base unit, is divided into 100 agorot. The new shekel has been in use since 1 January 1986, when it replaced the hyperinflated old shekel at a ratio of 1000:1.",
+   "design": "Blue note, 150 × 71 mm, issued from 23 December 2015.",
+   "source": "https://en.wikipedia.org/wiki/Israeli_new_shekel",
+   "front": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/9/91/200_New_Sheqalim2015_Obverse_%26_Reverse.png",
+    "page": "https://commons.wikimedia.org/wiki/File:200_New_Sheqalim2015_Obverse_%26_Reverse.png",
+    "credit": "Bank of Israel, via Wikimedia Commons",
+    "subject": "[[Nathan Alterman]], with autumn leaves and his poem ''Eternal Meeting'' in microprint",
+    "crop": [
+     0,
+     0,
+     1,
+     0.489
+    ]
+   },
+   "back": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/9/91/200_New_Sheqalim2015_Obverse_%26_Reverse.png",
+    "page": "https://commons.wikimedia.org/wiki/File:200_New_Sheqalim2015_Obverse_%26_Reverse.png",
+    "credit": "Bank of Israel, via Wikimedia Commons",
+    "subject": "Moonlit flowers, with lines from ''Morning Song''",
+    "crop": [
+     0,
+     0.501,
+     1,
+     0.499
+    ]
+   }
   },
   {
    "country": "Japan",
@@ -3464,6 +3597,168 @@
     "page": "https://commons.wikimedia.org/wiki/File:10000_won_serieV_reverse.jpeg",
     "credit": "The Bank of Korea한국은행 · South Korean currency",
     "subject": "The [[Honcheonsigye]] armillary clock and a star map, with the Bohyeonsan Observatory telescope"
+   }
+  },
+  {
+   "country": "Sri Lanka",
+   "flag": "🇱🇰",
+   "region": "Asia",
+   "currency": "Sri Lankan rupee",
+   "code": "LKR",
+   "id": "lkr-20",
+   "denomination": "Rs. 20",
+   "issued": "2010",
+   "series": "Development, Prosperity and Sri Lankan Dancers",
+   "history": "The Sri Lankan rupee, known until 1972 as the Ceylonese rupee, is the currency of Sri Lanka. It is subdivided into 100 cents, but cents are rarely seen in circulation today due to their low value. It is issued by the Central Bank of Sri Lanka.",
+   "design": "The eleventh series since the Central Bank was founded in 1950. Fronts show development projects with an endemic bird and butterfly; backs, read upright, show traditional dancers and drummers.",
+   "source": "https://en.wikipedia.org/wiki/Sri_Lankan_rupee",
+   "front": {
+    "image": "https://www.cbsl.gov.lk/sites/default/files/20-F.jpg",
+    "page": "https://www.cbsl.gov.lk/en/notes-coins/notes-and-coins/current-note-series",
+    "credit": "Central Bank of Sri Lanka",
+    "subject": "The Port of Colombo, now and in history, with a [[Serendib scops owl]]"
+   },
+   "back": {
+    "image": "https://www.cbsl.gov.lk/sites/default/files/20-B.jpg",
+    "page": "https://www.cbsl.gov.lk/en/notes-coins/notes-and-coins/current-note-series",
+    "credit": "Central Bank of Sri Lanka",
+    "subject": "A Ves dancer and a Geta Bera drummer",
+    "vertical": true
+   }
+  },
+  {
+   "country": "Sri Lanka",
+   "flag": "🇱🇰",
+   "region": "Asia",
+   "currency": "Sri Lankan rupee",
+   "code": "LKR",
+   "id": "lkr-50",
+   "denomination": "Rs. 50",
+   "issued": "2010",
+   "series": "Development, Prosperity and Sri Lankan Dancers",
+   "history": "The Sri Lankan rupee, known until 1972 as the Ceylonese rupee, is the currency of Sri Lanka. It is subdivided into 100 cents, but cents are rarely seen in circulation today due to their low value. It is issued by the Central Bank of Sri Lanka.",
+   "design": "The eleventh series since the Central Bank was founded in 1950. Fronts show development projects with an endemic bird and butterfly; backs, read upright, show traditional dancers and drummers.",
+   "source": "https://en.wikipedia.org/wiki/Sri_Lankan_rupee",
+   "front": {
+    "image": "https://www.cbsl.gov.lk/sites/default/files/50-F.jpg",
+    "page": "https://www.cbsl.gov.lk/en/notes-coins/notes-and-coins/current-note-series",
+    "credit": "Central Bank of Sri Lanka",
+    "subject": "The new bridge at Manampitiya beside the old road-and-rail bridge, with a [[dull-blue flycatcher]]"
+   },
+   "back": {
+    "image": "https://www.cbsl.gov.lk/sites/default/files/50-B.jpg",
+    "page": "https://www.cbsl.gov.lk/en/notes-coins/notes-and-coins/current-note-series",
+    "credit": "Central Bank of Sri Lanka",
+    "subject": "A Vadiga Patuna dancer of the low-country tradition and a Yak Bera drummer",
+    "vertical": true
+   }
+  },
+  {
+   "country": "Sri Lanka",
+   "flag": "🇱🇰",
+   "region": "Asia",
+   "currency": "Sri Lankan rupee",
+   "code": "LKR",
+   "id": "lkr-100",
+   "denomination": "Rs. 100",
+   "issued": "2010",
+   "series": "Development, Prosperity and Sri Lankan Dancers",
+   "history": "The Sri Lankan rupee, known until 1972 as the Ceylonese rupee, is the currency of Sri Lanka. It is subdivided into 100 cents, but cents are rarely seen in circulation today due to their low value. It is issued by the Central Bank of Sri Lanka.",
+   "design": "The eleventh series since the Central Bank was founded in 1950. Fronts show development projects with an endemic bird and butterfly; backs, read upright, show traditional dancers and drummers.",
+   "source": "https://en.wikipedia.org/wiki/Sri_Lankan_rupee",
+   "front": {
+    "image": "https://www.cbsl.gov.lk/sites/default/files/100-F.jpg",
+    "page": "https://www.cbsl.gov.lk/en/notes-coins/notes-and-coins/current-note-series",
+    "credit": "Central Bank of Sri Lanka",
+    "subject": "The [[Norochcholai Power Station]] and the Laxapana falls, with an [[orange-billed babbler]]"
+   },
+   "back": {
+    "image": "https://www.cbsl.gov.lk/sites/default/files/100-B.jpg",
+    "page": "https://www.cbsl.gov.lk/en/notes-coins/notes-and-coins/current-note-series",
+    "credit": "Central Bank of Sri Lanka",
+    "subject": "A [[Mridangam]] drummer and a [[Bharatanatyam]] dancer",
+    "vertical": true
+   }
+  },
+  {
+   "country": "Sri Lanka",
+   "flag": "🇱🇰",
+   "region": "Asia",
+   "currency": "Sri Lankan rupee",
+   "code": "LKR",
+   "id": "lkr-500",
+   "denomination": "Rs. 500",
+   "issued": "2010",
+   "series": "Development, Prosperity and Sri Lankan Dancers",
+   "history": "The Sri Lankan rupee, known until 1972 as the Ceylonese rupee, is the currency of Sri Lanka. It is subdivided into 100 cents, but cents are rarely seen in circulation today due to their low value. It is issued by the Central Bank of Sri Lanka.",
+   "design": "The eleventh series since the Central Bank was founded in 1950. Fronts show development projects with an endemic bird and butterfly; backs, read upright, show traditional dancers and drummers.",
+   "source": "https://en.wikipedia.org/wiki/Sri_Lankan_rupee",
+   "front": {
+    "image": "https://www.cbsl.gov.lk/sites/default/files/500-F.jpg",
+    "page": "https://www.cbsl.gov.lk/en/notes-coins/notes-and-coins/current-note-series",
+    "credit": "Central Bank of Sri Lanka",
+    "subject": "The [[World Trade Center Colombo]], the Bank of Ceylon tower and the Lankathilaka temple, with an emerald-collared parakeet"
+   },
+   "back": {
+    "image": "https://www.cbsl.gov.lk/sites/default/files/500-B.jpg",
+    "page": "https://www.cbsl.gov.lk/en/notes-coins/notes-and-coins/current-note-series",
+    "credit": "Central Bank of Sri Lanka",
+    "subject": "A Thelme dancer and a Yak Bera drummer",
+    "vertical": true
+   }
+  },
+  {
+   "country": "Sri Lanka",
+   "flag": "🇱🇰",
+   "region": "Asia",
+   "currency": "Sri Lankan rupee",
+   "code": "LKR",
+   "id": "lkr-1000",
+   "denomination": "Rs. 1,000",
+   "issued": "2010",
+   "series": "Development, Prosperity and Sri Lankan Dancers",
+   "history": "The Sri Lankan rupee, known until 1972 as the Ceylonese rupee, is the currency of Sri Lanka. It is subdivided into 100 cents, but cents are rarely seen in circulation today due to their low value. It is issued by the Central Bank of Sri Lanka.",
+   "design": "The eleventh series since the Central Bank was founded in 1950. Fronts show development projects with an endemic bird and butterfly; backs, read upright, show traditional dancers and drummers.",
+   "source": "https://en.wikipedia.org/wiki/Sri_Lankan_rupee",
+   "front": {
+    "image": "https://www.cbsl.gov.lk/sites/default/files/1000-F.jpg",
+    "page": "https://www.cbsl.gov.lk/en/notes-coins/notes-and-coins/current-note-series",
+    "credit": "Central Bank of Sri Lanka",
+    "subject": "The Ramboda tunnel, with a [[Sri Lanka hanging parrot]]"
+   },
+   "back": {
+    "image": "https://www.cbsl.gov.lk/sites/default/files/1000-B.jpg",
+    "page": "https://www.cbsl.gov.lk/en/notes-coins/notes-and-coins/current-note-series",
+    "credit": "Central Bank of Sri Lanka",
+    "subject": "A Daul Bera drummer and a Malpadaya dancer",
+    "vertical": true
+   }
+  },
+  {
+   "country": "Sri Lanka",
+   "flag": "🇱🇰",
+   "region": "Asia",
+   "currency": "Sri Lankan rupee",
+   "code": "LKR",
+   "id": "lkr-5000",
+   "denomination": "Rs. 5,000",
+   "issued": "2010",
+   "series": "Development, Prosperity and Sri Lankan Dancers",
+   "history": "The Sri Lankan rupee, known until 1972 as the Ceylonese rupee, is the currency of Sri Lanka. It is subdivided into 100 cents, but cents are rarely seen in circulation today due to their low value. It is issued by the Central Bank of Sri Lanka.",
+   "design": "The eleventh series since the Central Bank was founded in 1950. Fronts show development projects with an endemic bird and butterfly; backs, read upright, show traditional dancers and drummers.",
+   "source": "https://en.wikipedia.org/wiki/Sri_Lankan_rupee",
+   "front": {
+    "image": "https://www.cbsl.gov.lk/sites/default/files/5000-F.jpg",
+    "page": "https://www.cbsl.gov.lk/en/notes-coins/notes-and-coins/current-note-series",
+    "credit": "Central Bank of Sri Lanka",
+    "subject": "The Weheragala and Kukule Ganga dams, with a [[yellow-eared bulbul]]"
+   },
+   "back": {
+    "image": "https://www.cbsl.gov.lk/sites/default/files/5000-B.jpg",
+    "page": "https://www.cbsl.gov.lk/en/notes-coins/notes-and-coins/current-note-series",
+    "credit": "Central Bank of Sri Lanka",
+    "subject": "Naga Raksha and Gurulu Raksha mask dancers",
+    "vertical": true
    }
   },
   {
@@ -9526,7 +9821,8 @@
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/9/99/200_pesos_banknote_-_Animales_Aut%C3%B3ctonos_-_Obverse.jpg",
     "page": "https://commons.wikimedia.org/wiki/File:200_pesos_banknote_-_Animales_Aut%C3%B3ctonos_-_Obverse.jpg",
     "credit": "Casa de Moneda · CC BY-SA 2.0",
-    "subject": "The [[southern right whale]]"
+    "subject": "The [[southern right whale]]",
+    "vertical": true
    },
    "back": {
     "image": "https://upload.wikimedia.org/wikipedia/commons/c/c5/200_pesos_banknote_-_Animales_Aut%C3%B3ctonos_-_Reverse.jpg",
@@ -9791,6 +10087,162 @@
    "history": "The current peso replaced the escudo in 1975, at a thousand escudos to one peso. The highest note, 20,000 pesos, arrived in 1998 and was redesigned in 2009–2010.",
    "design": "Bello wrote Chile's civil code and a celebrated Spanish grammar. Each note in the series pairs a national figure with a Chilean landscape, and the orange $20,000 looks north to a high Andean salt lake.",
    "source": "https://en.wikipedia.org/wiki/Chilean_peso"
+  },
+  {
+   "country": "Colombia",
+   "flag": "🇨🇴",
+   "region": "Americas",
+   "currency": "Colombian peso",
+   "code": "COP",
+   "id": "cop-2000",
+   "denomination": "$2.000",
+   "issued": "2015",
+   "series": "2016 family",
+   "history": "The Colombian peso is the currency of Colombia. Its ISO 4217 code is COP. The official sign is $, with Col$. also being used to distinguish it from other peso- and dollar-denominated currencies.",
+   "design": "Blue note, 128 × 66 mm, issued from 19 August 2015. The 2016 family pairs a Colombian figure on the front with one of the country's ecosystems on the back.",
+   "source": "https://en.wikipedia.org/wiki/Colombian_peso",
+   "front": {
+    "image": "museum:images/COP/2000-front.jpg",
+    "page": "https://www.banrep.gov.co/es/billetes-monedas/billetes-en-circulacion",
+    "credit": "Banco de la República",
+    "subject": "The painter [[Débora Arango]]"
+   },
+   "back": {
+    "image": "museum:images/COP/2000-back.jpg",
+    "page": "https://www.banrep.gov.co/es/billetes-monedas/billetes-en-circulacion",
+    "credit": "Banco de la República",
+    "subject": "[[Caño Cristales]], the “river of five colours”"
+   }
+  },
+  {
+   "country": "Colombia",
+   "flag": "🇨🇴",
+   "region": "Americas",
+   "currency": "Colombian peso",
+   "code": "COP",
+   "id": "cop-5000",
+   "denomination": "$5.000",
+   "issued": "2016",
+   "series": "2016 family",
+   "history": "The Colombian peso is the currency of Colombia. Its ISO 4217 code is COP. The official sign is $, with Col$. also being used to distinguish it from other peso- and dollar-denominated currencies.",
+   "design": "Brown note, 133 × 66 mm, issued from 9 November 2016. The 2016 family pairs a Colombian figure on the front with one of the country's ecosystems on the back.",
+   "source": "https://en.wikipedia.org/wiki/Colombian_peso",
+   "front": {
+    "image": "museum:images/COP/5000-front.jpg",
+    "page": "https://www.banrep.gov.co/es/billetes-monedas/billetes-en-circulacion",
+    "credit": "Banco de la República",
+    "subject": "The poet [[José Asunción Silva]]"
+   },
+   "back": {
+    "image": "museum:images/COP/5000-back.jpg",
+    "page": "https://www.banrep.gov.co/es/billetes-monedas/billetes-en-circulacion",
+    "credit": "Banco de la República",
+    "subject": "Colombia's high-Andean [[páramo]]s"
+   }
+  },
+  {
+   "country": "Colombia",
+   "flag": "🇨🇴",
+   "region": "Americas",
+   "currency": "Colombian peso",
+   "code": "COP",
+   "id": "cop-10000",
+   "denomination": "$10.000",
+   "issued": "2016",
+   "series": "2016 family",
+   "history": "The Colombian peso is the currency of Colombia. Its ISO 4217 code is COP. The official sign is $, with Col$. also being used to distinguish it from other peso- and dollar-denominated currencies.",
+   "design": "Red note, 138 × 66 mm, issued from 7 December 2016. The 2016 family pairs a Colombian figure on the front with one of the country's ecosystems on the back.",
+   "source": "https://en.wikipedia.org/wiki/Colombian_peso",
+   "front": {
+    "image": "museum:images/COP/10000-front.jpg",
+    "page": "https://www.banrep.gov.co/es/billetes-monedas/billetes-en-circulacion",
+    "credit": "Banco de la República",
+    "subject": "The anthropologist [[Virginia Gutiérrez de Pineda]]"
+   },
+   "back": {
+    "image": "museum:images/COP/10000-back.jpg",
+    "page": "https://www.banrep.gov.co/es/billetes-monedas/billetes-en-circulacion",
+    "credit": "Banco de la República",
+    "subject": "The [[Amazon natural region]]"
+   }
+  },
+  {
+   "country": "Colombia",
+   "flag": "🇨🇴",
+   "region": "Americas",
+   "currency": "Colombian peso",
+   "code": "COP",
+   "id": "cop-20000",
+   "denomination": "$20.000",
+   "issued": "2016",
+   "series": "2016 family",
+   "history": "The Colombian peso is the currency of Colombia. Its ISO 4217 code is COP. The official sign is $, with Col$. also being used to distinguish it from other peso- and dollar-denominated currencies.",
+   "design": "Orange note, 143 × 66 mm, issued from 30 June 2016. The 2016 family pairs a Colombian figure on the front with one of the country's ecosystems on the back.",
+   "source": "https://en.wikipedia.org/wiki/Colombian_peso",
+   "front": {
+    "image": "museum:images/COP/20000-front.jpg",
+    "page": "https://www.banrep.gov.co/es/billetes-monedas/billetes-en-circulacion",
+    "credit": "Banco de la República",
+    "subject": "President [[Alfonso López Michelsen]]"
+   },
+   "back": {
+    "image": "museum:images/COP/20000-back.jpg",
+    "page": "https://www.banrep.gov.co/es/billetes-monedas/billetes-en-circulacion",
+    "credit": "Banco de la República",
+    "subject": "The La Mojana channels of the [[Zenú]] people and the [[sombrero vueltiao]]"
+   }
+  },
+  {
+   "country": "Colombia",
+   "flag": "🇨🇴",
+   "region": "Americas",
+   "currency": "Colombian peso",
+   "code": "COP",
+   "id": "cop-50000",
+   "denomination": "$50.000",
+   "issued": "2016",
+   "series": "2016 family",
+   "history": "The Colombian peso is the currency of Colombia. Its ISO 4217 code is COP. The official sign is $, with Col$. also being used to distinguish it from other peso- and dollar-denominated currencies.",
+   "design": "Violet note, 148 × 66 mm, issued from 19 August 2016. The 2016 family pairs a Colombian figure on the front with one of the country's ecosystems on the back.",
+   "source": "https://en.wikipedia.org/wiki/Colombian_peso",
+   "front": {
+    "image": "museum:images/COP/50000-front.jpg",
+    "page": "https://www.banrep.gov.co/es/billetes-monedas/billetes-en-circulacion",
+    "credit": "Banco de la República",
+    "subject": "The novelist [[Gabriel García Márquez]], winner of the Nobel Prize"
+   },
+   "back": {
+    "image": "museum:images/COP/50000-back.jpg",
+    "page": "https://www.banrep.gov.co/es/billetes-monedas/billetes-en-circulacion",
+    "credit": "Banco de la República",
+    "subject": "[[Ciudad Perdida]], the Lost City of the [[Tairona]]"
+   }
+  },
+  {
+   "country": "Colombia",
+   "flag": "🇨🇴",
+   "region": "Americas",
+   "currency": "Colombian peso",
+   "code": "COP",
+   "id": "cop-100000",
+   "denomination": "$100.000",
+   "issued": "2014",
+   "series": "2016 family",
+   "history": "The Colombian peso is the currency of Colombia. Its ISO 4217 code is COP. The official sign is $, with Col$. also being used to distinguish it from other peso- and dollar-denominated currencies.",
+   "design": "Green note, 153 × 66 mm, issued from 8 August 2014. The 2016 family pairs a Colombian figure on the front with one of the country's ecosystems on the back.",
+   "source": "https://en.wikipedia.org/wiki/Colombian_peso",
+   "front": {
+    "image": "museum:images/COP/100000-front.jpg",
+    "page": "https://www.banrep.gov.co/es/billetes-monedas/billetes-en-circulacion",
+    "credit": "Banco de la República",
+    "subject": "President [[Carlos Lleras Restrepo]]"
+   },
+   "back": {
+    "image": "museum:images/COP/100000-back.jpg",
+    "page": "https://www.banrep.gov.co/es/billetes-monedas/billetes-en-circulacion",
+    "credit": "Banco de la República",
+    "subject": "[[Ceroxylon quindiuense|Wax palms]] in the [[Cocora Valley]], with a [[Amazonian motmot|barranquero]] bird"
+   }
   },
   {
    "country": "Dominican Republic",
